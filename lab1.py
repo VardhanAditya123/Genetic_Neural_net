@@ -195,13 +195,13 @@ def runANN(data , model):
     #     n_preds.append(findMax(predictions[i]))
     #     n_yTest.append(findMax(yTest[i] ))
         
-    # labels = [0,1,2,3,4,5,6,7,8,9]
-    # confusion = metrics.confusion_matrix(n_yTest, n_preds,labels)
-    # report = metrics.classification_report(n_yTest, n_preds,labels)
-    # print("\nConfusion Matrix:\n")
-    # print(confusion)
-    # print("\nReport:")
-    # print(report)
+    labels = [0,1,2,3,4,5,6,7,8,9]
+    confusion = metrics.confusion_matrix(n_yTest, n_preds,labels)
+    report = metrics.classification_report(n_yTest, n_preds,labels)
+    print("\nConfusion Matrix:\n")
+    print(confusion)
+    print("\nReport:")
+    print(report)
 
    
     
