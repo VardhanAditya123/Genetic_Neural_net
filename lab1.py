@@ -180,13 +180,6 @@ def trainANN(model,xTrain,yTrain,epochs=5):
 def runANN(data , model):
     (xTest, yTest) = data 
     preds = model.evaluate(xTest,yTest)
-    print(preds)
-    labels = [0,1,2,3,4,5,6,7,8,9]
-    confusion = metrics.confusion_matrix(yTest, preds,labels)
-    report = metrics.classification_report(yTest,preds,labels)
-    print("\nConfusion Matrix:\n")
-    print(confusion)
-    print("\nReport:")
     print("loss:%f\naccuracy: %f" % tuple(preds))
     
 
