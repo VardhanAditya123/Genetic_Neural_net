@@ -29,8 +29,8 @@ IMAGE_SIZE = 784
 
 # Use these to set the algorithm to use.
 # ALGORITHM = "guesser"
-# ALGORITHM = "custom_net"
-ALGORITHM = "tf_net"
+ALGORITHM = "custom_net"
+# ALGORITHM = "tf_net"
 
 
 
@@ -189,7 +189,7 @@ def printANN(data,predictions):
     yTestP = to_categorical(yTest, NUM_CLASSES)
     data = (xTest,yTestP)
     confMatrix(data,predictions)
-    
+
 
 def confMatrix(data, preds):
     xTest, yTest = data
