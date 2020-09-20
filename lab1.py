@@ -5,7 +5,7 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.utils import to_categorical
 import random
-from sklearn.metrics import confusion_matrix
+from sklearn import metrics
 
 
 
