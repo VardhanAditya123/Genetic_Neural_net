@@ -180,7 +180,8 @@ def trainANN(model,xTrain,yTrain,epochs=5):
 def runANN(data , model):
     (xTest, yTest) = data 
     preds = model.evaluate(xTest,yTest)
-    print("loss:%f\naccuracy: %f" % tuple(preds))
+    confMatrix(data,preds)
+    print("loss:%f\naccuracy: %f" % tuple(predsreset))
 
 #=========================<Pipeline Functions>==================================
 
