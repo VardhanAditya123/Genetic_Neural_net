@@ -156,7 +156,6 @@ def Customclassifier(xTest , model):
     return np.array(ans)
 
 def findMax(layer):
-    print(layer.shape)
     max = layer[0]
     max_l = 0
     i = 0
