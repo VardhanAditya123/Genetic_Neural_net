@@ -14,8 +14,8 @@ from sklearn import metrics
 random.seed(1618)
 np.random.seed(1618)
 # tf.set_random_seed(1618)   # Uncomment for TF1.
-tf.compat.v1.set_random_seed
-tf.compat.v1.random.set_random_seed
+tf.compat.v1.set_random_seed(1618)
+tf.compat.v1.random.set_random_seed(1618)
 # tf.random.set_random_seed(1618)
 
 # Disable some troublesome logging.
