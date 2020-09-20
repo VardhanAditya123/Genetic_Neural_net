@@ -180,7 +180,6 @@ def trainANN(model,xTrain,yTrain,epochs=5):
 def runANN(data , model):
     (xTest, yTest) = data 
     preds = model.evaluate(xTest,yTest)
-    Customclassifier(xTest,model)
     print("loss:%f\naccuracy: %f" % tuple(preds))
     
 
@@ -287,7 +286,6 @@ def main():
     model = trainModel(data[0])
     if ALGORITHM == "tf_net":
         runModel(data[1], model)
-        evalResults(data[1], preds)
     else:
         preds = runModel(data[1][0], model)
         evalResults(data[1], preds)
