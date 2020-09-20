@@ -224,7 +224,7 @@ def preprocessData(raw):
     ((xTrain, yTrain), (xTest, yTest)) = raw            #TODO: Add range reduction here (0-255 ==> 0.0-1.0).
     xTrain,xTest = xTrain/255.0 , xTest/255.0
     
-    if ALGORITHM == "custom_net":
+    # if ALGORITHM == "custom_net":
         xTrain = xTrain.reshape(60000,784,1)
         xTest = xTest.reshape(10000,784,1)
         yTrainP = to_categorical(yTrain, NUM_CLASSES)
@@ -236,8 +236,8 @@ def preprocessData(raw):
         print("New shape of yTest dataset: %s." % str(yTestP.shape))
         return ((xTrain, yTrainP), (xTest, yTestP)) 
 
-    else:
-        return ((xTrain, yTrain), (xTest, yTest))
+    # else:
+    #     return ((xTrain, yTrain), (xTest, yTest))
     
 
 
