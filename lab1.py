@@ -5,6 +5,9 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.utils import to_categorical
 import random
+from sklearn.metrics import confusion_matrix
+import numpy as np
+
 
 
 # Setting random seeds to keep everything deterministic.
@@ -146,6 +149,8 @@ def Customclassifier(xTest , model):
         index = findMax(check)
         pred[index] = 1
         ans.append(pred)
+    
+    print(confusion_matrix(y_test, np.argmax(check,axis=1)))
     return np.array(ans)
 
 def findMax(layer):
