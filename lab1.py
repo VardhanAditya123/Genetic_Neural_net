@@ -179,8 +179,8 @@ def trainANN(model,xTrain,yTrain,epochs=5):
 
 def runANN(data , model):
     (xTest, yTest) = data 
-    preds = model.evaluate(xTest,yTest)
-    print("loss:%f\naccuracy: %f" % tuple(preds))
+    answers = model.evaluate(xTest,yTest)
+    print("loss:%f\naccuracy: %f" % tuple(answers))
     p =  model.predict(xTest)
     for x in xTest:
         pred = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -188,8 +188,8 @@ def runANN(data , model):
         index = findMax(check)
         pred[index] = 1
         ans.append(pred)
-    ans = np.array(ans)
-    evalResults(data,ans)
+    preds = np.array(ans)
+    evalResults(data,preds)
     
 
 #=========================<Pipeline Functions>==================================
