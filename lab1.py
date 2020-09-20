@@ -259,7 +259,8 @@ def confMatrix(data, preds):
     xTest, yTest = data
     n_preds=[]
     n_yTest=[]
-    np.where(preds[0] == 1)
+    print("TEEEEEST")
+    print(np.where(preds[0] == 1))
     for i in range(preds.shape[0]):
         n_preds.append(np.where(preds[i] == 1))
         n_yTest.append(np.where(yTest[i] == 1))
