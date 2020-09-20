@@ -189,7 +189,7 @@ def runANN(data , model):
         index = findMax(x)
         pred[index] = 1
         ans.append(pred)
-    printf("HEEEEEEERE")
+    print("HEEEEEEERE")
     return np.array(ans)
     
 
