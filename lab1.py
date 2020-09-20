@@ -181,10 +181,11 @@ def runANN(data , model):
     (xTest, yTest) = data 
     answers = model.evaluate(xTest,yTest)
     print("loss:%f\naccuracy: %f" % tuple(answers))
+    predictions = model.predict(xTest)
+    return predictions
 
-def printANN(data,model):
-    (xTest, yTest) = data
-    predictions = model.predict(xTest)  
+def printANN(data,predictions):
+    (xTest, yTest) = data 
     yTestP = to_categorical(yTest, NUM_CLASSES)
     data = (xTest,yTestP)
     confMatrix(data,predictions)
@@ -292,7 +293,6 @@ def confMatrix(data, preds):
     for i in range(preds.shape[0]):
         n_preds.append(findMax(preds[i] ))
         n_yTest.append(findMax(yTest[i] ))
-    # labels = ['0','1','2','3','4','5','6','7','8','9'] 
     labels = [0,1,2,3,4,5,6,7,8,9]
     confusion = metrics.confusion_matrix(n_yTest, n_preds,labels)
     report = metrics.classification_report(n_yTest, n_preds,labels)
@@ -310,8 +310,8 @@ def main():
     data = preprocessData(raw)
     model = trainModel(data[0])
     if ALGORITHM == "tf_net":
-        runModel(data[1], model)
-        printANN(data,model)
+        preds = runModel(data[1], model)
+        printANN(data,preds)
     else:
         preds = runModel(data[1][0], model)
         evalResults(data[1], preds)
