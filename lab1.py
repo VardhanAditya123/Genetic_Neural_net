@@ -187,13 +187,13 @@ def runANN(data , model):
     print(predictions.shape)
     print(yTest.shape)
     yTestP = to_categorical(yTest, NUM_CLASSES)
-    for x in predictions:
-        n_preds.append(findMax(x))
-    for y in yTestP:
-        n_yTest.append(findMax(y))
-    # for i in range(predictions.shape[0] - 1):
-    #     n_preds.append(findMax(predictions[i]))
-    #     n_yTest.append(findMax(yTest[i] ))
+    # for x in predictions:
+    #     n_preds.append(findMax(x))
+    # for y in yTestP:
+    #     n_yTest.append(findMax(y))
+    for i in range(predictions.shape[0]):
+        n_preds.append(findMax(predictions[i]))
+        n_yTest.append(findMax(yTestP[i] ))
         
     labels = [0,1,2,3,4,5,6,7,8,9]
     confusion = metrics.confusion_matrix(n_yTest, n_preds,labels)
