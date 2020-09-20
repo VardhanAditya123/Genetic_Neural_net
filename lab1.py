@@ -185,7 +185,7 @@ def runANN(data , model):
     p =  model.predict(xTest)
     for x in p:
         pred = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        check = x.flatten()
+        check = x
         index = findMax(check)
         pred[index] = 1
         ans.append(pred)
