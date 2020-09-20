@@ -156,6 +156,7 @@ def Customclassifier(xTest , model):
     return np.array(ans)
 
 def findMax(layer):
+    print(layer.shape)
     max = layer[0]
     max_l = 0
     i = 0
@@ -189,7 +190,6 @@ def runANN(data , model):
         index = findMax(x)
         pred[index] = 1
         ans.append(pred)
-    print("HEEEEEEERE")
     return np.array(ans)
     
 
