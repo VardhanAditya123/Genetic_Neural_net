@@ -260,8 +260,8 @@ def confMatrix(data, preds):
     n_preds=[]
     n_yTest=[]
     for i in range(preds.shape[0]):
-        n_preds.append(preds[i].index(1))
-        n_yTest.append(yTest[i].index(1))
+        n_preds.append(np.where(preds[i] == 1))
+        n_yTest.append(np.where(yTest[i] == 1))
     print(metrics.confusion_matrix(y_act, y_pred, labels=["0","1", "2", "3", "4" , "5" , "6" , "7" , "8" , "9"]))
     
 
