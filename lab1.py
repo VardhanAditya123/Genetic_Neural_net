@@ -29,8 +29,8 @@ IMAGE_SIZE = 784
 
 # Use these to set the algorithm to use.
 # ALGORITHM = "guesser"
-# ALGORITHM = "custom_net"
-ALGORITHM = "tf_net"
+ALGORITHM = "custom_net"
+# ALGORITHM = "tf_net"
 
 
 
@@ -182,10 +182,7 @@ def runANN(data , model):
     (xTest, yTest) = data 
     answers = model.evaluate(xTest,yTest)
     print("loss:%f\naccuracy: %f" % tuple(answers))
-    predictions = model.predict(xTest)
-    y_pred = (predictions > 0.5)
-    matrix = metrics.confusion_matrix(yTest.argmax(axis=1),y_pred.argmax(axis=1))
-    print(matrix)
+   
     
     
 
