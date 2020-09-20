@@ -186,9 +186,10 @@ def runANN(data , model):
     n_yTest=[]
     print(predictions.shape)
     print(yTest.shape)
+    yTestP = to_categorical(yTest, NUM_CLASSES)
     for x in predictions:
         n_preds.append(findMax(x))
-    for y in yTest:
+    for y in yTestP:
         n_yTest.append(findMax(y))
     # for i in range(predictions.shape[0] - 1):
     #     n_preds.append(findMax(predictions[i]))
@@ -237,8 +238,7 @@ def preprocessData(raw):
         return ((xTrain, yTrainP), (xTest, yTestP)) 
 
     else:
-        yTestP = to_categorical(yTest, NUM_CLASSES)
-        return ((xTrain, yTrain), (xTest, yTestP))
+        return ((xTrain, yTrain), (xTest, yTest))
     
 
 
