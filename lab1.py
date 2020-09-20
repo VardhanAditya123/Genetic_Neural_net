@@ -246,6 +246,8 @@ def runModel(data, model):
 
 def evalResults(data, preds):   #TODO: Add F1 score confusion matrix here.
     xTest, yTest = data
+    print(preds.shape)
+    print(yTest.shape)
     acc = 0
     for i in range(preds.shape[0]):
         if np.array_equal(preds[i], yTest[i]):   acc = acc + 1
