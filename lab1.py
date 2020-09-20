@@ -182,6 +182,9 @@ def runANN(data , model):
     (xTest, yTest) = data 
     answers = model.evaluate(xTest,yTest)
     print("loss:%f\naccuracy: %f" % tuple(answers))
+    predictions = model.predict(xTest)
+    matrix = metrics.confusion_matrix(yTest,predictions)
+    print(matrix)
     
     
 
