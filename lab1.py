@@ -187,7 +187,7 @@ def runANN(data , model):
 
     for x in predictions:
         n_preds.append(findMax(x))
-    for y in yTest
+    for y in yTest:
         n_yTest.append(findMax(y))
     # for i in range(predictions.shape[0] - 1):
     #     n_preds.append(findMax(predictions[i]))
