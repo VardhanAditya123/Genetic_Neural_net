@@ -30,7 +30,7 @@ ALGORITHM = "custom_net"
 
 
 
-class NeuralNetwork_2Layer():
+class NeuralNetwork_NLayer():
     def __init__(self, inputSize, outputSize, neuronsPerLayer, layers ,learningRate = 0.1):
         self.inputSize = inputSize
         self.outputSize = outputSize
@@ -215,7 +215,7 @@ def trainModel(data):
         return None   # Guesser has no model, as it is just guessing.
    
     elif ALGORITHM == "custom_net":
-        n1 = NeuralNetwork_2Layer(784,10,55,2,0.1) 
+        n1 = NeuralNetwork_NLayer(784,10,55,2,0.1) 
         n1.train(xTrain,yTrain)
         return n1
 
