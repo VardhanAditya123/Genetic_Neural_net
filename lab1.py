@@ -189,23 +189,22 @@ def printANN(data,predictions):
     yTestP = to_categorical(yTest, NUM_CLASSES)
     data = (xTest,yTestP)
     confMatrix(data,predictions)
-    # n_preds=[]
-    # n_yTest=[]
-    # yTestP = to_categorical(yTest, NUM_CLASSES)
+    
 
-    # for i in range(predictions.shape[0]):
-    #     n_preds.append(findMax(predictions[i]))
-    #     n_yTest.append(findMax(yTestP[i] ))
-        
-    # labels = [0,1,2,3,4,5,6,7,8,9]
-    # confusion = metrics.confusion_matrix(n_yTest, n_preds,labels)
-    # report = metrics.classification_report(n_yTest, n_preds,labels)
-    # print("\nConfusion Matrix:\n")
-    # print(confusion)
-    # print("\nReport:")
-    # print(report)
-
-   
+def confMatrix(data, preds):
+    xTest, yTest = data
+    n_preds=[]
+    n_yTest=[]
+    for i in range(preds.shape[0]):
+        n_preds.append(findMax(preds[i] ))
+        n_yTest.append(findMax(yTest[i] ))
+    labels = [0,1,2,3,4,5,6,7,8,9]
+    confusion = metrics.confusion_matrix(n_yTest, n_preds,labels)
+    report = metrics.classification_report(n_yTest, n_preds,labels)
+    print("\nConfusion Matrix:\n")
+    print(confusion)
+    print("\nReport:")
+    print(report)
     
     
 
@@ -286,20 +285,6 @@ def evalResults(data, preds):   #TODO: Add F1 score confusion matrix here.
     print("Classifier accuracy: %f%%" % (accuracy * 100))
     print()
 
-def confMatrix(data, preds):
-    xTest, yTest = data
-    n_preds=[]
-    n_yTest=[]
-    for i in range(preds.shape[0]):
-        n_preds.append(findMax(preds[i] ))
-        n_yTest.append(findMax(yTest[i] ))
-    labels = [0,1,2,3,4,5,6,7,8,9]
-    confusion = metrics.confusion_matrix(n_yTest, n_preds,labels)
-    report = metrics.classification_report(n_yTest, n_preds,labels)
-    print("\nConfusion Matrix:\n")
-    print(confusion)
-    print("\nReport:")
-    print(report)
     
 
 
