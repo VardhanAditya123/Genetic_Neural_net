@@ -182,7 +182,7 @@ def runANN(data , model):
     ans = []
     answers = model.evaluate(xTest,yTest)
     print("loss:%f\naccuracy: %f" % tuple(answers))
-    p =  model.predict(xTest)
+    p =  model.predict_classes(xTest)
     print(p.shape)
     for x in p:
         pred = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
