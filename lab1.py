@@ -180,16 +180,9 @@ def trainANN(model,xTrain,yTrain,epochs=5):
 
 def runANN(data , model):
     (xTest, yTest) = data 
-    ans = []
     answers = model.evaluate(xTest,yTest)
     print("loss:%f\naccuracy: %f" % tuple(answers))
-    p =  model.predict(xTest)
-    for i in range(p.shape[0]):
-        pred = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        index = findMax(p[i])
-        pred[index] = 1
-        ans.append(pred)
-    return np.array(ans)
+    
     
 
 #=========================<Pipeline Functions>==================================
@@ -295,7 +288,6 @@ def main():
     model = trainModel(data[0])
     if ALGORITHM == "tf_net":
         preds=runModel(data[1], model)
-        evalResults(data[1], preds)
     else:
         preds = runModel(data[1][0], model)
         evalResults(data[1], preds)
