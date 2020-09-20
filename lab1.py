@@ -260,7 +260,7 @@ def confMatrix(data, preds):
     n_preds=[]
     n_yTest=[]
     print("TEEEEEST")
-    print(np.where(preds[0] == 1))
+    print(findMax(preds[0]))
     for i in range(preds.shape[0]):
         n_preds.append(findMax(preds[i] ))
         n_yTest.append(findMax(yTest[i] ))
