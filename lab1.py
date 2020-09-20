@@ -149,8 +149,7 @@ def Customclassifier(xTest , model):
         index = findMax(check)
         pred[index] = 1
         ans.append(pred)
-    
-    # print(confusion_matrix(y_test, np.argmax(check,axis=1)))
+        
     return np.array(ans)
 
 def findMax(layer):
@@ -251,6 +250,8 @@ def evalResults(data, preds):   #TODO: Add F1 score confusion matrix here.
     for i in range(preds.shape[0]):
         if np.array_equal(preds[i], yTest[i]):   acc = acc + 1
     accuracy = acc / preds.shape[0]
+    confusion = tf.confusion_matrix(y_test, preds)
+    print(confusion)
     print("Classifier algorithm: %s" % ALGORITHM)
     print("Classifier accuracy: %f%%" % (accuracy * 100))
     print()
