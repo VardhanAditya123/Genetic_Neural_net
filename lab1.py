@@ -222,7 +222,7 @@ def trainModel(data):
         return None   # Guesser has no model, as it is just guessing.
    
     elif ALGORITHM == "custom_net":
-        n1 = NeuralNetwork_NLayer(784,10,30,4,0.1) 
+        n1 = NeuralNetwork_NLayer(784,10,20,4,0.1) 
         n1.train(xTrain,yTrain)
         return n1
 
