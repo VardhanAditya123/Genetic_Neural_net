@@ -180,6 +180,10 @@ def trainANN(model,xTrain,yTrain,epochs=5):
 def runANN(data , model):
     (xTest, yTest) = data 
     preds = model.evaluate(xTest,yTest)
+    
+    y_pred=model.predict_classes(xTest)
+    matrix = tf.math.confusion_matrix(predictions=y_pred).numpy()
+    print(matrix)
     print("loss:%f\naccuracy: %f" % tuple(preds))
     
 
