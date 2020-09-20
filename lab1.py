@@ -238,7 +238,7 @@ def preprocessData(raw):
 
     else:
         yTestP = to_categorical(yTest, NUM_CLASSES)
-        return ((xTrain, yTrain), (xTest, yTest))
+        return ((xTrain, yTrain), (xTest, yTestP))
     
 
 
