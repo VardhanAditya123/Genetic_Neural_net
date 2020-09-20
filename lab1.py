@@ -182,15 +182,15 @@ def runANN(data , model):
     ans = []
     answers = model.evaluate(xTest,yTest)
     print("loss:%f\naccuracy: %f" % tuple(answers))
-    p =  model.predict(xTest)
-    print(p.shape)
-    for x in p:
-        pred = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        index = findMax(x)
-        pred[index] = 1
-        ans.append(pred)
+    # p =  model.predict(xTest)
+    # print(p.shape)
+    # for x in p:
+    #     pred = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    #     index = findMax(x)
+    #     pred[index] = 1
+    #     ans.append(pred)
     
-    return np.array(ans)
+    # return np.array(ans)
     
 
 #=========================<Pipeline Functions>==================================
@@ -296,7 +296,7 @@ def main():
     model = trainModel(data[0])
     if ALGORITHM == "tf_net":
         preds=runModel(data[1], model)
-        evalResults(data[1], preds)
+        # evalResults(data[1], preds)
     else:
         preds = runModel(data[1][0], model)
         evalResults(data[1], preds)
