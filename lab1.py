@@ -77,7 +77,7 @@ class NeuralNetwork_NLayer():
         i = 0
         layer = self.N_layers
         print("Number of layers: %d" % layer)
-        while i < 6000:
+        while i < 60000:
             x = xVals[i]
             y = yVals[i]
             L  = self.__forward(x)
