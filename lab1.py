@@ -185,12 +185,11 @@ def runANN(data , model):
     p =  model.predict(xTest)
 
     for x in p:
-        print("X shape :"+str(x.shape))
         pred = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         index = findMax(x)
         pred[index] = 1
         ans.append(pred)
-    
+    printf("HEEEEEEERE")
     return np.array(ans)
     
 
