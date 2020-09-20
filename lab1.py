@@ -128,7 +128,7 @@ class NeuralNetwork_NLayer():
 
 
     # Predict.
-    def predict(self, xVals):
+    def predict_N(self, xVals):
         L = self.__forward(xVals)
         return L[self.N_layers - 1]
 
@@ -148,7 +148,7 @@ def Customclassifier(xTest , model):
     ans = []
     for x in xTest:
         pred = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        check = (model.predict(x)).flatten()
+        check = (model.predict_N(x)).flatten()
         index = findMax(check)
         pred[index] = 1
         ans.append(pred)
@@ -182,8 +182,8 @@ def runANN(data , model):
     ans = []
     answers = model.evaluate(xTest,yTest)
     print("loss:%f\naccuracy: %f" % tuple(answers))
-    
-    print(p[0].shape)
+    p =  model.predict(xTest)
+    print(p.shape)
     for x in p:
         pred = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         index = findMax(x)
