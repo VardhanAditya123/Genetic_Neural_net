@@ -311,7 +311,7 @@ def main():
     model = trainModel(data[0])
     if ALGORITHM == "tf_net":
         preds = runModel(data[1], model)
-        printANN(data,preds)
+        printANN(data[1],preds)
     else:
         preds = runModel(data[1][0], model)
         evalResults(data[1], preds)
