@@ -269,7 +269,7 @@ def confMatrix(data, preds):
     labels = [0,1,2,3,4,5,6,7,8,9]
     confusion = metrics.confusion_matrix(n_yTest, n_preds,labels)
     report = metrics.classification_report(n_yTest, n_preds,labels)
-    print("\nConfustion Matrix\n")
+    print("\nConfustion Matrix:\n")
     print(confusion)
     print("\nReport:")
     print(report)
