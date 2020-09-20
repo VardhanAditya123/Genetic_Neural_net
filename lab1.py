@@ -184,9 +184,12 @@ def runANN(data , model):
     predictions = model.predict(xTest)
     n_preds=[]
     n_yTest=[]
-    for i in range(predictions.shape[0] - 1):
-        n_preds.append(findMax(predictions[i]))
-        n_yTest.append(findMax(yTest[i] ))
+
+    for x in predictions:
+        n_preds.append(findMax(x))
+    # for i in range(predictions.shape[0] - 1):
+    #     n_preds.append(findMax(predictions[i]))
+    #     n_yTest.append(findMax(yTest[i] ))
         
     # labels = [0,1,2,3,4,5,6,7,8,9]
     # confusion = metrics.confusion_matrix(n_yTest, n_preds,labels)
