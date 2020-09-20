@@ -186,8 +186,7 @@ def runANN(data , model):
     print(p)
     for x in p:
         pred = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        check = x
-        index = findMax(check)
+        index = findMax(x)
         pred[index] = 1
         ans.append(pred)
     
