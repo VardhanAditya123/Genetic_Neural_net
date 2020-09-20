@@ -184,8 +184,7 @@ def runANN(data , model):
     answers = model.evaluate(xTest,yTest)
     print("loss:%f\naccuracy: %f" % tuple(answers))
     p =  model.predict(xTest)
-
-    for x in p:
+    for i in range(preds.shape[0] - 1):
         pred = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         index = findMax(x)
         pred[index] = 1
