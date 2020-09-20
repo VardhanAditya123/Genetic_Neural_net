@@ -183,8 +183,7 @@ def runANN(data , model):
     answers = model.evaluate(xTest,yTest)
     print("loss:%f\naccuracy: %f" % tuple(answers))
     p =  model.predict(xTest)
-    print(p.shape)
-    print(p[0].shape)
+
     for x in p:
         pred = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         index = findMax(x)
@@ -297,7 +296,7 @@ def main():
     model = trainModel(data[0])
     if ALGORITHM == "tf_net":
         preds=runModel(data[1], model)
-        # evalResults(data[1], preds)
+        evalResults(data[1], preds)
     else:
         preds = runModel(data[1][0], model)
         evalResults(data[1], preds)
