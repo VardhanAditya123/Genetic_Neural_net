@@ -182,14 +182,20 @@ def runANN(data , model):
     answers = model.evaluate(xTest,yTest)
     print("loss:%f\naccuracy: %f" % tuple(answers))
     predictions = model.predict(xTest)
-    ans = []
-    for x in predictions:
-        pred = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        index = findMax(x)
-        pred[index] = 1
-        ans.append(pred)
+    n_preds=[]
+    n_yTest=[]
+    for i in range(predictions.shape[0]):
+        n_preds.append(findMax(predictions[i]))
+        n_yTest.append(findMax(yTest[i] ))
+        
+    labels = [0,1,2,3,4,5,6,7,8,9]
+    confusion = metrics.confusion_matrix(n_yTest, n_preds,labels)
+    report = metrics.classification_report(n_yTest, n_preds,labels)
+    print("\nConfusion Matrix:\n")
+    print(confusion)
+    print("\nReport:")
+    print(report)
 
-    print(predictions.shape)
    
     
     
