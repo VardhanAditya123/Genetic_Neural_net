@@ -225,16 +225,16 @@ def preprocessData(raw):
     xTrain,xTest = xTrain/255.0 , xTest/255.0
     
     # if ALGORITHM == "custom_net":
-        xTrain = xTrain.reshape(60000,784,1)
-        xTest = xTest.reshape(10000,784,1)
-        yTrainP = to_categorical(yTrain, NUM_CLASSES)
-        yTestP = to_categorical(yTest, NUM_CLASSES)
-        yTrainP = yTrainP.reshape(60000,10,1)
-        print("New shape of xTrain dataset: %s." % str(xTrain.shape))
-        print("New shape of xTest dataset: %s." % str(xTest.shape))
-        print("New shape of yTrain dataset: %s." % str(yTrainP.shape))
-        print("New shape of yTest dataset: %s." % str(yTestP.shape))
-        return ((xTrain, yTrainP), (xTest, yTestP)) 
+    xTrain = xTrain.reshape(60000,784,1)
+    xTest = xTest.reshape(10000,784,1)
+    yTrainP = to_categorical(yTrain, NUM_CLASSES)
+    yTestP = to_categorical(yTest, NUM_CLASSES)
+    yTrainP = yTrainP.reshape(60000,10,1)
+    print("New shape of xTrain dataset: %s." % str(xTrain.shape))
+    print("New shape of xTest dataset: %s." % str(xTest.shape))
+    print("New shape of yTrain dataset: %s." % str(yTrainP.shape))
+    print("New shape of yTest dataset: %s." % str(yTestP.shape))
+    return ((xTrain, yTrainP), (xTest, yTestP)) 
 
     # else:
     #     return ((xTrain, yTrain), (xTest, yTest))
