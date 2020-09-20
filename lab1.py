@@ -181,6 +181,14 @@ def runANN(data , model):
     (xTest, yTest) = data 
     preds = model.evaluate(xTest,yTest)
     print("loss:%f\naccuracy: %f" % tuple(preds))
+    p =  model.predict(xTest)
+    for x in xTest:
+        pred = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        check = x.flatten()
+        index = findMax(check)
+        pred[index] = 1
+        ans.append(pred)
+    evalResults(data,ans)
     
 
 #=========================<Pipeline Functions>==================================
