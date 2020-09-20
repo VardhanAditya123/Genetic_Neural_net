@@ -150,7 +150,7 @@ def Customclassifier(xTest , model):
         pred[index] = 1
         ans.append(pred)
     
-    print(confusion_matrix(y_test, np.argmax(check,axis=1)))
+    # print(confusion_matrix(y_test, np.argmax(check,axis=1)))
     return np.array(ans)
 
 def findMax(layer):
