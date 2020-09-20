@@ -26,8 +26,8 @@ IMAGE_SIZE = 784
 
 # Use these to set the algorithm to use.
 # ALGORITHM = "guesser"
-ALGORITHM = "custom_net"
-# ALGORITHM = "tf_net"
+# ALGORITHM = "custom_net"
+ALGORITHM = "tf_net"
 
 
 
