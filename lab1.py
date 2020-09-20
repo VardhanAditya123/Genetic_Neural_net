@@ -181,27 +181,28 @@ def runANN(data , model):
     (xTest, yTest) = data 
     answers = model.evaluate(xTest,yTest)
     print("loss:%f\naccuracy: %f" % tuple(answers))
-    predictions = model.predict(xTest)
-    n_preds=[]
-    n_yTest=[]
-    print(predictions.shape)
-    print(yTest.shape)
+
+def printANN(data,model):
+    (xTest, yTest) = data
+    predictions = model.predict(xTest)  
     yTestP = to_categorical(yTest, NUM_CLASSES)
-    # for x in predictions:
-    #     n_preds.append(findMax(x))
-    # for y in yTestP:
-    #     n_yTest.append(findMax(y))
-    for i in range(predictions.shape[0]):
-        n_preds.append(findMax(predictions[i]))
-        n_yTest.append(findMax(yTestP[i] ))
+    data = (xTest,yTestP)
+    confMatrix(data,predictions)
+    # n_preds=[]
+    # n_yTest=[]
+    # yTestP = to_categorical(yTest, NUM_CLASSES)
+
+    # for i in range(predictions.shape[0]):
+    #     n_preds.append(findMax(predictions[i]))
+    #     n_yTest.append(findMax(yTestP[i] ))
         
-    labels = [0,1,2,3,4,5,6,7,8,9]
-    confusion = metrics.confusion_matrix(n_yTest, n_preds,labels)
-    report = metrics.classification_report(n_yTest, n_preds,labels)
-    print("\nConfusion Matrix:\n")
-    print(confusion)
-    print("\nReport:")
-    print(report)
+    # labels = [0,1,2,3,4,5,6,7,8,9]
+    # confusion = metrics.confusion_matrix(n_yTest, n_preds,labels)
+    # report = metrics.classification_report(n_yTest, n_preds,labels)
+    # print("\nConfusion Matrix:\n")
+    # print(confusion)
+    # print("\nReport:")
+    # print(report)
 
    
     
@@ -309,7 +310,8 @@ def main():
     data = preprocessData(raw)
     model = trainModel(data[0])
     if ALGORITHM == "tf_net":
-        preds=runModel(data[1], model)
+        runModel(data[1], model)
+        printANN(data,model)
     else:
         preds = runModel(data[1][0], model)
         evalResults(data[1], preds)
