@@ -190,8 +190,8 @@ def runANN(data , model):
         index = findMax(check)
         pred[index] = 1
         ans.append(pred)
-    preds = np.array(ans)
-    evalResults(data,preds)
+    
+    return np.array(ans)
     
 
 #=========================<Pipeline Functions>==================================
@@ -296,7 +296,8 @@ def main():
     data = preprocessData(raw)
     model = trainModel(data[0])
     if ALGORITHM == "tf_net":
-        runModel(data[1], model)
+        preds=runModel(data[1], model)
+        evalResults(data[1], preds)
     else:
         preds = runModel(data[1][0], model)
         evalResults(data[1], preds)
