@@ -25,7 +25,7 @@ IMAGE_SIZE = 784
 # ALGORITHM = "guesser"
 ALGORITHM = "custom_net"
 # ALGORITHM = "tf_net"
-
+ewdiuhweu
 
 
 
