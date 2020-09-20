@@ -182,7 +182,7 @@ def runANN(data , model):
     preds = model.evaluate(xTest,yTest)
     
     y_pred=model.predict_classes(xTest)
-    matrix = tf.math.confusion_matrix(predictions=y_pred).numpy()
+    matrix = tf.math.confusion_matrix(labels=[0,1,2,3,4,5,6,7,8,9],predictions=y_pred).numpy()
     print(matrix)
     print("loss:%f\naccuracy: %f" % tuple(preds))
     
