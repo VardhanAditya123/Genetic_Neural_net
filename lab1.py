@@ -73,7 +73,7 @@ class NeuralNetwork_NLayer():
     def train(self, xVals, yVals, epochs = 100000, minibatches = True, mbs = 100):
         i = 0
         layer = self.N_layers
-        print(layer)
+        print("Number of layers: %d" % layer)
         while i < 60000:
             x = xVals[i]
             y = yVals[i]
