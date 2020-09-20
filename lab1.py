@@ -180,7 +180,7 @@ def trainANN(model,xTrain,yTrain,epochs=5):
 def runANN(data , model):
     (xTest, yTest) = data 
     p = model.predict(xTest)
-    matrix = metrics.confusion_matrix(yTest.argmax(axis=1), p.argmax(axis=1))
+    print(p)
     print(matrix)
     preds = model.evaluate(xTest,yTest)
     print("loss:%f\naccuracy: %f" % tuple(preds))
