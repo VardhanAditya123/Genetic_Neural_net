@@ -265,6 +265,7 @@ def confMatrix(data, preds):
     # labels = ['0','1','2','3','4','5','6','7','8','9']
     labels = [0,1,2,3,4,5,6,7,8,9]
     confusion = metrics.confusion_matrix(n_yTest, n_preds,labels)
+    print(confusion.shape)
     print(confusion)
     
 
