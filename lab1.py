@@ -259,13 +259,9 @@ def confMatrix(data, preds):
     xTest, yTest = data
     n_preds=[]
     n_yTest=[]
-    print("TEEEEEST")
-    print(findMax(preds[0]))
     for i in range(preds.shape[0]):
         n_preds.append(findMax(preds[i] ))
         n_yTest.append(findMax(yTest[i] ))
-        # print(n_preds)
-        # print(n_yTest.shape)
     print(metrics.confusion_matrix(n_yTest, n_preds))
     
 
