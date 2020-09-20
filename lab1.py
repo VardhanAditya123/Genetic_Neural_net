@@ -179,10 +179,8 @@ def trainANN(model,xTrain,yTrain,epochs=5):
 
 def runANN(data , model):
     (xTest, yTest) = data 
-    preds = model.predict(xTest)
-    # preds = model.evaluate(xTest,yTest)
-    # print("loss:%f\naccuracy: %f" % tuple(preds))
-    evalResults(data , preds)
+    preds = model.evaluate(xTest,yTest)
+    print("loss:%f\naccuracy: %f" % tuple(preds))
     
 
 #=========================<Pipeline Functions>==================================
