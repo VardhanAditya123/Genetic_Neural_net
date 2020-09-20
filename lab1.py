@@ -188,6 +188,7 @@ def runANN(data , model):
         index = findMax(check)
         pred[index] = 1
         ans.append(pred)
+    ans = np.array(ans)
     evalResults(data,ans)
     
 
