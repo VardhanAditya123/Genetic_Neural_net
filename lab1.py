@@ -182,6 +182,13 @@ def runANN(data , model):
     answers = model.evaluate(xTest,yTest)
     print("loss:%f\naccuracy: %f" % tuple(answers))
     predictions = model.predict(xTest)
+    ans = []
+    for x in predictions:
+        pred = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        findMax(x)
+        pred[index] = 1
+        ans.append(pred)
+
     print(predictions.shape)
    
     
