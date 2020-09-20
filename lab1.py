@@ -250,8 +250,6 @@ def evalResults(data, preds):   #TODO: Add F1 score confusion matrix here.
     for i in range(preds.shape[0]):
         if np.array_equal(preds[i], yTest[i]):   acc = acc + 1
     accuracy = acc / preds.shape[0]
-    confusion = confusion_matrix(yTest, np.argmax(preds,axis=1))
-    print(confusion)
     print("Classifier algorithm: %s" % ALGORITHM)
     print("Classifier accuracy: %f%%" % (accuracy * 100))
     print()
