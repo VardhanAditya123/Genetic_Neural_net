@@ -32,8 +32,8 @@ NEURONS_PER_LAYER = 50
 
 # Use these to set the algorithm to use.
 # ALGORITHM = "guesser"
-# ALGORITHM = "custom_net"
-ALGORITHM = "tf_net"
+ALGORITHM = "custom_net"
+# ALGORITHM = "tf_net"
 
 
 
@@ -83,6 +83,7 @@ class NeuralNetwork_NLayer():
         i = 0
         layer = self.N_layers
         print("Number of layers: %d" % layer)
+        print("Neurons per Layer: %d" % NEURONS_PER_LAYER)
         while i < 60000:
             x = xVals[i]
             y = yVals[i]
