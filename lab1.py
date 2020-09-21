@@ -35,7 +35,9 @@ NEURONS_PER_LAYER = 50
 ALGORITHM = "custom_net"
 # ALGORITHM = "tf_net"
 
-
+print("Number of layers: %d" % NO_OF_LAYERS)
+print("Neurons per Layer: %d" % NEURONS_PER_LAYER)
+print("Type of algorithm: %s", % ALGORITHM)
 
 
 
@@ -82,8 +84,6 @@ class NeuralNetwork_NLayer():
     def train(self, xVals, yVals, epochs = 100000, minibatches = True, mbs = 100):
         i = 0
         layer = self.N_layers
-        print("Number of layers: %d" % layer)
-        print("Neurons per Layer: %d" % NEURONS_PER_LAYER)
         while i < 60000:
             x = xVals[i]
             y = yVals[i]
