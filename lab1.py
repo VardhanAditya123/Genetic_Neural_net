@@ -31,7 +31,8 @@ IMAGE_SIZE = 784
 # ALGORITHM = "guesser"
 ALGORITHM = "custom_net"
 # ALGORITHM = "tf_net"
-
+NO_OF_LAYERS = 2
+NEURONS_PER_LAYER = 50
 
 
 
@@ -249,7 +250,7 @@ def trainModel(data):
         return None   # Guesser has no model, as it is just guessing.
    
     elif ALGORITHM == "custom_net":
-        n1 = NeuralNetwork_NLayer(784,10,40,2,0.1) 
+        n1 = NeuralNetwork_NLayer(784,10,NEURONS_PER_LAYER,NO_OF_LAYERS,0.1) 
         n1.train(xTrain,yTrain)
         return n1
 
