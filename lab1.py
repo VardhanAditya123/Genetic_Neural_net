@@ -32,10 +32,10 @@ NEURONS_PER_LAYER = 50
 
 # Use these to set the algorithm to use.
 # ALGORITHM = "guesser"
-# ALGORITHM = "custom_net"
-ALGORITHM = "tf_net"
+ALGORITHM = "custom_net"
+# ALGORITHM = "tf_net"
 
-if ALGORITHM == "custom _net":
+if ALGORITHM == "custom_net":
     print("\nNumber of layers: %d" % NO_OF_LAYERS)
     print("Neurons per Layer: %d" % NEURONS_PER_LAYER)
     print("Type of algorithm: " + ALGORITHM)
