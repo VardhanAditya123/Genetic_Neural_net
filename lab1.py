@@ -35,9 +35,17 @@ NEURONS_PER_LAYER = 50
 ALGORITHM = "custom_net"
 # ALGORITHM = "tf_net"
 
-print("Number of layers: %d" % NO_OF_LAYERS)
-print("Neurons per Layer: %d" % NEURONS_PER_LAYER)
-print("Type of algorithm: " + ALGORITHM)
+if ALGORITHM == "custom _net":
+    print("\nNumber of layers: %d" % NO_OF_LAYERS)
+    print("Neurons per Layer: %d" % NEURONS_PER_LAYER)
+    print("Type of algorithm: " + ALGORITHM)
+    print()
+
+else:
+    print("\nNumber of layers: 2" )
+    print("Neurons per Layer: 60")
+    print("Type of algorithm: " + ALGORITHM)
+    print()
 
 
 
