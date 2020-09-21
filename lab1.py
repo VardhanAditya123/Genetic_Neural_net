@@ -28,7 +28,7 @@ NUM_CLASSES = 10
 IMAGE_SIZE = 784
 # For N layer custom net
 NO_OF_LAYERS = 5
-NEURONS_PER_LAYER = 40
+NEURONS_PER_LAYER = 30
 
 # Use these to set the algorithm to use.
 # ALGORITHM = "guesser"
