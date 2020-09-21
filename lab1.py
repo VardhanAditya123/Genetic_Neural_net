@@ -37,7 +37,7 @@ ALGORITHM = "custom_net"
 
 print("Number of layers: %d" % NO_OF_LAYERS)
 print("Neurons per Layer: %d" % NEURONS_PER_LAYER)
-print("Type of algorithm: %s", % ALGORITHM)
+print("Type of algorithm: %s",  ALGORITHM)
 
 
 
