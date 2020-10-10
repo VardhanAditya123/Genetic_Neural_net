@@ -161,13 +161,14 @@ def runModel(data, model):
     if ALGORITHM == "guesser":
         return guesserClassifier(data)
     elif ALGORITHM == "tf_net":
-        print("Testing TF_NN.")
-        preds = model.predict(data)
-        for i in range(preds.shape[0]):
-            oneHot = [0] * NUM_CLASSES
-            oneHot[np.argmax(preds[i])] = 1
-            preds[i] = oneHot
-        return preds
+        # print("Testing TF_NN.")
+        # preds = model.predict(data)
+        # for i in range(preds.shape[0]):
+        #     oneHot = [0] * NUM_CLASSES
+        #     oneHot[np.argmax(preds[i])] = 1
+        #     preds[i] = oneHot
+        # return preds
+        trainANN(model);
     elif ALGORITHM == "tf_conv":
         print("Testing TF_CNN.")
         preds = model.predict(data)
