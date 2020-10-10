@@ -71,6 +71,7 @@ def buildTFNeuralNet(x, y, eps = 6):
     model = tf.keras.models.Sequential([tf.keras.layers.Flatten(),
     tf.keras.layers.Dense(1600,activation = tf.nn.sigmoid),
     tf.keras.layers.Dense(500,activation = tf.nn.sigmoid),
+    tf.keras.layers.Dense(250,activation = tf.nn.sigmoid),
     tf.keras.layers.Dense(10,activation = tf.nn.softmax),
     ])
     model.compile(optimizer='RMSProp',optmizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
@@ -82,7 +83,9 @@ def trainANN(model,xTrain,yTrain,epochs=5):
     model.fit(xTrain,yTrain,epochs=5)
     model.compile(optimizer='SGD',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
     model.fit(xTrain,yTrain,epochs=5)
-   
+    model.add(keras.layers.dropout(0.2))
+    model.compile(optimizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
+    model.fit(xTrain,yTrain,epochs=10)
     return model
 
 def runANN(data , model):
