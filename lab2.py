@@ -54,6 +54,17 @@ def guesserClassifier(xTest):
         ans.append(pred)
     return np.array(ans)
 
+def findMax(layer):
+    max = layer[0]
+    max_l = 0
+    i = 0
+    while i < 10:
+        if layer[i] > max:
+            max = layer[i]
+            max_l = i
+        i+=1
+    return max_l
+
 
 def buildTFNeuralNet(x, y, eps = 6):
     model = tf.keras.models.Sequential([tf.keras.layers.Flatten(),tf.keras.layers.Dense(60,activation = tf.nn.sigmoid),
