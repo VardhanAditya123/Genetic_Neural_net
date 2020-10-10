@@ -70,7 +70,7 @@ def findMax(layer):
 def buildTFNeuralNet(x, y, eps = 6):
     model = tf.keras.models.Sequential([tf.keras.layers.Flatten(),
     tf.keras.layers.Dense(500,activation = tf.nn.sigmoid),
-    tf.keras.layers.Dense(500,activation = tf.nn.sigmoid),
+    # tf.keras.layers.Dense(500,activation = tf.nn.sigmoid),
     tf.keras.layers.Dense(10,activation = tf.nn.softmax),
     ])
   
@@ -78,7 +78,7 @@ def buildTFNeuralNet(x, y, eps = 6):
     return model
 
 def trainANN(model,xTrain,yTrain,epochs=5):
-    model.fit(xTrain,yTrain,epochs=5)
+    model.fit(xTrain,yTrain,epochs=10)
     # model.fit(xTrain,yTrain,epochs=5)
    
     return model
