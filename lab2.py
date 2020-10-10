@@ -70,8 +70,8 @@ def findMax(layer):
 def buildTFNeuralNet(x, y, eps = 6):
     model = tf.keras.models.Sequential([tf.keras.layers.Flatten(),
     tf.keras.layers.Dense(100,activation = tf.nn.sigmoid),
-    tf.keras.layers.Dense(70,activation = tf.nn.sigmoid),
-    tf.keras.layers.Dense(30,activation = tf.nn.sigmoid),
+    tf.keras.layers.Dense(70,activation = tf.nn.relu),
+    tf.keras.layers.Dense(30,activation = tf.nn.relu),
     ])
     model.compile(optimizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
     return model
