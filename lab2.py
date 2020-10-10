@@ -77,7 +77,7 @@ def buildTFNeuralNet(x, y, eps = 6):
     return model
 
 def trainANN(model,xTrain,yTrain,epochs=5):
-    model.fit(xTrain,yTrain,epochs=5)
+    model.fit(xTrain,yTrain,epochs=10)
     model.fit(xTrain,yTrain,epochs=5)
    
     return model
