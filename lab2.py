@@ -80,6 +80,7 @@ def buildTFNeuralNet(x, y, eps = 6):
 def trainANN(model,xTrain,yTrain,epochs=5):
     model.fit(xTrain,yTrain,epochs=5)
     model.compile(optimizer='RMSProp',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
+    model.add(keras.layers.Dropout(0.3))
     model.fit(xTrain,yTrain,epochs=5)
     # model.fit(xTrain,yTrain,epochs=5)
    
