@@ -70,7 +70,7 @@ def findMax(layer):
 def buildTFNeuralNet(x, y, eps = 6):
     model = tf.keras.models.Sequential([tf.keras.layers.Flatten(),tf.keras.layers.Dense(60,activation = tf.nn.relu),
     tf.keras.layers.Dense(10,activation = tf.nn.sigmoid)])
-    model.compile(optimizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
+    model.compile(optimizer='adagrad',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
     return model
 
 def trainANN(model,xTrain,yTrain,epochs=5):
@@ -231,7 +231,7 @@ def main():
     model = trainModel(data[0])
     if ALGORITHM == "tf_net":
         preds = runModel(data[1], model)
-        printANN(data[1],preds)
+        # printANN(data[1],preds)
     else:
         preds = runModel(data[1][0], model)
         evalResults(data[1], preds)
