@@ -148,7 +148,9 @@ def trainModel(data):
         return None   # Guesser has no model, as it is just guessing.
     elif ALGORITHM == "tf_net":
         print("Building and training TF_NN.")
-        return buildTFNeuralNet(xTrain, yTrain)
+        model = buildTFNeuralNet(xTrain, yTrain)
+        model = trainANN(model,xTrain,yTrain,5)
+        return model
     elif ALGORITHM == "tf_conv":
         print("Building and training TF_CNN.")
         return buildTFConvNet(xTrain, yTrain)
@@ -168,7 +170,7 @@ def runModel(data, model):
         #     oneHot[np.argmax(preds[i])] = 1
         #     preds[i] = oneHot
         # return preds
-        trainANN(model);
+         return runANN(data,model)
     elif ALGORITHM == "tf_conv":
         print("Testing TF_CNN.")
         preds = model.predict(data)
