@@ -80,7 +80,6 @@ def trainANN(model,xTrain,yTrain,epochs=5):
     model.fit(xTrain,yTrain,epochs=5)
     model.fit(xTrain,yTrain,epochs=5)
     model.fit(xTrain,yTrain,epochs=5)
-    model.fit(xTrain,yTrain,epochs=5)
     return model
 
 def runANN(data , model):
