@@ -56,13 +56,8 @@ def guesserClassifier(xTest):
 
 
 def buildTFNeuralNet(x, y, eps = 6):
-    model = tf.keras.models.Sequential
-    (
-    [tf.keras.layers.Flatten(),
-    tf.keras.layers.Dense(60,activation = tf.nn.sigmoid),
-    tf.keras.layers.Dense(10,activation = tf.nn.sigmoid)
-    ]
-    )
+    model = tf.keras.models.Sequential([tf.keras.layers.Flatten(),tf.keras.layers.Dense(60,activation = tf.nn.sigmoid),
+    tf.keras.layers.Dense(10,activation = tf.nn.sigmoid)])
     model.compile(optimizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
     return model
 
@@ -133,15 +128,19 @@ def preprocessData(raw):
     ((xTrain, yTrain), (xTest, yTest)) = raw
     xTrain,xTest = xTrain/255.0 , xTest/255.0
 
-    if ALGORITHM != "tf_conv":
-        # xTrainP = xTrain.reshape((xTrain.shape[0], IS))
-        # xTestP = xTest.reshape((xTest.shape[0], IS))
+    if ALGORITHM == "tf_net":
         return ((xTrain, yTrain), (xTest, yTest))
+
+    elif ALGORITHM != "tf_conv":
+        xTrainP = xTrain.reshape((xTrain.shape[0], IS))
+        xTestP = xTest.reshape((xTest.shape[0], IS))
+        
     else:
         xTrainP = xTrain.reshape((xTrain.shape[0], IH, IW, IZ))
         xTestP = xTest.reshape((xTest.shape[0], IH, IW, IZ))
-        yTrainP = to_categorical(yTrain, NUM_CLASSES)
-        yTestP = to_categorical(yTest, NUM_CLASSES)
+       
+    yTrainP = to_categorical(yTrain, NUM_CLASSES)
+    yTestP = to_categorical(yTest, NUM_CLASSES)
     print("New shape of xTrain dataset: %s." % str(xTrainP.shape))
     print("New shape of xTest dataset: %s." % str(xTestP.shape))
     print("New shape of yTrain dataset: %s." % str(yTrainP.shape))
