@@ -73,6 +73,7 @@ def buildTFNeuralNet(x, y, eps = 6):
     tf.keras.layers.Dense(90,activation = tf.nn.sigmoid),
     tf.keras.layers.Dense(10,activation = tf.nn.softmax),
     ])
+    model.add(keras.layers.dropout(dropRate))
     model.compile(optimizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
     return model
 
