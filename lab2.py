@@ -71,9 +71,9 @@ def buildTFNeuralNet(x, y, eps = 6):
     model = tf.keras.models.Sequential([tf.keras.layers.Flatten(),
     tf.keras.layers.Dense(80,activation = tf.nn.sigmoid),
     tf.keras.layers.Dense(50,activation = tf.nn.sigmoid),
-    tf.keras.layers.Dense(50,activation = tf.nn.sigmoid),
-    tf.keras.layers.Dense(50,activation = tf.nn.sigmoid),
-    tf.keras.layers.Dense(50,activation = tf.nn.sigmoid),
+    tf.keras.layers.Dense(40,activation = tf.nn.sigmoid),
+    tf.keras.layers.Dense(30,activation = tf.nn.sigmoid),
+    tf.keras.layers.Dense(20,activation = tf.nn.sigmoid),
     tf.keras.layers.Dense(10,activation = tf.nn.softmax),
     ])
     # model.add(keras.layers.Dropout(0.2))
