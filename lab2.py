@@ -83,7 +83,7 @@ def trainANN(model,xTrain,yTrain,epochs=5):
     model.fit(xTrain,yTrain,epochs=5)
     model.compile(optimizer='SGD',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
     model.fit(xTrain,yTrain,epochs=5)
-    model.add(keras.layers.dropout(0.2))
+    model.add(keras.layers.Dropout(0.2))
     model.compile(optimizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
     model.fit(xTrain,yTrain,epochs=10)
     return model
