@@ -68,7 +68,7 @@ def findMax(layer):
 
 
 def buildTFNeuralNet(x, y, eps = 6):
-    model = tf.keras.models.Sequential([tf.keras.layers.Flatten(),tf.keras.layers.Dense(60,activation = tf.nn.sigmoid),
+    model = tf.keras.models.Sequential([tf.keras.layers.Flatten(),tf.keras.layers.Dense(60,activation = tf.nn.relu),
     tf.keras.layers.Dense(10,activation = tf.nn.sigmoid)])
     model.compile(optimizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
     return model
@@ -162,17 +162,21 @@ def preprocessData(raw):
 
 
 def trainModel(data):
+   
     xTrain, yTrain = data
     if ALGORITHM == "guesser":
         return None   # Guesser has no model, as it is just guessing.
+   
     elif ALGORITHM == "tf_net":
         print("Building and training TF_NN.")
         model = buildTFNeuralNet(xTrain, yTrain)
         model = trainANN(model,xTrain,yTrain,5)
         return model
+   
     elif ALGORITHM == "tf_conv":
         print("Building and training TF_CNN.")
         return buildTFConvNet(xTrain, yTrain)
+   
     else:
         raise ValueError("Algorithm not recognized.")
 
@@ -181,6 +185,8 @@ def trainModel(data):
 def runModel(data, model):
     if ALGORITHM == "guesser":
         return guesserClassifier(data)
+   
+   
     elif ALGORITHM == "tf_net":
         # print("Testing TF_NN.")
         # preds = model.predict(data)
@@ -190,6 +196,8 @@ def runModel(data, model):
         #     preds[i] = oneHot
         # return preds
          return runANN(data,model)
+   
+   
     elif ALGORITHM == "tf_conv":
         print("Testing TF_CNN.")
         preds = model.predict(data)
