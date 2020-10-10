@@ -14,8 +14,8 @@ tf.compat.v1.random.set_random_seed(1618)
 #tf.logging.set_verbosity(tf.logging.ERROR)   # Uncomment for TF1.
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-ALGORITHM = "guesser"
-#ALGORITHM = "tf_net"
+# ALGORITHM = "guesser"
+ALGORITHM = "tf_net"
 #ALGORITHM = "tf_conv"
 
 DATASET = "mnist_d"
