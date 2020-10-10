@@ -73,16 +73,14 @@ def buildTFNeuralNet(x, y, eps = 6):
     tf.keras.layers.Dense(10,activation = tf.nn.softmax),
     ])
     # model.add(keras.layers.Dropout(0.2))
-    model.compile(optimizer='SGD',momentum=0.9 ,optmizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
+    model.compile(optimizer='SGD',momentum=1.5 ,optmizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
     return model
 
 def trainANN(model,xTrain,yTrain,epochs=5):
     model.fit(xTrain,yTrain,epochs=5)
     model.compile(optimizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
     model.fit(xTrain,yTrain,epochs=5)
-    model.compile(optimizer='SGD',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
-    model.fit(xTrain,yTrain,epochs=5)
-    model.compile(optimizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
+    model.compile(optimizer='adagrad',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
     model.fit(xTrain,yTrain,epochs=10)
     return model
 
