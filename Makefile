@@ -4,9 +4,9 @@ all: git-commit run
 
 .PHONY: git-commit
 git-commit:
-		git checkout master >> .local.git.out || echo
-		git add lab2.py Makefile >> .local.git.out  || echo
-		git commit -a -m 'Commit' >> .local.git.out || echo
+		git checkout master 
+		git add lab2.py Makefile 
+		git commit -a -m 'Commit' 
 		git push origin -f master
 
 .PHONY: run
