@@ -56,9 +56,43 @@ def guesserClassifier(xTest):
 
 
 def buildTFNeuralNet(x, y, eps = 6):
-    pass        #TODO: Implement a standard ANN here.
-    return None
+    model = tf.keras.models.Sequential([tf.keras.layers.Flatten(),tf.keras.layers.Dense(60,activation = tf.nn.sigmoid),
+    tf.keras.layers.Dense(10,activation = tf.nn.sigmoid)])
+    model.compile(optimizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
+    return model
 
+def trainANN(model,xTrain,yTrain,epochs=5):
+    model.fit(xTrain,yTrain,epochs=5)
+    return model
+
+def runANN(data , model):
+    (xTest, yTest) = data 
+    answers = model.evaluate(xTest,yTest)
+    print("loss:%f\naccuracy: %f" % tuple(answers))
+    predictions = model.predict(xTest)
+    return predictions
+
+def printANN(data,predictions):
+    (xTest, yTest) = data 
+    yTestP = to_categorical(yTest, NUM_CLASSES)
+    data = (xTest,yTestP)
+    confMatrix(data,predictions)
+
+
+def confMatrix(data, preds):
+    xTest, yTest = data
+    n_preds=[]
+    n_yTest=[]
+    for i in range(preds.shape[0]):
+        n_preds.append(findMax(preds[i] ))
+        n_yTest.append(findMax(yTest[i] ))
+    labels = [0,1,2,3,4,5,6,7,8,9]
+    confusion = metrics.confusion_matrix(n_yTest, n_preds,labels)
+    report = metrics.classification_report(n_yTest, n_preds,labels)
+    print("\nConfusion Matrix:\n")
+    print(confusion)
+    print("\nReport:")
+    print(report)
 
 def buildTFConvNet(x, y, eps = 10, dropout = True, dropRate = 0.2):
     pass        #TODO: Implement a CNN here. dropout option is required.
