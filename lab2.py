@@ -11,7 +11,7 @@ np.random.seed(1618)
 #tf.set_random_seed(1618)   # Uncomment for TF1.
 # tf.random.set_seed(1618)
 tf.compat.v1.random.set_random_seed(1618)
-#tf.logging.set_verbosity(tf.logging.ERROR)   # Uncomment for TF1.
+tf.logging.set_verbosity(tf.logging.ERROR)   # Uncomment for TF1.
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 # ALGORITHM = "guesser"
