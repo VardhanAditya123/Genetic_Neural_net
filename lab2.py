@@ -82,6 +82,7 @@ def buildTFNeuralNet(x, y, eps = 6):
         tf.keras.layers.Dense(512,activation = tf.nn.relu),
         tf.keras.layers.Dense(100,activation = tf.nn.softmax),
         ])
+        model.add(keras.layers.Dropout(0.27))
     
     model.compile(optimizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
     return model
@@ -105,8 +106,8 @@ def runANN(data , model):
     (xTest, yTest) = data 
     answers = model.evaluate(xTest,yTest)
     print("loss:%f\naccuracy: %f" % tuple(answers))
-    predictions = model.predict(xTest)
-    return predictions
+    # predictions = model.predict(xTest)
+    # return predictions
 
 def printANN(data,predictions):
     (xTest, yTest) = data 
@@ -166,17 +167,17 @@ def preprocessData(raw):
 
     if ALGORITHM == "tf_net":
         return ((xTrain, yTrain), (xTest, yTest))
-        
+
     elif ALGORITHM != "tf_conv":
         xTrainP = xTrain.reshape((xTrain.shape[0], IS))
         xTestP = xTest.reshape((xTest.shape[0], IS))
+        
     else:
         xTrainP = xTrain.reshape((xTrain.shape[0], IH, IW, IZ))
         xTestP = xTest.reshape((xTest.shape[0], IH, IW, IZ))
-   
+       
     yTrainP = to_categorical(yTrain, NUM_CLASSES)
     yTestP = to_categorical(yTest, NUM_CLASSES)
-   
     print("New shape of xTrain dataset: %s." % str(xTrainP.shape))
     print("New shape of xTest dataset: %s." % str(xTestP.shape))
     print("New shape of yTrain dataset: %s." % str(yTrainP.shape))
@@ -212,8 +213,14 @@ def runModel(data, model):
    
    
     elif ALGORITHM == "tf_net":
-        print("Testing TF_NN.")
-        return runANN(data,model)
+        # print("Testing TF_NN.")
+        # preds = model.predict(data)
+        # for i in range(preds.shape[0]):
+        #     oneHot = [0] * NUM_CLASSES
+        #     oneHot[np.argmax(preds[i])] = 1
+        #     preds[i] = oneHot
+        # return preds
+         return runANN(data,model)
    
    
     elif ALGORITHM == "tf_conv":
@@ -248,7 +255,8 @@ def main():
     data = preprocessData(raw)
     model = trainModel(data[0])
     if ALGORITHM == "tf_net":
-        return runANN(data,model)
+        preds = runModel(data[1], model)
+        # printANN(data[1],preds)
     else:
         preds = runModel(data[1][0], model)
         evalResults(data[1], preds)
