@@ -79,9 +79,9 @@ def buildTFConvNet(x, y, eps = 10, dropout = True, dropRate = 0.2):
     model.add(keras.layers.Dense(NUM_CLASSES , activation = "softmax"))
     model.compile(optimizer = opt, loss = lossType ,metrics=['accuracy'])
 
-    model.fit(x,y,epochs = 10)
+    model.fit(x,y,epochs = 1)
     model.compile(optimizer='adadelta',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
-    model.fit(x,y,epochs = 5)
+    # model.fit(x,y,epochs = 5)
     return model
 
 
