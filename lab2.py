@@ -97,8 +97,8 @@ def trainANN(model,xTrain,yTrain,epochs=5):
     
     elif DATASET == "mnist_f":
         model.fit(xTrain,yTrain,epochs=10)
-        model.compile(optimizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
-        model.fit(xTrain,yTrain,epochs=5)
+        model.compile(optimizer='adagrad',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
+        model.fit(xTrain,yTrain,epochs=10)
 
     
 
