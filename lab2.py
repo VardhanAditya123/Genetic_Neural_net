@@ -175,8 +175,8 @@ def preprocessData(raw):
     ((xTrain, yTrain), (xTest, yTest)) = raw
     xTrain,xTest = xTrain/255.0 , xTest/255.0
 
-    if ALGORITHM != "tf_conv":
-        return ((xTrain, yTrain), (xTest, yTest))
+    # if ALGORITHM != "tf_conv":
+    #     return ((xTrain, yTrain), (xTest, yTest))
 
     elif ALGORITHM != "tf_conv":
         xTrainP = xTrain.reshape((xTrain.shape[0], IS))
