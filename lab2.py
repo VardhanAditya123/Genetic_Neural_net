@@ -162,20 +162,14 @@ def getRawData():
 
 def preprocessData(raw):
     ((xTrain, yTrain), (xTest, yTest)) = raw
-    xTrain,xTest = xTrain/255.0 , xTest/255.0
-
-
     if ALGORITHM != "tf_conv":
         xTrainP = xTrain.reshape((xTrain.shape[0], IS))
         xTestP = xTest.reshape((xTest.shape[0], IS))
-        
     else:
         xTrainP = xTrain.reshape((xTrain.shape[0], IH, IW, IZ))
         xTestP = xTest.reshape((xTest.shape[0], IH, IW, IZ))
-       
     yTrainP = to_categorical(yTrain, NUM_CLASSES)
     yTestP = to_categorical(yTest, NUM_CLASSES)
-    yTrainP = yTrainP.reshape(60000,10,1)
     print("New shape of xTrain dataset: %s." % str(xTrainP.shape))
     print("New shape of xTest dataset: %s." % str(xTestP.shape))
     print("New shape of yTrain dataset: %s." % str(yTrainP.shape))
@@ -211,14 +205,13 @@ def runModel(data, model):
    
    
     elif ALGORITHM == "tf_net":
-        # print("Testing TF_NN.")
-        # preds = model.predict(data)
-        # for i in range(preds.shape[0]):
-        #     oneHot = [0] * NUM_CLASSES
-        #     oneHot[np.argmax(preds[i])] = 1
-        #     preds[i] = oneHot
-        # return preds
-         return runANN(data,model)
+        print("Testing TF_NN.")
+        preds = model.predict(data)
+        for i in range(preds.shape[0]):
+            oneHot = [0] * NUM_CLASSES
+            oneHot[np.argmax(preds[i])] = 1
+            preds[i] = oneHot
+        return preds
    
    
     elif ALGORITHM == "tf_conv":
@@ -252,12 +245,8 @@ def main():
     raw = getRawData()
     data = preprocessData(raw)
     model = trainModel(data[0])
-    if ALGORITHM == "tf_net":
-        preds = runModel(data[1], model)
-        # printANN(data[1],preds)
-    else:
-        preds = runModel(data[1][0], model)
-        evalResults(data[1], preds)
+    preds = runModel(data[1][0], model)
+    evalResults(data[1], preds)
 
 
 
