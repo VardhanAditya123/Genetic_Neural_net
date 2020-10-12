@@ -68,20 +68,27 @@ def findMax(layer):
 
 
 def buildTFNeuralNet(x, y, eps = 6):
-    model = tf.keras.models.Sequential([tf.keras.layers.Flatten(),
-    tf.keras.layers.Dense(512,activation = tf.nn.relu),
-    tf.keras.layers.Dense(100,activation = tf.nn.sigmoid),
-    tf.keras.layers.Dense(100,activation = tf.nn.softmax),
-    ])
+    if DATASET == "mnist_d":
+        model = tf.keras.models.Sequential([
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(512,activation = tf.nn.relu),
+        tf.keras.layers.Dense(100,activation = tf.nn.sigmoid),
+        tf.keras.layers.Dense(100,activation = tf.nn.softmax),
+        ])
+
+    elif  DATASET == "mnist_f":
+        model = tf.keras.models.Sequential([
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(512,activation = tf.nn.relu),
+        tf.keras.layers.Dense(100,activation = tf.nn.sigmoid),
+        ])
     model.compile(optimizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
     return model
 
 def trainANN(model,xTrain,yTrain,epochs=5):
     model.fit(xTrain,yTrain,epochs=5)
     model.compile(optimizer='SGD',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
-    model.fit(xTrain,yTrain,epochs=3)
-    model.compile(optimizer='SGD',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
-    model.fit(xTrain,yTrain,epochs=2)
+    model.fit(xTrain,yTrain,epochs=5)
     return model
 
 def runANN(data , model):
