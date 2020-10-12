@@ -60,7 +60,7 @@ elif DATASET == "cifar_100_c":
 #=========================<Classifier Functions>================================
 
 
-def buildTFConvNet(x, y, eps = 10, dropout = True, dropRate = 0.2):
+def buildTFConvNet(x, y, eps = 10, dropout = True, dropRate = 0.18):
     model = keras.Sequential()
     inShape = (IH, IW, IZ)
     lossType = keras.losses.sparse_categorical_crossentropy
@@ -70,9 +70,6 @@ def buildTFConvNet(x, y, eps = 10, dropout = True, dropRate = 0.2):
     model.add(keras.layers.MaxPooling2D(pool_size = (2,2)))
     model.add(tf.keras.layers.Dropout(dropRate))
 
-    model.add(keras.layers.Conv2D(32, kernel_size =(3, 3), activation = "relu"))
-    model.add(keras.layers.MaxPooling2D(pool_size = (3,3)))
-    # model.add(tf.keras.layers.Dropout(dropRate))
 
     model.add(keras.layers.Conv2D(64, kernel_size =(3, 3), activation = "relu"))
     model.add(keras.layers.MaxPooling2D(pool_size = (3,3)))
