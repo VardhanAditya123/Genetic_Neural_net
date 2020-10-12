@@ -113,7 +113,7 @@ def trainANN(model,xTrain,yTrain,epochs=5):
 
 def runANN(data , model):
     (xTest, yTest) = data 
-    # answers = model.evaluate(xTest,yTest)
+    answers = model.evaluate(xTest,yTest)
     # print("loss:%f\naccuracy: %f" % tuple(answers))
     predictions = model.predict(xTest)
     return predictions
@@ -231,12 +231,13 @@ def runModel(data, model):
    
     elif ALGORITHM == "tf_net":
         print("Testing TF_NN.")
-        preds = model.predict(data)
-        for i in range(preds.shape[0]):
-            oneHot = [0] * NUM_CLASSES
-            oneHot[np.argmax(preds[i])] = 1
-            preds[i] = oneHot
-        return preds
+        model.evaluate(xTest,yTest)
+        # preds = model.predict(data)
+        # for i in range(preds.shape[0]):
+        #     oneHot = [0] * NUM_CLASSES
+        #     oneHot[np.argmax(preds[i])] = 1
+        #     preds[i] = oneHot
+        # return preds
 
    
    
