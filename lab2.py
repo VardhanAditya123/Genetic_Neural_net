@@ -181,7 +181,7 @@ def preprocessData(raw):
    
     print("New shape of xTrain dataset: %s." % str(xTrainP.shape))
     print("New shape of xTest dataset: %s." % str(xTestP.shape))
-    print("New shape of yTrain dataset: %s." % str(yTrainP].shape))
+    print("New shape of yTrain dataset: %s." % str(yTrainP.shape))
     print("New shape of yTest dataset: %s." % str(yTestP.shape))
     return ((xTrainP, yTrainP), (xTestP, yTestP))
 
