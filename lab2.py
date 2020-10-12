@@ -231,7 +231,7 @@ def runModel(data, model):
    
     elif ALGORITHM == "tf_net":
         print("Testing TF_NN.")
-        model.evaluate(xTest,yTest)
+        runANN(data , model)
      
     elif ALGORITHM == "tf_conv":
         print("Testing TF_CNN.")
