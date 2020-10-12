@@ -72,6 +72,7 @@ def findMax(layer):
 
 
 def buildTFNeuralNet(x, y, eps = 6):
+   
     if DATASET == "mnist_d":
         model = tf.keras.models.Sequential([
         tf.keras.layers.Flatten(),
@@ -99,7 +100,7 @@ def trainANN(model,xTrain,yTrain,epochs=5):
         model.compile(optimizer='SGD',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
         model.fit(xTrain,yTrain,epochs=5)
     
-    elif DATASET == "mnist_f":
+    else:
         model.fit(xTrain,yTrain,epochs=10)
         model.compile(optimizer='adagrad',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
         model.fit(xTrain,yTrain,epochs=5)
