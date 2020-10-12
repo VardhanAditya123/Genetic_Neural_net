@@ -93,15 +93,11 @@ def buildTFNeuralNet(x, y, eps = 6):
     tf.keras.layers.Dense(100,activation = tf.nn.softmax),
     ])
     model.compile(optimizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
-    return model
-
-def trainANN(model,xTrain,yTrain,epochs=5):
-    model.fit(xTrain,yTrain,epochs=5)
     # model.compile(optimizer='adagrad',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
     # model.fit(xTrain,yTrain,epochs=5)
     return model
 
-def runANN(data , model):
+def run_NN(data , model):
     (xTest, yTest) = data 
     answers = model.evaluate(xTest,yTest)
     return model
@@ -206,7 +202,6 @@ def trainModel(data):
     elif ALGORITHM == "tf_net":
         print("Building and training TF_NN.")
         model = buildTFNeuralNet(xTrain, yTrain)
-        model = trainANN(model,xTrain,yTrain,5)
         return model
    
     elif ALGORITHM == "tf_conv":
@@ -225,11 +220,11 @@ def runModel(data, model):
    
     elif ALGORITHM == "tf_net":
         print("Testing TF_NN.")
-        runANN(data , model)
+        run_NN(data , model)
      
     elif ALGORITHM == "tf_conv":
         print("Testing TF_CNN.")
-        runANN(data,model)
+        run_NN(data,model)
     else:
         raise ValueError("Algorithm not recognized.")
 
