@@ -19,8 +19,8 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 ALGORITHM = "tf_net"
 #ALGORITHM = "tf_conv"
 
-DATASET = "mnist_d"
-# DATASET = "mnist_f"
+# DATASET = "mnist_d"
+DATASET = "mnist_f"
 #DATASET = "cifar_10"
 #DATASET = "cifar_100_f"
 #DATASET = "cifar_100_c"
