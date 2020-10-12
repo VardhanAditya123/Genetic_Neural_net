@@ -73,11 +73,12 @@ def buildTFNeuralNet(x, y, eps = 6):
     tf.keras.layers.Dense(100,activation = tf.nn.sigmoid),
     tf.keras.layers.Dense(100,activation = tf.nn.softmax),
     ])
-    model.add(tf.keras.layers.Dropout(0.15))
     model.compile(optimizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
     return model
 
 def trainANN(model,xTrain,yTrain,epochs=5):
+    model.fit(xTrain,yTrain,epochs=6)
+    model.compile(optimizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
     model.fit(xTrain,yTrain,epochs=6)
     return model
 
