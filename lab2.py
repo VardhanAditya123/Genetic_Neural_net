@@ -162,6 +162,7 @@ def getRawData():
 
 def preprocessData(raw):
     ((xTrain, yTrain), (xTest, yTest)) = raw
+    xTrain,xTest = xTrain/255.0 , xTest/255.0
     if ALGORITHM != "tf_conv":
         xTrainP = xTrain.reshape((xTrain.shape[0], IS))
         xTestP = xTest.reshape((xTest.shape[0], IS))
