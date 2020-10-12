@@ -16,11 +16,11 @@ tf.compat.v1.logging.set_verbosity( tf.compat.v1.logging.ERROR)   # Uncomment fo
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 # ALGORITHM = "guesser"
-# ALGORITHM = "tf_net"
-ALGORITHM = "tf_conv"
+ALGORITHM = "tf_net"
+# ALGORITHM = "tf_conv"
 
-# DATASET = "mnist_d"
-DATASET = "mnist_f"
+DATASET = "mnist_d"
+# DATASET = "mnist_f"
 # DATASET = "cifar_10"
 # DATASET = "cifar_100_f" 
 # DATASET = "cifar_100_c"
@@ -86,40 +86,20 @@ def buildTFConvNet(x, y, eps = 10, dropout = True, dropRate = 0.2):
 
 
 def buildTFNeuralNet(x, y, eps = 6):
-   
-    if DATASET == "mnist_d":
-        model = tf.keras.models.Sequential([
-        tf.keras.layers.Flatten(),
-        tf.keras.layers.Dense(512,activation = tf.nn.relu),
-        tf.keras.layers.Dense(100,activation = tf.nn.sigmoid),
-        tf.keras.layers.Dense(100,activation = tf.nn.softmax),
-        ])
 
-    else:
-        model = tf.keras.models.Sequential([
-        tf.keras.layers.Flatten(),
-        tf.keras.layers.Dense(512,activation = tf.nn.relu),
-        tf.keras.layers.Dense(381,activation = tf.nn.sigmoid),
-        tf.keras.layers.Dense(182,activation = tf.nn.softmax),
-        ])
-    
+    model = tf.keras.models.Sequential([
+    tf.keras.layers.Flatten(),
+    tf.keras.layers.Dense(512,activation = tf.nn.relu),
+    tf.keras.layers.Dense(100,activation = tf.nn.softmax),
+    ])
     model.compile(optimizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
     return model
 
 def trainANN(model,xTrain,yTrain,epochs=5):
-
-    if DATASET == "mnist_d":
-
-        model.fit(xTrain,yTrain,epochs=5)
-        model.compile(optimizer='SGD',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
-        model.fit(xTrain,yTrain,epochs=5)
-    
-    else:
-        model.fit(xTrain,yTrain,epochs=10)
-        model.compile(optimizer='adagrad',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
-        model.fit(xTrain,yTrain,epochs=5)
-        
-        return model
+    model.fit(xTrain,yTrain,epochs=10)
+    model.compile(optimizer='adagrad',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
+    model.fit(xTrain,yTrain,epochs=5)
+    return model
 
 def runANN(data , model):
     (xTest, yTest) = data 
