@@ -96,9 +96,9 @@ def buildTFNeuralNet(x, y, eps = 6):
     return model
 
 def trainANN(model,xTrain,yTrain,epochs=5):
-    model.fit(xTrain,yTrain,epochs=10)
-    model.compile(optimizer='adagrad',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
     model.fit(xTrain,yTrain,epochs=5)
+    # model.compile(optimizer='adagrad',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
+    # model.fit(xTrain,yTrain,epochs=5)
     return model
 
 def runANN(data , model):
