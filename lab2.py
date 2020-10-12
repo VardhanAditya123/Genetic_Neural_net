@@ -101,9 +101,9 @@ def trainANN(model,xTrain,yTrain,epochs=5):
         model.fit(xTrain,yTrain,epochs=5)
     
     else:
-        model.fit(xTrain,yTrain,epochs=10)
+        model.predict(xTrain,yTrain,epochs=10)
         model.compile(optimizer='adagrad',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
-        model.fit(xTrain,yTrain,epochs=5)
+        model.predict(xTrain,yTrain,epochs=5)
     
 
 
@@ -190,7 +190,7 @@ def preprocessData(raw):
     else:
         xTrainP = xTrain.reshape((xTrain.shape[0], IH, IW, IZ))
         xTestP = xTest.reshape((xTest.shape[0], IH, IW, IZ))
-        return ((xTrainP, yTrain), (xTestP, yTest))
+
        
     yTrainP = to_categorical(yTrain, NUM_CLASSES)
     yTestP = to_categorical(yTest, NUM_CLASSES)
