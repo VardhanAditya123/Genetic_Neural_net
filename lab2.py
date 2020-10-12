@@ -162,7 +162,7 @@ def getRawData():
 
 def preprocessData(raw):
     ((xTrain, yTrain), (xTest, yTest)) = raw
-    # xTrain,xTest = xTrain/255.0 , xTest/255.0
+    xTrain,xTest = xTrain/255.0 , xTest/255.0
 
 
     if ALGORITHM != "tf_conv":
@@ -175,6 +175,7 @@ def preprocessData(raw):
        
     yTrainP = to_categorical(yTrain, NUM_CLASSES)
     yTestP = to_categorical(yTest, NUM_CLASSES)
+    yTrainP = yTrainP.reshape(60000,10,1)
     print("New shape of xTrain dataset: %s." % str(xTrainP.shape))
     print("New shape of xTest dataset: %s." % str(xTestP.shape))
     print("New shape of yTrain dataset: %s." % str(yTrainP.shape))
