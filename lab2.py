@@ -63,7 +63,7 @@ elif DATASET == "cifar_100_c":
 def buildTFConvNet(x, y, eps = 10, dropout = True, dropRate = 0.2):
     model = keras.Sequential()
     inShape = (IH, IW, IZ)
-    lossType = keras.losses.categorical_crossentropy
+    lossType = keras.losses.sparse_categorical_crossentropy
     opt = tf.train.AdamOptimizer()
    
     model.add(keras.layers.Conv2D(32, kernel_size =(3, 3), activation = "relu", input_shape = inShape))
