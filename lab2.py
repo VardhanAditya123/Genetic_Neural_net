@@ -108,10 +108,10 @@ def printANN(data , model):
     preds = model.predict(data)
     if ALGORITHM == "tf_conv":
         for i in range(preds.shape[0]):
-        oneHot = [0] * NUM_CLASSES
-        oneHot[np.argmax(preds[i])] = 1
-        preds[i] = oneHot
-        
+            oneHot = [0] * NUM_CLASSES
+            oneHot[np.argmax(preds[i])] = 1
+            preds[i] = oneHot
+
     data = (xTest,yTestP)
     confMatrix(data,preds)
 
