@@ -21,8 +21,8 @@ ALGORITHM = "tf_net"
 
 # DATASET = "mnist_d"
 # DATASET = "mnist_f"
-DATASET = "cifar_10"
-# DATASET = "cifar_100_f" 
+# DATASET = "cifar_10"
+DATASET = "cifar_100_f" 
 # DATASET = "cifar_100_c"
 
 if DATASET == "mnist_d":
