@@ -183,22 +183,22 @@ def preprocessData(raw):
     xTrain,xTest = xTrain/255.0 , xTest/255.0
 
 
-    if ALGORITHM != "tf_conv":
-        xTrainP = xTrain.reshape((xTrain.shape[0], IS))
-        xTestP = xTest.reshape((xTest.shape[0], IS))
+    # if ALGORITHM != "tf_conv":
+    #     xTrainP = xTrain.reshape((xTrain.shape[0], IS))
+    #     xTestP = xTest.reshape((xTest.shape[0], IS))
         
-    else:
-        xTrainP = xTrain.reshape((xTrain.shape[0], IH, IW, IZ))
-        xTestP = xTest.reshape((xTest.shape[0], IH, IW, IZ))
+    # else:
+    #     xTrainP = xTrain.reshape((xTrain.shape[0], IH, IW, IZ))
+    #     xTestP = xTest.reshape((xTest.shape[0], IH, IW, IZ))
 
        
-    # yTrainP = to_categorical(yTrain, NUM_CLASSES)
-    # yTestP = to_categorical(yTest, NUM_CLASSES)
+    # # yTrainP = to_categorical(yTrain, NUM_CLASSES)
+    # # yTestP = to_categorical(yTest, NUM_CLASSES)
     
-    print("New shape of xTrain dataset: %s." % str(xTrainP.shape))
-    print("New shape of xTest dataset: %s." % str(xTestP.shape))
-    print("New shape of yTrain dataset: %s." % str(yTrainP.shape))
-    print("New shape of yTest dataset: %s." % str(yTestP.shape))
+    # print("New shape of xTrain dataset: %s." % str(xTrainP.shape))
+    # print("New shape of xTest dataset: %s." % str(xTestP.shape))
+    # print("New shape of yTrain dataset: %s." % str(yTrainP.shape))
+    # print("New shape of yTest dataset: %s." % str(yTestP.shape))
     return ((xTrain, yTrain), (xTest, yTest))
 
 
