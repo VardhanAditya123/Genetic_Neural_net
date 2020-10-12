@@ -94,7 +94,7 @@ def buildTFNeuralNet(x, y, eps = 6):
     ])
     model.compile(optimizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
     # model.compile(optimizer='adagrad',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
-    # model.fit(xTrain,yTrain,epochs=5)
+    model.fit(xTrain,yTrain,epochs=5)
     return model
 
 def run_NN(data , model):
