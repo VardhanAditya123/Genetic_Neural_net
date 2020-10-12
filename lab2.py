@@ -176,11 +176,12 @@ def preprocessData(raw):
         xTestP = xTest.reshape((xTest.shape[0], IH, IW, IZ))
    
     # yTrainP = to_categorical(yTrain, NUM_CLASSES)
+    yTrainP = yTrain
     yTestP = to_categorical(yTest, NUM_CLASSES)
    
     print("New shape of xTrain dataset: %s." % str(xTrainP.shape))
     print("New shape of xTest dataset: %s." % str(xTestP.shape))
-    print("New shape of yTrain dataset: %s." % str(yTrainP.shape))
+    print("New shape of yTrain dataset: %s." % str(yTrainP].shape))
     print("New shape of yTest dataset: %s." % str(yTestP.shape))
     return ((xTrainP, yTrainP), (xTestP, yTestP))
 
