@@ -106,6 +106,7 @@ def printANN(data , model):
     (xTest, yTest) = data 
     yTestP = to_categorical(yTest, NUM_CLASSES)
     preds = model.predict(data)
+    
     if ALGORITHM == "tf_conv":
         for i in range(preds.shape[0]):
             oneHot = [0] * NUM_CLASSES
