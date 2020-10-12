@@ -20,8 +20,8 @@ ALGORITHM = "tf_net"
 #ALGORITHM = "tf_conv"
 
 # DATASET = "mnist_d"
-DATASET = "mnist_f"
-#DATASET = "cifar_10"
+# DATASET = "mnist_f"
+DATASET = "cifar_10"
 #DATASET = "cifar_100_f"
 #DATASET = "cifar_100_c"
 
@@ -76,7 +76,7 @@ def buildTFNeuralNet(x, y, eps = 6):
         tf.keras.layers.Dense(100,activation = tf.nn.softmax),
         ])
 
-    elif  DATASET == "mnist_f":
+    else:
         model = tf.keras.models.Sequential([
         tf.keras.layers.Flatten(),
         tf.keras.layers.Dense(512,activation = tf.nn.relu),
