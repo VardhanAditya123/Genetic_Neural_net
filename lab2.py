@@ -165,8 +165,9 @@ def preprocessData(raw):
     xTrain,xTest = xTrain/255.0 , xTest/255.0
 
     if ALGORITHM == "tf_net":
-        xTrainP = xTrain.reshape((xTrain.shape[0], IS))
-        xTestP = xTest.reshape((xTest.shape[0], IS))
+        xTrain = xTrain.reshape((xTrain.shape[0], IS))
+        xTest = xTest.reshape((xTest.shape[0], IS))
+        return ((xTrain, yTrain), (xTest, yTest))
 
     if ALGORITHM != "tf_conv":
         xTrainP = xTrain.reshape((xTrain.shape[0], IS))
