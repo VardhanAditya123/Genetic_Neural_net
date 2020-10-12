@@ -16,8 +16,8 @@ tf.compat.v1.logging.set_verbosity( tf.compat.v1.logging.ERROR)   # Uncomment fo
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 # ALGORITHM = "guesser"
-ALGORITHM = "tf_net"
-#ALGORITHM = "tf_conv"
+# ALGORITHM = "tf_net"
+ALGORITHM = "tf_conv"
 
 # DATASET = "mnist_d"
 # DATASET = "mnist_f"
@@ -51,24 +51,21 @@ elif DATASET == "cifar_100_c":
 
 #=========================<Classifier Functions>================================
 
-def guesserClassifier(xTest):
-    ans = []
-    for entry in xTest:
-        pred = [0] * NUM_CLASSES
-        pred[random.randint(0, 9)] = 1
-        ans.append(pred)
-    return np.array(ans)
 
-def findMax(layer):
-    max = layer[0]
-    max_l = 0
-    i = 0
-    while i < 10:
-        if layer[i] > max:
-            max = layer[i]
-            max_l = i
-        i+=1
-    return max_l
+def buildTFConvNet(x, y, eps = 10, dropout = True, dropRate = 0.2):
+    model = keras.Sequential()
+    inShape = (IH, IW, IZ)
+    lossType = keras.losses.sparse_categorical_crossentropy
+    opt = tf.train.AdamOptimizer()
+    model.add(keras.layers.Conv2D(32, kernel_size =(3, 3), activation = "relu", input_shape = inShape))
+    model.add(keras.layers.Conv2D(64, kernel_size =(3, 3), activation = "relu"))
+    model.add(keras.layers.MaxPooling2D(pool_size = (2,2)))
+    model.add(keras.layers.Flatten())
+    model.add(layers.Dense(128 , activation = "relu"))
+    model.add(layers.Dense(NUM_CLASSES , activation = "softmax"))
+    model.compile(optimizer = opt, loss = lossType)
+    model.fit(x,y,epochs = 200)
+    return model
 
 
 def buildTFNeuralNet(x, y, eps = 6):
@@ -104,12 +101,8 @@ def trainANN(model,xTrain,yTrain,epochs=5):
         model.fit(xTrain,yTrain,epochs=10)
         model.compile(optimizer='adagrad',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
         model.fit(xTrain,yTrain,epochs=5)
-    
-
-
-    
-
-    return model
+        
+        return model
 
 def runANN(data , model):
     (xTest, yTest) = data 
@@ -140,9 +133,6 @@ def confMatrix(data, preds):
     print("\nReport:")
     print(report)
 
-def buildTFConvNet(x, y, eps = 10, dropout = True, dropRate = 0.2):
-    pass        #TODO: Implement a CNN here. dropout option is required.
-    return None
 
 #=========================<Pipeline Functions>==================================
 
@@ -235,12 +225,7 @@ def runModel(data, model):
      
     elif ALGORITHM == "tf_conv":
         print("Testing TF_CNN.")
-        preds = model.predict(data)
-        for i in range(preds.shape[0]):
-            oneHot = [0] * NUM_CLASSES
-            oneHot[np.argmax(preds[i])] = 1
-            preds[i] = oneHot
-        return preds
+        runANN(data,model)
     else:
         raise ValueError("Algorithm not recognized.")
 
