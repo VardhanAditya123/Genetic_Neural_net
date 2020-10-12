@@ -82,7 +82,6 @@ def buildTFNeuralNet(x, y, eps = 6):
         tf.keras.layers.Dense(512,activation = tf.nn.relu),
         tf.keras.layers.Dense(100,activation = tf.nn.softmax),
         ])
-        model.add(keras.layers.Dropout(0.27))
     
     model.compile(optimizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
     return model
@@ -165,10 +164,8 @@ def preprocessData(raw):
     ((xTrain, yTrain), (xTest, yTest)) = raw
     xTrain,xTest = xTrain/255.0 , xTest/255.0
 
-    if ALGORITHM == "tf_net":
-        return ((xTrain, yTrain), (xTest, yTest))
 
-    elif ALGORITHM != "tf_conv":
+    if ALGORITHM != "tf_conv":
         xTrainP = xTrain.reshape((xTrain.shape[0], IS))
         xTestP = xTest.reshape((xTest.shape[0], IS))
         
