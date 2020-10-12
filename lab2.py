@@ -150,6 +150,7 @@ def getRawData():
     if DATASET == "mnist_d":
         mnist = tf.keras.datasets.mnist
         (xTrain, yTrain), (xTest, yTest) = mnist.load_data()
+   
     elif DATASET == "mnist_f":
         mnist = tf.keras.datasets.fashion_mnist
         (xTrain, yTrain), (xTest, yTest) = mnist.load_data()
@@ -167,6 +168,7 @@ def getRawData():
         (xTrain, yTrain), (xTest, yTest) = cifar_100_c.load_data()
     else:
         raise ValueError("Dataset not recognized.")
+   
     print("Dataset: %s" % DATASET)
     print("Shape of xTrain dataset: %s." % str(xTrain.shape))
     print("Shape of yTrain dataset: %s." % str(yTrain.shape))
@@ -229,14 +231,14 @@ def runModel(data, model):
    
    
     elif ALGORITHM == "tf_net":
-        # print("Testing TF_NN.")
-        # preds = model.predict(data)
-        # for i in range(preds.shape[0]):
-        #     oneHot = [0] * NUM_CLASSES
-        #     oneHot[np.argmax(preds[i])] = 1
-        #     preds[i] = oneHot
-        # return preds
-         return runANN(data,model)
+        print("Testing TF_NN.")
+        preds = model.predict(data)
+        for i in range(preds.shape[0]):
+            oneHot = [0] * NUM_CLASSES
+            oneHot[np.argmax(preds[i])] = 1
+            preds[i] = oneHot
+        return preds
+
    
    
     elif ALGORITHM == "tf_conv":
