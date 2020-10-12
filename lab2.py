@@ -153,9 +153,8 @@ def confMatrix(data, preds):
     for i in range(preds.shape[0]):
         n_preds.append(findMax(preds[i] ))
         n_yTest.append(findMax(yTest[i] ))
-    labels = [0,1,2,3,4,5,6,7,8,9]
-    confusion = metrics.confusion_matrix(n_yTest, n_preds,labels)
-    report = metrics.classification_report(n_yTest, n_preds,labels)
+    confusion = metrics.confusion_matrix(n_yTest, n_preds)
+    report = metrics.classification_report(n_yTest, n_preds)
     print("\nConfusion Matrix:\n")
     print(confusion)
     print("\nReport:")
@@ -207,14 +206,11 @@ def preprocessData(raw):
         xTrainP = xTrain.reshape((xTrain.shape[0], IH, IW, IZ))
         xTestP = xTest.reshape((xTest.shape[0], IH, IW, IZ))
 
-       
-    yTrainP = to_categorical(yTrain, NUM_CLASSES)
-    yTestP = to_categorical(yTest, NUM_CLASSES)
     
     print("New shape of xTrain dataset: %s." % str(xTrainP.shape))
     print("New shape of xTest dataset: %s." % str(xTestP.shape))
-    print("New shape of yTrain dataset: %s." % str(yTrainP.shape))
-    print("New shape of yTest dataset: %s." % str(yTestP.shape))
+    print("New shape of yTrain dataset: %s." % str(yTrain.shape))
+    print("New shape of yTest dataset: %s." % str(yTest.shape))
     return ((xTrainP, yTrain), (xTestP, yTest))
 
 
