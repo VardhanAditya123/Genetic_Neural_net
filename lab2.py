@@ -232,15 +232,7 @@ def runModel(data, model):
     elif ALGORITHM == "tf_net":
         print("Testing TF_NN.")
         model.evaluate(xTest,yTest)
-        # preds = model.predict(data)
-        # for i in range(preds.shape[0]):
-        #     oneHot = [0] * NUM_CLASSES
-        #     oneHot[np.argmax(preds[i])] = 1
-        #     preds[i] = oneHot
-        # return preds
-
-   
-   
+     
     elif ALGORITHM == "tf_conv":
         print("Testing TF_CNN.")
         preds = model.predict(data)
@@ -272,7 +264,7 @@ def main():
     raw = getRawData()
     data = preprocessData(raw)
     model = trainModel(data[0])
-    preds = runModel(data[1][0], model)
+    preds = runModel(data[1], model)
     # evalResults(data[1], preds)
 
 
