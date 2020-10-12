@@ -79,8 +79,8 @@ def buildTFNeuralNet(x, y, eps = 6):
     elif  DATASET == "mnist_f":
         model = tf.keras.models.Sequential([
         tf.keras.layers.Flatten(),
-        tf.keras.layers.Dense(512,activation = tf.nn.relu),
-        tf.keras.layers.Dense(100,activation = tf.nn.relu),
+        tf.keras.layers.Dense(512,activation = tf.nn.sigmoid),
+        tf.keras.layers.Dense(100,activation = tf.nn.softmax),
         ])
     model.compile(optimizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
     return model
