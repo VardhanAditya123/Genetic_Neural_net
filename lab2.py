@@ -273,7 +273,7 @@ def main():
     data = preprocessData(raw)
     model = trainModel(data[0])
     preds = runModel(data[1][0], model)
-    evalResults(data[1], preds)
+    # evalResults(data[1], preds)
 
 
 
