@@ -105,7 +105,7 @@ def run_NN(data , model):
 def printANN(data , model):
     (xTest, yTest) = data 
     yTestP = to_categorical(yTest, NUM_CLASSES)
-    preds = model.predict(data)
+    preds = model.predict(xTest)
     
     if ALGORITHM == "tf_conv":
         for i in range(preds.shape[0]):
