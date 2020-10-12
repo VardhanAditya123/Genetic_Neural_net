@@ -78,7 +78,7 @@ def buildTFNeuralNet(x, y, eps = 6):
 
 def trainANN(model,xTrain,yTrain,epochs=5):
     model.fit(xTrain,yTrain,epochs=5)
-    model.compile(optimizer='SVD',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
+    model.compile(optimizer='SGD',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
     model.fit(xTrain,yTrain,epochs=5)
     return model
 
