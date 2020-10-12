@@ -213,7 +213,7 @@ def runModel(data, model):
    
     elif ALGORITHM == "tf_net":
         print("Testing TF_NN.")
-         return runANN(data,model)
+        return runANN(data,model)
    
    
     elif ALGORITHM == "tf_conv":
