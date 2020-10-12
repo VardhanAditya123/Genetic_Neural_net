@@ -85,7 +85,7 @@ def buildTFConvNet(x, y, eps = 10, dropout = True, dropRate = 0.2):
     return model
 
 
-def buildTFNeuralNet(x, y, eps = 6):
+def buildTFNeuralNet(xTrain, yTrain, eps = 6):
 
     model = tf.keras.models.Sequential([
     tf.keras.layers.Flatten(),
