@@ -44,13 +44,13 @@ elif DATASET == "cifar_10":
     IZ = 3
     IS = 3072                                # TODO: Add this case.
 elif DATASET == "cifar_100_f":
-    NUM_CLASSES = 10
+    NUM_CLASSES = 100
     IH = 32
     IW = 32
     IZ = 3
     IS = 3072                            # TODO: Add this case.
 elif DATASET == "cifar_100_c":
-    NUM_CLASSES = 10
+    NUM_CLASSES = 20
     IH = 32
     IW = 32
     IZ = 3
