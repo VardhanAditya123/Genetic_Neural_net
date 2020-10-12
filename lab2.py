@@ -75,11 +75,10 @@ def buildTFConvNet(x, y, eps = 10, dropout = True, dropRate = 0.2):
     model.add(keras.layers.MaxPooling2D(pool_size = (3,3)))
 
     model.add(keras.layers.Flatten())
-
     model.add(keras.layers.Dense(128 , activation = "relu"))
     model.add(keras.layers.Dense(NUM_CLASSES , activation = "softmax"))
     model.compile(optimizer = opt, loss = lossType ,metrics=['accuracy'])
-    
+
     model.fit(x,y,epochs = 10)
     return model
 
@@ -123,15 +122,17 @@ def trainANN(model,xTrain,yTrain,epochs=5):
 def runANN(data , model):
     (xTest, yTest) = data 
     answers = model.evaluate(xTest,yTest)
-    # print("loss:%f\naccuracy: %f" % tuple(answers))
-    predictions = model.predict(xTest)
-    return predictions
 
-def printANN(data,predictions):
+def printANN(data):
     (xTest, yTest) = data 
     yTestP = to_categorical(yTest, NUM_CLASSES)
+    preds = model.predict(data)
+    for i in range(preds.shape[0]):
+        oneHot = [0] * NUM_CLASSES
+        oneHot[np.argmax(preds[i])] = 1
+        preds[i] = oneHot
     data = (xTest,yTestP)
-    confMatrix(data,predictions)
+    confMatrix(data,preds)
 
 
 def confMatrix(data, preds):
@@ -264,6 +265,7 @@ def main():
     data = preprocessData(raw)
     model = trainModel(data[0])
     preds = runModel(data[1], model)
+    printANN(data[1])
     # evalResults(data[1], preds)
 
 
