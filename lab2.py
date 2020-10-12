@@ -175,7 +175,7 @@ def preprocessData(raw):
         xTrainP = xTrain.reshape((xTrain.shape[0], IH, IW, IZ))
         xTestP = xTest.reshape((xTest.shape[0], IH, IW, IZ))
    
-    yTrainP = to_categorical(yTrain, NUM_CLASSES)
+    # yTrainP = to_categorical(yTrain, NUM_CLASSES)
     yTestP = to_categorical(yTest, NUM_CLASSES)
    
     print("New shape of xTrain dataset: %s." % str(xTrainP.shape))
