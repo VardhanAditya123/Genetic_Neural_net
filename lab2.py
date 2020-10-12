@@ -79,9 +79,9 @@ def buildTFConvNet(x, y, eps = 10, dropout = True, dropRate = 0.2):
     model.add(keras.layers.Dense(NUM_CLASSES , activation = "softmax"))
     model.compile(optimizer = opt, loss = lossType ,metrics=['accuracy'])
 
-    model.fit(x,y,epochs = 1)
+    model.fit(x,y,epochs = 10)
     model.compile(optimizer='adadelta',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
-    # model.fit(x,y,epochs = 5)
+    model.fit(x,y,epochs = 5)
     return model
 
 
@@ -106,10 +106,12 @@ def printANN(data , model):
     (xTest, yTest) = data 
     yTestP = to_categorical(yTest, NUM_CLASSES)
     preds = model.predict(data)
-    for i in range(preds.shape[0]):
+    if ALGORITHM == "tf_conv":
+        for i in range(preds.shape[0]):
         oneHot = [0] * NUM_CLASSES
         oneHot[np.argmax(preds[i])] = 1
         preds[i] = oneHot
+        
     data = (xTest,yTestP)
     confMatrix(data,preds)
 
