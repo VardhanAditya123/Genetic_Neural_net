@@ -122,8 +122,9 @@ def trainANN(model,xTrain,yTrain,epochs=5):
 def runANN(data , model):
     (xTest, yTest) = data 
     answers = model.evaluate(xTest,yTest)
+    return model
 
-def printANN(data):
+def printANN(data , model):
     (xTest, yTest) = data 
     yTestP = to_categorical(yTest, NUM_CLASSES)
     preds = model.predict(data)
@@ -265,7 +266,7 @@ def main():
     data = preprocessData(raw)
     model = trainModel(data[0])
     preds = runModel(data[1], model)
-    printANN(data[1])
+    printANN(data[1],model)
     # evalResults(data[1], preds)
 
 
