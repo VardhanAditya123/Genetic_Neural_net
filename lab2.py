@@ -57,14 +57,22 @@ def buildTFConvNet(x, y, eps = 10, dropout = True, dropRate = 0.2):
     inShape = (IH, IW, IZ)
     lossType = keras.losses.sparse_categorical_crossentropy
     opt = tf.train.AdamOptimizer()
+   
     model.add(keras.layers.Conv2D(32, kernel_size =(3, 3), activation = "relu", input_shape = inShape))
+    model.add(keras.layers.MaxPooling2D(pool_size = (2,2)))
+    model.add(tf.keras.layers.Dropout(dropRate))
+    model.add(BatchNormalization())
+
     model.add(keras.layers.Conv2D(64, kernel_size =(3, 3), activation = "relu"))
     model.add(keras.layers.MaxPooling2D(pool_size = (2,2)))
+    model.add(BatchNormalization())
+
     model.add(keras.layers.Flatten())
+
     model.add(keras.layers.Dense(128 , activation = "relu"))
     model.add(keras.layers.Dense(NUM_CLASSES , activation = "softmax"))
     model.compile(optimizer = opt, loss = lossType ,metrics=['accuracy'])
-    model.fit(x,y,epochs = 8)
+    model.fit(x,y,epochs = 10)
     return model
 
 
