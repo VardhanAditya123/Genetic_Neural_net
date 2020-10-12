@@ -150,15 +150,15 @@ def getRawData():
         (xTrain, yTrain), (xTest, yTest) = mnist.load_data()
    
     elif DATASET == "cifar_10":
-        cifar_10 = tf.keras.datasets.cifar_10
+        cifar_10 = tf.keras.datasets.cifar10
         (xTrain, yTrain), (xTest, yTest) = cifar_10.load_data()
    
     elif DATASET == "cifar_100_f":
-        cifar_100_f = tf.keras.datasets.cifar_100_f
+        cifar_100_f = tf.keras.datasets.cifar100_f
         (xTrain, yTrain), (xTest, yTest) = cifar_100_f.load_data()
    
     elif DATASET == "cifar_100_c":
-        cifar_100_c = tf.keras.datasets.cifar_100_c
+        cifar_100_c = tf.keras.datasets.cifar100_c
         (xTrain, yTrain), (xTest, yTest) = cifar_100_c.load_data()
     else:
         raise ValueError("Dataset not recognized.")
