@@ -60,7 +60,7 @@ elif DATASET == "cifar_100_c":
 #=========================<Classifier Functions>================================
 
 
-def buildTFConvNet(x, y, eps = 10, dropout = True, dropRate = 0.25):
+def buildTFConvNet(x, y, eps = 10, dropout = True, dropRate = 0.2):
     model = keras.Sequential()
     inShape = (IH, IW, IZ)
     lossType = keras.losses.sparse_categorical_crossentropy
@@ -80,6 +80,8 @@ def buildTFConvNet(x, y, eps = 10, dropout = True, dropRate = 0.25):
     model.compile(optimizer = opt, loss = lossType ,metrics=['accuracy'])
 
     model.fit(x,y,epochs = 10)
+    model.compile(optimizer='SGD',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
+    model.fit(x,y,epochs = 5)
     return model
 
 
