@@ -79,7 +79,7 @@ def buildTFConvNet(x, y, eps = 10, dropout = True, dropRate = 0.2):
     model.add(keras.layers.Dense(NUM_CLASSES , activation = "softmax"))
     model.compile(optimizer = opt, loss = lossType ,metrics=['accuracy'])
 
-    model.fit(x,y,epochs = 10)
+    model.fit(x,y,epochs = 1)
     return model
 
 
@@ -135,6 +135,16 @@ def printANN(data , model):
     data = (xTest,yTestP)
     confMatrix(data,preds)
 
+def findMax(layer):
+    max = layer[0]
+    max_l = 0
+    i = 0
+    while i < NUM_CLASSES:
+        if layer[i] > max:
+            max = layer[i]
+            max_l = i
+        i+=1
+    return max_l
 
 def confMatrix(data, preds):
     xTest, yTest = data
