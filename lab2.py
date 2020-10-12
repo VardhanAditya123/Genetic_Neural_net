@@ -101,9 +101,9 @@ def trainANN(model,xTrain,yTrain,epochs=5):
         model.fit(xTrain,yTrain,epochs=5)
     
     else:
-        model.predict(xTrain,yTrain,epochs=10)
+        model.predict(xTest)
         model.compile(optimizer='adagrad',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
-        model.predict(xTrain,yTrain,epochs=5)
+        model.predict(xTest)
     
 
 
@@ -182,8 +182,6 @@ def preprocessData(raw):
     ((xTrain, yTrain), (xTest, yTest)) = raw
     xTrain,xTest = xTrain/255.0 , xTest/255.0
 
-    # if ALGORITHM != "tf_conv":
-    #     return ((xTrain, yTrain), (xTest, yTest))
 
     if ALGORITHM != "tf_conv":
         xTrainP = xTrain.reshape((xTrain.shape[0], IS))
@@ -196,6 +194,7 @@ def preprocessData(raw):
        
     yTrainP = to_categorical(yTrain, NUM_CLASSES)
     yTestP = to_categorical(yTest, NUM_CLASSES)
+    
     print("New shape of xTrain dataset: %s." % str(xTrainP.shape))
     print("New shape of xTest dataset: %s." % str(xTestP.shape))
     print("New shape of yTrain dataset: %s." % str(yTrainP.shape))
@@ -274,7 +273,7 @@ def main():
     model = trainModel(data[0])
     if ALGORITHM == "tf_net":
         preds = runModel(data[1], model)
-        # printANN(data[1],preds)
+        evalResults(data[1], preds)
     else:
         preds = runModel(data[1][0], model)
         evalResults(data[1], preds)
