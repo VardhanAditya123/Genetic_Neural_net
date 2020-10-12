@@ -44,7 +44,11 @@ elif DATASET == "cifar_10":
     IZ = 3
     IS = 3072                                # TODO: Add this case.
 elif DATASET == "cifar_100_f":
-    pass                                 # TODO: Add this case.
+    NUM_CLASSES = 10
+    IH = 32
+    IW = 32
+    IZ = 3
+    IS = 3072                            # TODO: Add this case.
 elif DATASET == "cifar_100_c":
     pass                                 # TODO: Add this case.
 
@@ -157,12 +161,11 @@ def getRawData():
         (xTrain, yTrain), (xTest, yTest) = cifar_10.load_data()
    
     elif DATASET == "cifar_100_f":
-        cifar_100_f = tf.keras.datasets.cifar100_f
-        (xTrain, yTrain), (xTest, yTest) = cifar_100_f.load_data()
+        (xTrain, yTrain), (xTest, yTest) = tf.keras.datasets.cifar100.load_data(label_mode="fine")
    
     elif DATASET == "cifar_100_c":
         cifar_100_c = tf.keras.datasets.cifar100_c
-        (xTrain, yTrain), (xTest, yTest) = cifar_100_c.load_data()
+        (xTrain, yTrain), (xTest, yTest) = tf.keras.datasets.cifar100.load_data(label_mode="coarse")
     else:
         raise ValueError("Dataset not recognized.")
    
