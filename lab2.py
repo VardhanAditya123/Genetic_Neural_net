@@ -167,16 +167,17 @@ def preprocessData(raw):
     if ALGORITHM == "tf_net":
         xTrain = xTrain.reshape((xTrain.shape[0], IS))
         xTest = xTest.reshape((xTest.shape[0], IS))
-        return ((xTrain, yTrain), (xTest, yTest))
-
-    if ALGORITHM != "tf_conv":
+        
+    elif ALGORITHM != "tf_conv":
         xTrainP = xTrain.reshape((xTrain.shape[0], IS))
         xTestP = xTest.reshape((xTest.shape[0], IS))
     else:
         xTrainP = xTrain.reshape((xTrain.shape[0], IH, IW, IZ))
         xTestP = xTest.reshape((xTest.shape[0], IH, IW, IZ))
-    yTrainP = to_categorical(yTrain, NUM_CLASSES)
+   
+    # yTrainP = to_categorical(yTrain, NUM_CLASSES)
     yTestP = to_categorical(yTest, NUM_CLASSES)
+   
     print("New shape of xTrain dataset: %s." % str(xTrainP.shape))
     print("New shape of xTest dataset: %s." % str(xTestP.shape))
     print("New shape of yTrain dataset: %s." % str(yTrainP.shape))
