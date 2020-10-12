@@ -16,8 +16,8 @@ tf.compat.v1.logging.set_verbosity( tf.compat.v1.logging.ERROR)   # Uncomment fo
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 # ALGORITHM = "guesser"
-ALGORITHM = "tf_net"
-# ALGORITHM = "tf_conv"
+# ALGORITHM = "tf_net"
+ALGORITHM = "tf_conv"
 
 DATASET = "mnist_d"
 # DATASET = "mnist_f"
