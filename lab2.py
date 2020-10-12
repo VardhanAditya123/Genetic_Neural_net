@@ -81,6 +81,8 @@ def buildTFNeuralNet(x, y, eps = 6):
         tf.keras.layers.Flatten(),
         tf.keras.layers.Dense(512,activation = tf.nn.relu),
         tf.keras.layers.Dense(381,activation = tf.nn.sigmoid),
+        tf.keras.layers.Dense(251,activation = tf.nn.sigmoid),
+        tf.keras.layers.Dense(250,activation = tf.nn.sigmoid),
         tf.keras.layers.Dense(182,activation = tf.nn.softmax),
         ])
     
