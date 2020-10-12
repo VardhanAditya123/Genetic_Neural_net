@@ -101,9 +101,9 @@ def trainANN(model,xTrain,yTrain,epochs=5):
         model.fit(xTrain,yTrain,epochs=5)
     
     else:
-        model.predict(xTest)
+        model.fit(xTrain,yTrain,epochs=10)
         model.compile(optimizer='adagrad',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
-        model.predict(xTest)
+        model.fit(xTrain,yTrain,epochs=5)
     
 
 
@@ -113,10 +113,10 @@ def trainANN(model,xTrain,yTrain,epochs=5):
 
 def runANN(data , model):
     (xTest, yTest) = data 
-    answers = model.evaluate(xTest,yTest)
-    print("loss:%f\naccuracy: %f" % tuple(answers))
-    # predictions = model.predict(xTest)
-    # return predictions
+    # answers = model.evaluate(xTest,yTest)
+    # print("loss:%f\naccuracy: %f" % tuple(answers))
+    predictions = model.predict(xTest)
+    return predictions
 
 def printANN(data,predictions):
     (xTest, yTest) = data 
@@ -271,12 +271,8 @@ def main():
     raw = getRawData()
     data = preprocessData(raw)
     model = trainModel(data[0])
-    if ALGORITHM == "tf_net":
-        preds = runModel(data[1], model)
-        evalResults(data[1], preds)
-    else:
-        preds = runModel(data[1][0], model)
-        evalResults(data[1], preds)
+    preds = runModel(data[1][0], model)
+    evalResults(data[1], preds)
 
 
 
