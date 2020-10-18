@@ -102,11 +102,14 @@ Finally, do the style transfer with gradient descent.
 Save the newly generated and deprocessed images.
 '''
 def styleTransfer(cData, sData, tData):
+   
     print("   Building transfer model.")
     contentTensor = K.variable(cData)
     styleTensor = K.variable(sData)
     genTensor = K.placeholder((1, CONTENT_IMG_H, CONTENT_IMG_W, 3))
     inputTensor = K.concatenate([contentTensor, styleTensor, genTensor], axis=0)
+    
+    
     model = vgg19.VGG19(include_top =False, weights = "imagenet" , input_tensor = inputTensor)
     outputDict = dict([(layer.name, layer.output) for layer in model.layers])
     print("   VGG19 model loaded.")
@@ -124,6 +127,9 @@ def styleTransfer(cData, sData, tData):
     loss += None   #TODO: implement.
     # TODO: Setup gradients or use K.gradients().
     print("   Beginning transfer.")
+    
+    
+    
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
         #TODO: perform gradient descent using fmin_l_bfgs_b.
