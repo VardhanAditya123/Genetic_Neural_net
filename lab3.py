@@ -123,7 +123,8 @@ def styleTransfer(cData, sData, tData):
     contentLayer = outputDict[contentLayerName]
     contentOutput = contentLayer[0, :, :, :]
     genOutput = contentLayer[2, :, :, :]
-    loss += None   #TODO: implement.
+    
+    loss += square(genOutput - contentOutput)
     
     
     print("   Calculating style loss.")
