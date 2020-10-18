@@ -4,7 +4,7 @@ import tensorflow as tf
 from tensorflow import keras
 import tensorflow.keras.backend as K
 import random
-from scipy.misc import imsave, imresize
+from scipy import imsave, imresize
 from scipy.optimize import fmin_l_bfgs_b   # https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.fmin_l_bfgs_b.html
 from tensorflow.keras.applications import vgg19
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
