@@ -16,8 +16,8 @@ tf.compat.v1.random.set_random_seed(1618)
 tf.compat.v1.logging.set_verbosity( tf.compat.v1.logging.ERROR)
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-CONTENT_IMG_PATH = ""           #TODO: Add this.
-STYLE_IMG_PATH = ""             #TODO: Add this.
+CONTENT_IMG_PATH = "source.png"           #TODO: Add this.
+STYLE_IMG_PATH = "style.png"             #TODO: Add this.
 
 
 CONTENT_IMG_H = 500
