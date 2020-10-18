@@ -130,6 +130,7 @@ def styleTransfer(cData, sData, tData):
     for layerName in styleLayerNames:
         styleLayer = outputDict[layerName]
         styleOutput = styleLayer[0, :, :, :]
+        genOutput = styleLayer[2, :, :, :]
         loss += styleLoss(styleOutput,genOutput)
    
     loss += None   #TODO: implement.
