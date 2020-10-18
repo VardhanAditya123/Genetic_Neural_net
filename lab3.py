@@ -107,7 +107,7 @@ def styleTransfer(cData, sData, tData):
     styleTensor = K.variable(sData)
     genTensor = K.placeholder((1, CONTENT_IMG_H, CONTENT_IMG_W, 3))
     inputTensor = K.concatenate([contentTensor, styleTensor, genTensor], axis=0)
-    model = None   #TODO: implement.
+    model = vgg19.VGG19(include_top =False, weights = "imagenet" , input_Tensor = inputTensor)
     outputDict = dict([(layer.name, layer.output) for layer in model.layers])
     print("   VGG19 model loaded.")
     loss = 0.0
