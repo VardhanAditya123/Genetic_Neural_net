@@ -114,6 +114,7 @@ def styleTransfer(cData, sData, tData):
    
     outputDict = dict([(layer.name, layer.output) for layer in model.layers])
    
+    print(outputDict)
     print("   VGG19 model loaded.")
     loss = 0.0
     styleLayerNames = ["block1_conv1", "block2_conv1", "block3_conv1", "block4_conv1", "block5_conv1"]
@@ -124,6 +125,8 @@ def styleTransfer(cData, sData, tData):
     contentOutput = contentLayer[0, :, :, :]
     genOutput = contentLayer[2, :, :, :]
     loss += None   #TODO: implement.
+    
+    
     print("   Calculating style loss.")
     for layerName in styleLayerNames:
         loss += None   #TODO: implement.
