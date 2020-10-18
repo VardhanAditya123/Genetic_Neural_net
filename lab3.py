@@ -31,7 +31,7 @@ STYLE_WEIGHT = 1.0      # Beta weight.
 TOTAL_WEIGHT = 1.0
 
 TRANSFER_ROUNDS = 3
-
+numFilters = 20
 
 
 #=============================<Helper Fuctions>=================================
