@@ -111,12 +111,15 @@ def styleTransfer(cData, sData, tData):
     
     
     model = vgg19.VGG19(include_top =False, weights = "imagenet" , input_tensor = inputTensor)
+   
     outputDict = dict([(layer.name, layer.output) for layer in model.layers])
+   
     print("   VGG19 model loaded.")
     loss = 0.0
     styleLayerNames = ["block1_conv1", "block2_conv1", "block3_conv1", "block4_conv1", "block5_conv1"]
     contentLayerName = "block5_conv2"
     print("   Calculating content loss.")
+   
     contentLayer = outputDict[contentLayerName]
     contentOutput = contentLayer[0, :, :, :]
     genOutput = contentLayer[2, :, :, :]
