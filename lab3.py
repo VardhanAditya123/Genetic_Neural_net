@@ -128,7 +128,9 @@ def styleTransfer(cData, sData, tData):
     
     print("   Calculating style loss.")
     for layerName in styleLayerNames:
-        loss += styleLoss(styleTensor,genTensor)
+        styleLayer = outputDict[layerName]
+        styleOutput = styleLayer[0, :, :, :]
+        loss += styleLoss(styleOutput,genOutput)
    
     loss += None   #TODO: implement.
     # TODO: Setup gradients or use K.gradients().
