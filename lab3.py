@@ -53,7 +53,7 @@ def gramMatrix(x):
 #========================<Loss Function Builder Functions>======================
 
 def styleLoss(style, gen):
-    return None   #TODO: implement.
+    return K.sum(K.square(gramMatrix(style) - gramMatrix(gen))) / (4 * (numFilters^2) *((CONTENT_IMG_W * CONTENT_IMG_H)^2))
 
 
 def contentLoss(content, gen):
@@ -124,11 +124,12 @@ def styleTransfer(cData, sData, tData):
     contentOutput = contentLayer[0, :, :, :]
     genOutput = contentLayer[2, :, :, :]
     
-    loss += (genOutput - contentOutput) * (genOutput - contentOutput)
+    loss += contentLoss(contentOutput , genOutput)
     
     print("   Calculating style loss.")
     for layerName in styleLayerNames:
-        loss += None   #TODO: implement.
+        loss += styleLoss(styleTensor,genTensor)
+   
     loss += None   #TODO: implement.
     # TODO: Setup gradients or use K.gradients().
     print("   Beginning transfer.")
