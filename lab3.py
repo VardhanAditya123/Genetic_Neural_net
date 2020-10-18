@@ -114,7 +114,7 @@ def styleTransfer(cData, sData, tData):
    
     outputDict = dict([(layer.name, layer.output) for layer in model.layers])
    
-    print(outputDict)
+    # print(outputDict)
     print("   VGG19 model loaded.")
     loss = 0.0
     styleLayerNames = ["block1_conv1", "block2_conv1", "block3_conv1", "block4_conv1", "block5_conv1"]
