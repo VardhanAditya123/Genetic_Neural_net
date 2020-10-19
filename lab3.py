@@ -153,6 +153,13 @@ def styleTransfer(cData, sData, tData):
     
     opt = tf.train.AdamOptimizer()
 
+
+
+    with tf.GradientTape() as tape:
+        grads = tape.gradient(loss, combination_image)
+
+
+
     for i in range(TRANSFER_ROUNDS):
         
         print("   Step %d." % i)
