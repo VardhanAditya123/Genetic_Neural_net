@@ -122,39 +122,16 @@ Finally, do the style transfer with gradient descent.
 Save the newly generated and deprocessed images.
 '''
 
-outputs = 0
-genTensor=0
 
 def styleTransfer(cData, sData, tData ):   
  
-    def evaluate_loss_and_gradients(x):
-        x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
-        outs = K.function([genTensor], outputs)([x])
-        loss = outs[0]
-        gradients = outs[1].flatten().astype("float64")
-        return loss, gradients
-
-    class Evaluator:
-        def loss(self, x):
-            loss, gradients = evaluate_loss_and_gradients(x)
-            self._gradients = gradients
-            return loss
-        def gradients(self, x):
-            return self._gradients
-    
-    evaluator = Evaluator()
-
     print("   Beginning transfer.")
     optimizer = tf.train.AdamOptimizer()
 
     for i in range(TRANSFER_ROUNDS):
         
         print("   Step %d." % i)
-        loss, grads = compute_loss_and_grads(cData , sData , tData)
-        outputs = [loss]
-        outputs += grads
-        x= tData
-        x, loss, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.gradients , maxiter=40)
+        optimizer.apply_gradients([(grads, combination_image)])
         print("   Loss: %f." % loss)
         img = deprocess_image(tData)
         img = array_to_img(img)
