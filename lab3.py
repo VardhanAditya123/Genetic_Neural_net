@@ -161,17 +161,12 @@ def styleTransfer(cData, sData, tData):
         # x, loss, info = fmin_l_bfgs_b( func=kFunction, x0=x.flatten(), fprime=grads , maxiter=20)
         print(loss)
         # print("   Loss: %f." % loss)
-    # img = deprocess_image(x)
-    # saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
-    # imsave(saveFile, img)   #Uncomment when everything is working right.
-    # print("      Image saved to \"%s\"." % saveFile)
-    # print("   Transfer complete.")
-        result_prefix = "paris_generated"
-        img = deprocess_image(tData)
-        fname = result_prefix + "_at_iteration_%d.png" % i
-        keras.preprocessing.image.save_img(fname, img)
-        # print("      Image saved to \"%s\"." % saveFile)
+        img = deprocess_image(x)
+        saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
+        imsave(saveFile, img)   #Uncomment when everything is working right.
+        print("      Image saved to \"%s\"." % saveFile)
         print("   Transfer complete.")
+       
 
 
 
