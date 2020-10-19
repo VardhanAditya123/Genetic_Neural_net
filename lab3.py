@@ -161,11 +161,21 @@ def styleTransfer(cData, sData, tData):
         # x, loss, info = fmin_l_bfgs_b( func=kFunction, x0=x.flatten(), fprime=grads , maxiter=20)
         print(loss)
         # print("   Loss: %f." % loss)
-        img = deprocess_image(x)
-        saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
-        imsave(saveFile, img)   #Uncomment when everything is working right.
-        print("      Image saved to \"%s\"." % saveFile)
-    print("   Transfer complete.")
+    # img = deprocess_image(x)
+    # saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
+    # imsave(saveFile, img)   #Uncomment when everything is working right.
+    # print("      Image saved to \"%s\"." % saveFile)
+    # print("   Transfer complete.")
+    x = x.reshape((500, 500, 3))
+    x = x[:, :, ::-1]
+    x[:, :, 0] += IMAGENET_MEAN_RGB_VALUES[2]
+    x[:, :, 1] += IMAGENET_MEAN_RGB_VALUES[1]
+    x[:, :, 2] += IMAGENET_MEAN_RGB_VALUES[0]
+    x = np.clip(x, 0, 255).astype("uint8")
+    output_image = Image.fromarray(x)
+    print("   Transfer success.")
+
+    output_image.save(output_image_path)
 
 
 
