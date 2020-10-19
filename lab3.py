@@ -131,7 +131,7 @@ def styleTransfer(cData, sData, tData ):
     for i in range(TRANSFER_ROUNDS):
         loss, grads = compute_loss_and_grads(combination_image, base_image, style_reference_image)
         print("   Step %d." % i)
-        optimizer.apply_gradients([(grads, combination_image)])
+        optimizer.apply_gradients([(grads, tData )])
         print("   Loss: %f." % loss)
         img = deprocess_image(tData)
         img = array_to_img(img)
