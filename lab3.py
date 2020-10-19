@@ -161,7 +161,7 @@ def styleTransfer(cData, sData, tData):
             return t_loss
 
         def gradients(self, x):
-            return self._gradients
+            return grads
 
     evaluator = Evaluator()
 
