@@ -156,7 +156,7 @@ def styleTransfer(cData, sData, tData):
 
     def evaluate_loss_and_gradients(x):
         x = x.reshape((1, 500, 500, 3))
-        outs = K.function([tData], outputs)
+        outs = K.function([tData], outputs)([x])
         loss = outs[0]
         gradients = outs[1].flatten().astype("float64")
         return loss, gradients
