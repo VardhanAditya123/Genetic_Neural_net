@@ -60,8 +60,7 @@ def contentLoss(content, gen):
     return K.sum(K.square(gen - content))
 
 
-def totalLoss(x):
-    content_loss , style_loss = x
+def totalLoss(content_loss , style_loss):
     return K.sum((CONTENT_WEIGHT * content_loss)+(STYLE_WEIGHT * style_loss))
 
 
@@ -136,7 +135,7 @@ def styleTransfer(cData, sData, tData):
         genOutput = styleLayer[2, :, :, :]
         s_loss += styleLoss(styleOutput,genOutput)
    
-    t_loss += totalLoss( (c_loss , s_loss))
+    t_loss += totalLoss(c_loss , s_loss)
    
     # TODO: Setup gradients or use K.gradients().
     grads = K.gradients(t_loss ,tData)
@@ -148,7 +147,7 @@ def styleTransfer(cData, sData, tData):
         
         print("   Step %d." % i)
         #TODO: perform gradient descent using fmin_l_bfgs_b.
-        fmin_l_bfgs_b(  func=totalLoss ,x0=tData, fprime=grads ,args=((contentLoss,styleLoss)))
+        fmin_l_bfgs_b  (func=totalLoss ,x0=tData, fprime=grads ,args=(contentLoss,styleLoss))
         
         print("      Loss: %f." % tLoss)
         img = deprocessImage(x)
