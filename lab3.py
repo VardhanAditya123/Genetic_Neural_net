@@ -60,7 +60,8 @@ def contentLoss(content, gen):
     return K.sum(K.square(gen - content))
 
 
-def totalLoss(content_loss , style_loss):
+def totalLoss(x):
+    content_loss , style_loss = x
     return K.sum((CONTENT_WEIGHT * content_loss)+(STYLE_WEIGHT * style_loss))
 
 
@@ -135,7 +136,7 @@ def styleTransfer(cData, sData, tData):
         genOutput = styleLayer[2, :, :, :]
         s_loss += styleLoss(styleOutput,genOutput)
    
-    t_loss += totalLoss(c_loss , s_loss)
+    t_loss += totalLoss( (c_loss , s_loss))
    
     # TODO: Setup gradients or use K.gradients().
     grads = K.gradients(t_loss ,tData)
