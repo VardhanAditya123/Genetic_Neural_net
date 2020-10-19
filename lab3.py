@@ -71,11 +71,15 @@ def contentLoss(content, gen):
     return K.sum(K.square(gen - content))
 
 
-def totalLoss(content_loss , style_loss):
-    return K.sum((CONTENT_WEIGHT * content_loss)+(STYLE_WEIGHT * style_loss))
 
-def totalLoss2(params , *args):
-    return K.sum((CONTENT_WEIGHT * content_loss)+(STYLE_WEIGHT * style_loss))
+def totalLoss(x):
+    a = tf.square(
+        x[:, : STYLE_IMG_H - 1, : STYLE_IMG_H - 1, :] - x[:, 1:, : STYLE_IMG_H - 1, :]
+    )
+    b = tf.square(
+        x[:, : STYLE_IMG_H - 1, : STYLE_IMG_H - 1, :] - x[:, : STYLE_IMG_H - 1, 1:, :]
+    )
+    return tf.reduce_sum(tf.pow(a + b, 1.25))
 
 
 #=========================<Pipeline Functions>==================================
@@ -147,7 +151,8 @@ def styleTransfer(cData, sData, tData):
         genOutput = styleLayer[2, :, :, :]
         loss = loss + (STYLE_WEIGHT / len(styleLayerNames))* styleLoss(styleOutput,genOutput) 
    
-    # loss =  TOTAL_WEIGHT * totalLoss(c_loss , s_loss)
+    loss += TOTAL_WEIGHT * totalLoss(genOutput)
+    
    
     # TODO: Setup gradients or use K.gradients().
 
