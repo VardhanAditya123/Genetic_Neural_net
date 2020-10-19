@@ -177,7 +177,7 @@ def compute_loss_and_grads(cData, sData, tData):
     
     loss +=  totalLoss(genTensor)
     with tf.GradientTape() as tape:
-        grads = tape.gradient(loss, combination_image)
+        grads = tape.gradient(loss, tData)
     
    
 
