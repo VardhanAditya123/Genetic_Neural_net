@@ -193,8 +193,7 @@ def styleTransfer(cData, sData, tData):
         print("   Step %d." % i)
         # x, loss, info = fmin_l_bfgs_b( func=kFunction, x0=x.flatten(), fprime=grads , maxiter=20)
         x, loss, info = fmin_l_bfgs_b(evaluator.loss, x.flatten(), fprime=evaluator.gradients, maxfun=20)
-        print(loss)
-        # print("   Loss: %f." % loss)
+        print("   Loss: %f." % loss)
         img = deprocess_image(x)
         img = array_to_img(img)
         saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
