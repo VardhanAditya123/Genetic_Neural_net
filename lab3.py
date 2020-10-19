@@ -32,8 +32,7 @@ TOTAL_WEIGHT = 1.0
 
 TRANSFER_ROUNDS = 3
 numFilters = 20
-t_loss = 0
-tData = 0
+
 #=============================<Helper Fuctions>=================================
 '''
 TODO: implement this.
@@ -65,18 +64,6 @@ def totalLoss(content_loss , style_loss):
 
 def totalLoss2(params , *args):
     return K.sum((CONTENT_WEIGHT * content_loss)+(STYLE_WEIGHT * style_loss))
-
-class Evaluator:
-
-    def loss(self, x):
-        loss = t_loss
-        return loss
-
-    def gradients(self, x):
-        grads = K.gradients(t_loss ,tData)
-        return grads
-
-evaluator = Evaluator()
 
 
 #=========================<Pipeline Functions>==================================
@@ -139,28 +126,36 @@ def styleTransfer(cData, sData, tData):
     s_loss = 0
     t_loss = 0
 
-    c_loss += contentLoss(contentOutput , genOutput)
+    t_loss = t_loss + (CONTENT_WEIGHT)*contentLoss(contentOutput , genOutput)
     
     print("   Calculating style loss.")
     for layerName in styleLayerNames:
         styleLayer = outputDict[layerName]
         styleOutput = styleLayer[1, :, :, :]
         genOutput = styleLayer[2, :, :, :]
-        s_loss += styleLoss(styleOutput,genOutput)
+        t_loss = t_loss + (STYLE_WEIGHT / len(styleLayerNames))* styleLoss(styleOutput,genOutput) 
    
-    t_loss += totalLoss(c_loss , s_loss)
+    t_loss =  TOTAL_WEIGHT * totalLoss(c_loss , s_loss)
    
     # TODO: Setup gradients or use K.gradients().
-
+    grads = K.gradients(t_loss ,tData)
     print("   Beginning transfer.")
     
-    
+    class Evaluator:
+        def loss(self, x):
+            loss = t_loss
+            return loss
+
+        def gradients(self, x):
+            return grads
+
+    evaluator = Evaluator()
     
     for i in range(TRANSFER_ROUNDS):
         
         print("   Step %d." % i)
         #TODO: perform gradient descent using fmin_l_bfgs_b.
-        fmin_l_bfgs_b(evaluator.loss ,x0=tData, fprime=evaluator.gradients, approx_grad=True, maxfun=20)
+        tdata , loss , info = fmin_l_bfgs_b(evaluator.loss ,x0=tData, fprime=evaluator.gradients, approx_grad=True, maxfun=20)
         print("      Loss: %f." % tLoss)
         img = deprocessImage(x)
         saveFile = None   #TODO: Implement.
