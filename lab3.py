@@ -186,7 +186,7 @@ def styleTransfer(cData, sData, tData):
             return self._gradients
 
     evaluator = Evaluator()
-     x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
+    x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
 
 
     for i in range(TRANSFER_ROUNDS):
