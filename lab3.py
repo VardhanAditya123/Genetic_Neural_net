@@ -34,7 +34,7 @@ img_ncols = 500
 IMAGE_HEIGHT = 500
 IMAGE_WIDTH = 500
 CHANNELS = 3
-TRANSFER_ROUNDS = 3
+TRANSFER_ROUNDS = 10
 numFilters = 20
 
 #=============================<Helper Fuctions>=================================
