@@ -188,13 +188,13 @@ def styleTransfer(cData, sData, tData):
     evaluator = Evaluator()
     x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
 
+    optimizer = tf.train.AdamOptimizer()
 
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
-        # x, loss, info = fmin_l_bfgs_b( func=kFunction, x0=x.flatten(), fprime=grads , maxiter=20)
-        x, loss, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.gradients , maxiter=40)
+        optimizer.apply_gradients([(grads, tData)])
         print("   Loss: %f." % loss)
-        img = deprocess_image(x)
+        img = deprocess_image(tData)
         img = array_to_img(img)
         saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
         # imsave(saveFile, img)   #Uncomment when everything is working right.
