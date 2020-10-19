@@ -133,25 +133,25 @@ def styleTransfer(cData, sData, tData):
     genOutput = contentLayer[2, :, :, :]
     c_loss = 0
     s_loss = 0
-    t_loss = 0.0
+    loss = 0.0
 
-    t_loss = t_loss + (CONTENT_WEIGHT)*contentLoss(contentOutput , genOutput)
+    loss = loss + (CONTENT_WEIGHT)*contentLoss(contentOutput , genOutput)
     
     print("   Calculating style loss.")
     for layerName in styleLayerNames:
         styleLayer = outputDict[layerName]
         styleOutput = styleLayer[1, :, :, :]
         genOutput = styleLayer[2, :, :, :]
-        t_loss = t_loss + (STYLE_WEIGHT / len(styleLayerNames))* styleLoss(styleOutput,genOutput) 
+        loss = loss + (STYLE_WEIGHT / len(styleLayerNames))* styleLoss(styleOutput,genOutput) 
    
-    t_loss =  TOTAL_WEIGHT * totalLoss(c_loss , s_loss)
+    loss =  TOTAL_WEIGHT * totalLoss(c_loss , s_loss)
    
     # TODO: Setup gradients or use K.gradients().
 
     print("   Beginning transfer.")
     
-    grads = K.gradients(t_loss, tData)
-    outputs = [t_loss]
+    grads = K.gradients(loss, tData)
+    outputs = [loss]
     outputs.append(grads)
     kFunction = K.function([genTensor], outputs)
 
@@ -160,8 +160,8 @@ def styleTransfer(cData, sData, tData):
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
         # x, loss, info = fmin_l_bfgs_b( func=kFunction, x0=x.flatten(), fprime=grads , maxiter=20)
-        print(t_loss)
-        print("   Loss: %f." % t_loss)
+        print(loss)
+        print("   Loss: %f." % loss)
         img = deprocessImage(x)
         saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
         imsave(saveFile, img)   #Uncomment when everything is working right.
