@@ -176,7 +176,7 @@ def compute_loss_and_grads(cData, sData, tData):
         loss = loss + (STYLE_WEIGHT / len(styleLayerNames))* styleLoss(styleOutput,genOutput) 
     
     loss +=  totalLoss(genTensor)
-    grads = K.gradients(loss, tData)
+    grads = K.gradients(loss, genTensor)
     
    
 
