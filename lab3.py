@@ -144,6 +144,7 @@ def styleTransfer(cData, sData, tData):
 
     print("   Beginning transfer.")
     optimizer = tf.train.AdamOptimizer()
+    x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
 
     for i in range(TRANSFER_ROUNDS):
         
@@ -151,7 +152,7 @@ def styleTransfer(cData, sData, tData):
         loss, grads = compute_loss_and_grads(cData , sData , tData)
         outputs = [loss]
         outputs += grads
-        tData, loss, info = fmin_l_bfgs_b(evaluator.loss, tData, fprime=evaluator.gradients , maxiter=40)
+        tData, loss, info = fmin_l_bfgs_b(evaluator.loss, x , fprime=evaluator.gradients , maxiter=40)
         # print("   Loss: %f." % loss)
         img = deprocess_image(tData)
         img = array_to_img(img)
