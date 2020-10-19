@@ -60,9 +60,8 @@ def contentLoss(content, gen):
     return K.sum(K.square(gen - content))
 
 
-def totalLoss(x):
-    return None   #TODO: implement.
-
+def totalLoss(c_loss , s_loss):
+    return K.sum((CONTENT_WEIGHT * c_loss)+(STYLE_WEIGHT * s_loss))
 
 
 
@@ -108,7 +107,6 @@ def styleTransfer(cData, sData, tData):
     styleTensor = K.variable(sData)
     genTensor = K.placeholder((1, CONTENT_IMG_H, CONTENT_IMG_W, 3))
     inputTensor = K.concatenate([contentTensor, styleTensor, genTensor], axis=0)
-    print(inputTensor)
     
     
     model = vgg19.VGG19(include_top =False, weights = "imagenet" , input_tensor = inputTensor)
@@ -125,7 +123,7 @@ def styleTransfer(cData, sData, tData):
     contentOutput = contentLayer[0, :, :, :]
     genOutput = contentLayer[2, :, :, :]
     
-    loss += contentLoss(contentOutput , genOutput)
+    c_loss += contentLoss(contentOutput , genOutput)
     
     print("   Calculating style loss.")
     for layerName in styleLayerNames:
@@ -134,7 +132,8 @@ def styleTransfer(cData, sData, tData):
         genOutput = styleLayer[2, :, :, :]
         loss += styleLoss(styleOutput,genOutput)
    
-    loss += None   #TODO: implement.
+    s_loss += totalLoss(c_loss , s_loss)
+   
     # TODO: Setup gradients or use K.gradients().
     print("   Beginning transfer.")
     
