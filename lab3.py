@@ -133,7 +133,7 @@ def styleTransfer(cData, sData, tData):
     genOutput = contentLayer[2, :, :, :]
     c_loss = 0
     s_loss = 0
-    t_loss = tf.zeros(shape=())
+    t_loss = 0.0
 
     t_loss = t_loss + (CONTENT_WEIGHT)*contentLoss(contentOutput , genOutput)
     
@@ -150,8 +150,28 @@ def styleTransfer(cData, sData, tData):
 
     print("   Beginning transfer.")
     
-    opt = tf.train.AdamOptimizer()
-    grads = tf.gradients(t_loss, tData)
+    outputs = [t_loss]
+    outputs += backend.gradients(loss, combination_image)
+
+
+    def evaluate_loss_and_gradients(x):
+        x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
+        outs = backend.function([combination_image], outputs)([x])
+        loss = outs[0]
+        gradients = outs[1].flatten().astype("float64")
+        return loss, gradients
+
+    class Evaluator:
+
+        def loss(self, x):
+            loss, gradients = evaluate_loss_and_gradients(x)
+            self._gradients = gradients
+            return loss
+
+        def gradients(self, x):
+            return self._gradients
+
+    evaluator = Evaluator()
 
 
 
