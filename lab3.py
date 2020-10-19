@@ -148,7 +148,7 @@ def styleTransfer(cData, sData, tData):
         
         print("   Step %d." % i)
         #TODO: perform gradient descent using fmin_l_bfgs_b.
-        fmin_l_bfgs_b(  func=totalLoss ,x0=tData, fprime=grads ,args=(contentLoss,styleLoss))
+        fmin_l_bfgs_b(  func=totalLoss ,x0=tData, fprime=grads ,args=((contentLoss,styleLoss)))
         
         print("      Loss: %f." % tLoss)
         img = deprocessImage(x)
