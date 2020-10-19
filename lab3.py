@@ -153,7 +153,7 @@ def styleTransfer(cData, sData, tData):
     opt = tf.train.AdamOptimizer()
 
     with tf.GradientTape() as tape:
-        grads = tape.gradient(loss, tData)
+        grads = tape.gradient(t_loss, tData)
 
 
 
