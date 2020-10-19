@@ -128,10 +128,11 @@ def styleTransfer(cData, sData, tData ):
     print("   Beginning transfer.")
     optimizer = tf.train.AdamOptimizer()
 
+    loss, grads = compute_loss_and_grads(cData, sData, tData )
+    
     outputs = [loss]
     outputs += backend.gradients(loss, combination_image)
 
-    loss, grads = compute_loss_and_grads(cData, sData, tData )
     def evaluate_loss_and_gradients(x):
         x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
         outs = backend.function([combination_image], outputs)([x])
