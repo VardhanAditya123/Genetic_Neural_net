@@ -136,7 +136,8 @@ def styleTransfer(cData, sData, tData):
     loss = 0.0
 
     loss = loss + (CONTENT_WEIGHT)*contentLoss(contentOutput , genOutput)
-    
+    print("After Content:\n")
+    print(loss)
     print("   Calculating style loss.")
     for layerName in styleLayerNames:
         styleLayer = outputDict[layerName]
