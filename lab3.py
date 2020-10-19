@@ -150,23 +150,15 @@ def styleTransfer(cData, sData, tData):
 
     print("   Beginning transfer.")
     
+    grads = K.gradients(loss, tData)
     outputs = [t_loss]
-    outputs.append( K.gradients(loss, tData))
-
-
-    def evaluate_loss_and_gradients(x):
-        x = x.reshape((1, 500, 500, 3))
-        outs = K.function([genTensor], outputs)
-        loss = outs[0]
-        gradients = outs[1].flatten().astype("float64")
-        return loss, gradients
+    outputs.append(grads)
+    outs = K.function([genTensor], outputs)
 
     class Evaluator:
 
         def loss(self, x):
-            loss, gradients = evaluate_loss_and_gradients(x)
-            self._gradients = gradients
-            return loss
+            return t_loss
 
         def gradients(self, x):
             return self._gradients
