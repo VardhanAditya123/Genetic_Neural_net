@@ -149,13 +149,13 @@ def styleTransfer(cData, sData, tData):
     # TODO: Setup gradients or use K.gradients().
 
     print("   Beginning transfer.")
+    x = tData
     
     grads = K.gradients(loss, tData)
     outputs = [loss]
     outputs.append(grads)
-    kFunction = K.function([genTensor] , outputs)
+    kFunction = K.function([genTensor] , outputs)([x])
 
-    x = tData
 
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
