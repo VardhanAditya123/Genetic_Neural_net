@@ -179,6 +179,8 @@ def compute_loss (cData, sData, tData):
         styleOutput = styleLayer[1, :, :, :]
         genOutput = styleLayer[2, :, :, :]
         loss = loss + (STYLE_WEIGHT / len(styleLayerNames))* styleLoss(styleOutput,genOutput) 
+    
+    loss += TOTAL_WEIGHT * total_variation_loss(combination_image)
 
 #=========================<Main>================================================
 
