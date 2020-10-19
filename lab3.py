@@ -128,8 +128,7 @@ def styleTransfer(cData, sData, tData ):
  
     print("   Beginning transfer.")
     optimizer = tf.train.AdamOptimizer()
-
-    loss, grads = compute_loss_and_grads(cData, sData, tData )
+    compute_loss_and_grads(cData, sData, tData )
     
     x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
     for i in range(TRANSFER_ROUNDS):
