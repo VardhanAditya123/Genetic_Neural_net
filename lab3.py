@@ -159,7 +159,7 @@ def styleTransfer(cData, sData, tData):
 
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
-        x, loss, info = fmin_l_bfgs_b( func=kFunction, x0=contentTensor, fprime=grads , maxiter=20)
+        x, loss, info = fmin_l_bfgs_b( func=kFunction, x0=inputTensor, fprime=grads , maxiter=20)
         print("   Loss: %f." % tLoss)
         img = deprocessImage(tData)
         saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
