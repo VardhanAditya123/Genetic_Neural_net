@@ -152,7 +152,7 @@ def styleTransfer(cData, sData, tData):
     # evaluator = Evaluator()
     def evaluate_loss_and_gradients(x):
         x = x.reshape((1, 500 , 500, 3))
-        outs = K.function([combination_image], outputs)([x])
+        outs = K.function([genOutput], outputs)([x])
         loss = outs[0]
         gradients = outs[1].flatten().astype("float64")
         return loss, gradients
