@@ -36,7 +36,7 @@ IMAGE_WIDTH = 500
 CHANNELS = 3
 TRANSFER_ROUNDS = 10
 numFilters = 20
-x=0
+x = 0
 
 #=============================<Helper Fuctions>=================================
 '''
