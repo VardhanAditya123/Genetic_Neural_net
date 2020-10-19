@@ -138,18 +138,21 @@ def styleTransfer(cData, sData, tData):
     t_loss += totalLoss(c_loss , s_loss)
    
     # TODO: Setup gradients or use K.gradients().
-    K.gradients(t_loss ,tData)
+    grads = K.gradients(t_loss ,tData)
     print("   Beginning transfer.")
     
     
     
     for i in range(TRANSFER_ROUNDS):
+        
         print("   Step %d." % i)
         #TODO: perform gradient descent using fmin_l_bfgs_b.
+        fmin_l_bfgs_b(tData , grads)
+        
         print("      Loss: %f." % tLoss)
         img = deprocessImage(x)
         saveFile = None   #TODO: Implement.
-        #imsave(saveFile, img)   #Uncomment when everything is working right.
+        imsave(saveFile, img)   #Uncomment when everything is working right.
         print("      Image saved to \"%s\"." % saveFile)
     print("   Transfer complete.")
 
