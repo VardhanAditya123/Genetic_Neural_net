@@ -128,10 +128,33 @@ def styleTransfer(cData, sData, tData ):
     print("   Beginning transfer.")
     optimizer = tf.train.AdamOptimizer()
 
+    outputs = [loss]
+    outputs += backend.gradients(loss, combination_image)
+
+
+    def evaluate_loss_and_gradients(x):
+        x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
+        outs = backend.function([combination_image], outputs)([x])
+        loss = outs[0]
+        gradients = outs[1].flatten().astype("float64")
+        return loss, gradients
+
+    class Evaluator:
+
+        def loss(self, x):
+            loss, gradients = evaluate_loss_and_gradients(x)
+            self._gradients = gradients
+            return loss
+
+        def gradients(self, x):
+            return self._gradients
+
+    evaluator = Evaluator()
+
     for i in range(TRANSFER_ROUNDS):
         loss, grads = compute_loss_and_grads(cData, sData, tData )
         print("   Step %d." % i)
-        optimizer.apply_gradients( [(grads, tData )] )
+        x, loss, info = fmin_l_bfgs_b(evaluator.loss, x.flatten(), fprime=evaluator.gradients, maxfun=20)
         print("   Loss: %f." % loss)
         img = deprocess_image(tData)
         img = array_to_img(img)
@@ -139,6 +162,7 @@ def styleTransfer(cData, sData, tData ):
         # imsave(saveFile, img)   #Uncomment when everything is working right.
         print("      Image saved to \"%s\"." % saveFile)
         print("   Transfer complete.")
+        
        
 
 
@@ -176,7 +200,7 @@ def compute_loss_and_grads(cData, sData, tData):
         loss = loss + (STYLE_WEIGHT / len(styleLayerNames))* styleLoss(styleOutput,genOutput) 
     
     loss +=  totalLoss(genTensor)
-    
+
     with tf.GradientTape() as tape:
         loss +=  totalLoss(genTensor)
         grads = tape.gradient(loss, tData)
