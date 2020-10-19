@@ -36,7 +36,7 @@ IMAGE_WIDTH = 500
 CHANNELS = 3
 TRANSFER_ROUNDS = 10
 numFilters = 20
-genTensor=0
+
 
 #=============================<Helper Fuctions>=================================
 '''
@@ -122,8 +122,10 @@ Finally, do the style transfer with gradient descent.
 Save the newly generated and deprocessed images.
 '''
 
+outputs = 0
+genTensor=0
 
-def styleTransfer(cData, sData, tData):   
+def styleTransfer(cData, sData, tData ):   
  
     def evaluate_loss_and_gradients(x):
         x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
