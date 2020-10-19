@@ -151,7 +151,7 @@ def styleTransfer(cData, sData, tData):
     print("   Beginning transfer.")
     
     outputs = [t_loss]
-    outputs += backend.gradients(loss, combination_image)
+    outputs += K.gradients(loss, combination_image)
 
 
     def evaluate_loss_and_gradients(x):
