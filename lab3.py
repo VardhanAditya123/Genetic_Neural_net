@@ -141,13 +141,31 @@ def styleTransfer(cData, sData, tData):
     grads = K.gradients(t_loss ,tData)
     print("   Beginning transfer.")
     
+    # class Evaluator:
+    #     def loss(self, x):
+    #         loss = t_loss
+    #         return loss
+
+    #     def gradients(self, x):
+    #         return grads
+
+    # evaluator = Evaluator()
+    def evaluate_loss_and_gradients(x):
+        x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
+        outs = K.function([combination_image], outputs)([x])
+        loss = outs[0]
+        gradients = outs[1].flatten().astype("float64")
+        return loss, gradients
+
     class Evaluator:
+
         def loss(self, x):
-            loss = t_loss
+            loss, gradients = evaluate_loss_and_gradients(x)
+            self._gradients = gradients
             return loss
 
         def gradients(self, x):
-            return grads
+            return self._gradients
 
     evaluator = Evaluator()
     
