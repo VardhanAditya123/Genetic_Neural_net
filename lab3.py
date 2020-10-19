@@ -191,8 +191,8 @@ def styleTransfer(cData, sData, tData):
 
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
-        # x, loss, info = fmin_l_bfgs_b( func=kFunction, x0=x.flatten(), fprime=grads , maxiter=20)
-        x, loss, info = fmin_l_bfgs_b(evaluator.loss, x.flatten(), fprime=evaluator.gradients, maxfun=20)
+        x, loss, info = fmin_l_bfgs_b( func=kFunction, x0=x.flatten(), fprime=grads , maxiter=20)
+        # x, loss, info = fmin_l_bfgs_b(evaluator.loss, x.flatten(), fprime=evaluator.gradients, maxfun=20)
         print(loss)
         # print("   Loss: %f." % loss)
         img = deprocess_image(x)
