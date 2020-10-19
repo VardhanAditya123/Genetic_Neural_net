@@ -138,6 +138,7 @@ def styleTransfer(cData, sData, tData):
     t_loss += totalLoss(c_loss , s_loss)
    
     # TODO: Setup gradients or use K.gradients().
+    K.gradients(t_loss ,tData)
     print("   Beginning transfer.")
     
     
