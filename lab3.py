@@ -167,7 +167,7 @@ def styleTransfer(cData, sData, tData):
     # print("      Image saved to \"%s\"." % saveFile)
     # print("   Transfer complete.")
         result_prefix = "paris_generated"
-        img = deprocess_image(x)
+        img = deprocess_image(tData)
         fname = result_prefix + "_at_iteration_%d.png" % i
         keras.preprocessing.image.save_img(fname, img)
         # print("      Image saved to \"%s\"." % saveFile)
