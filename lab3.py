@@ -155,11 +155,11 @@ def styleTransfer(cData, sData, tData):
     outputs.append(grads)
     kFunction = K.function([genTensor], outputs)
 
-    x = tData
+    x = np.random.uniform(0, 255, (1, 500, 500, 3)) - 128.
 
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
-        x, loss, info = fmin_l_bfgs_b( func=kFunction, x0=inputTensor, fprime=grads , maxiter=20)
+        x, loss, info = fmin_l_bfgs_b( func=kFunction, x0=x.flatten(), fprime=grads , maxiter=20)
         print("   Loss: %f." % tLoss)
         img = deprocessImage(tData)
         saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
