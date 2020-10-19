@@ -56,7 +56,7 @@ def deprocess_image(x):
     return x
 
 
-def gramMatrix(x):
+def gram_matrix(x):
     features = K.batch_flatten(K.permute_dimensions(x, (2, 0, 1)))
     gram = K.dot(features, K.transpose(features))
     return gram
