@@ -101,6 +101,18 @@ def preprocessData(raw):
     return img
 
 
+def deprocess_image(x):
+    # Util function to convert a tensor into a valid image
+    x = x.reshape((img_nrows, img_ncols, 3))
+    # Remove zero-center by mean pixel
+    x[:, :, 0] += 103.939
+    x[:, :, 1] += 116.779
+    x[:, :, 2] += 123.68
+    # 'BGR'->'RGB'
+    x = x[:, :, ::-1]
+    x = np.clip(x, 0, 255).astype("uint8")
+    return x
+
 '''
 TODO: Allot of stuff needs to be implemented in this function.
 First, make sure the model is set up properly.
@@ -166,17 +178,12 @@ def styleTransfer(cData, sData, tData):
     # imsave(saveFile, img)   #Uncomment when everything is working right.
     # print("      Image saved to \"%s\"." % saveFile)
     # print("   Transfer complete.")
-    x = x.reshape((500, 500, 3))
-      x[:, :, 0] += 103.939
-    x[:, :, 1] += 116.779
-    x[:, :, 2] += 123.68
-    # 'BGR'->'RGB'
-    x = x[:, :, ::-1]
-    x = np.clip(x, 0, 255).astype("uint8")
-    output_image = Image.fromarray(x)
-    print("   Transfer success.")
-
-    output_image.save(output_image_path)
+    
+        img = deprocess_image(x.numpy())
+        saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
+        imsave(saveFile, img)   #Uncomment when everything is working right.
+        print("      Image saved to \"%s\"." % saveFile)
+        print("   Transfer complete.")
 
 
 
