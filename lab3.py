@@ -140,7 +140,7 @@ def styleTransfer(cData, sData, tData):
         print("   Transfer complete.")
        
 
-@tf.function
+
 def compute_loss_and_grads(cData, sData, tData):
     with tf.GradientTape() as tape:
         loss = compute_loss(cData, sData, tData)
