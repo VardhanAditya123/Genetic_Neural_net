@@ -160,7 +160,7 @@ def styleTransfer(cData, sData, tData):
     # kFunction = K.function([genTensor] , outputs)([x])
 
     outputs = [loss]
-    outputs += backend.gradients(loss, combination_image)
+    outputs += K.gradients(loss, genTensor)
 
     def evaluate_loss_and_gradients(x):
         x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
