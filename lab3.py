@@ -107,6 +107,7 @@ def styleTransfer(cData, sData, tData):
     contentTensor = K.variable(cData)
     styleTensor = K.variable(sData)
     genTensor = K.placeholder((1, CONTENT_IMG_H, CONTENT_IMG_W, 3))
+    print(genTensor)
     inputTensor = K.concatenate([contentTensor, styleTensor, genTensor], axis=0)
     
     
