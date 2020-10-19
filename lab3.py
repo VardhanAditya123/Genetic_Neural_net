@@ -151,9 +151,7 @@ def styleTransfer(cData, sData, tData):
     print("   Beginning transfer.")
     
     opt = tf.train.AdamOptimizer()
-
-    with tf.GradientTape() as tape:
-        grads = tape.gradient(t_loss, tData)
+    grads = tf.gradient(t_loss, tData)
 
 
 
