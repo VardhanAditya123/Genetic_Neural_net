@@ -150,7 +150,7 @@ def styleTransfer(cData, sData, tData):
     grads = K.gradients(t_loss ,tData)
 
     outputs = [loss]
-    outputs += backend.gradients(loss, combination_image)
+    outputs += K.gradients(loss, combination_image)
     print("   Beginning transfer.")
     
     # class Evaluator:
