@@ -36,6 +36,7 @@ IMAGE_WIDTH = 500
 CHANNELS = 3
 TRANSFER_ROUNDS = 10
 numFilters = 20
+genTensor=0
 
 #=============================<Helper Fuctions>=================================
 '''
