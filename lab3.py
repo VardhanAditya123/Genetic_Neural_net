@@ -133,7 +133,7 @@ def styleTransfer(cData, sData, tData):
     genOutput = contentLayer[2, :, :, :]
     c_loss = 0
     s_loss = 0
-    t_loss = 0
+    t_loss = tf.zeros(shape=())
 
     t_loss = t_loss + (CONTENT_WEIGHT)*contentLoss(contentOutput , genOutput)
     
