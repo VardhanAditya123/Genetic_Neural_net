@@ -172,7 +172,6 @@ def styleTransfer(cData, sData, tData):
         keras.preprocessing.image.save_img(fname, img)
         # print("      Image saved to \"%s\"." % saveFile)
         print("   Transfer complete.")
-        display(Image(result_prefix + "_at_iteration_4000.png"))
 
 
 
