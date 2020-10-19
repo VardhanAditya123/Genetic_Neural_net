@@ -122,14 +122,37 @@ Save the newly generated and deprocessed images.
 '''
 
 
-def styleTransfer(cData, sData, tData):
-   
+def styleTransfer(cData, sData, tData):   
+ 
+    print("   Beginning transfer.")
+    optimizer = tf.train.AdamOptimizer()
+
+    for i in range(TRANSFER_ROUNDS):
+        print("   Step %d." % i)
+        loss, grads = compute_loss_and_grads(cData , sData , tData)
+        optimizer.apply_gradients([(grads, tData)])
+        print("   Loss: %f." % loss)
+        img = deprocess_image(tData)
+        img = array_to_img(img)
+        saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
+        # imsave(saveFile, img)   #Uncomment when everything is working right.
+        print("      Image saved to \"%s\"." % saveFile)
+        print("   Transfer complete.")
+       
+
+@tf.function
+def compute_loss_and_grads(cData, sData, tData):
+    with tf.GradientTape() as tape:
+        loss = compute_loss(cData, sData, tData)
+    grads = tape.gradient(loss, tData)
+    return loss, grads
+
+def compute_loss (cData, sData, tData):
     print("   Building transfer model.")
     contentTensor = K.variable(cData)
     styleTensor = K.variable(sData)
     genTensor = K.placeholder((1, CONTENT_IMG_H, CONTENT_IMG_W, 3))
-    inputTensor = K.concatenate([contentTensor, styleTensor, genTensor], axis=0)
-    model = vgg19.VGG19(include_top =False, weights = "imagenet" , input_tensor = inputTensor)   
+    inputTensor = K.concatenate([contentTensor, styleTensor, genTensor], axis=0) 
     outputDict = dict([(layer.name, layer.output) for layer in model.layers])
     print("   VGG19 model loaded.")
     styleLayerNames = ["block1_conv1", "block2_conv1", "block3_conv1", "block4_conv1", "block5_conv1"]
@@ -149,44 +172,12 @@ def styleTransfer(cData, sData, tData):
     print("After Content:\n")
     print(loss)
     print("   Calculating style loss.")
-   
+    
     for layerName in styleLayerNames:
         styleLayer = outputDict[layerName]
         styleOutput = styleLayer[1, :, :, :]
         genOutput = styleLayer[2, :, :, :]
         loss = loss + (STYLE_WEIGHT / len(styleLayerNames))* styleLoss(styleOutput,genOutput) 
-   
-    # loss += TOTAL_WEIGHT * totalLoss(genTensor)
-    
-   
-    # TODO: Setup gradients or use K.gradients().
-
-    print("   Beginning transfer.")
-
-
-    optimizer = tf.train.AdamOptimizer()
-
-    for i in range(TRANSFER_ROUNDS):
-        print("   Step %d." % i)
-        loss, grads = compute_loss_and_grads(cData , sData , tData)
-        optimizer.apply_gradients([(grads, tData)])
-        print("   Loss: %f." % loss)
-        img = deprocess_image(tData)
-        img = array_to_img(img)
-        saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
-        # imsave(saveFile, img)   #Uncomment when everything is working right.
-        print("      Image saved to \"%s\"." % saveFile)
-        print("   Transfer complete.")
-       
-
-@tf.function
-def compute_loss_and_grads(base_image, style_reference_image,combination_image,):
-    with tf.GradientTape() as tape:
-        loss = compute_loss(combination_image, base_image, style_reference_image)
-    grads = tape.gradient(loss, combination_image)
-    return loss, grads
-
-
 
 #=========================<Main>================================================
 
