@@ -64,8 +64,6 @@ def totalLoss(content_loss , style_loss):
     return K.sum((CONTENT_WEIGHT * content_loss)+(STYLE_WEIGHT * style_loss))
 
 def totalLoss2(params , *args):
-    content_loss = args[0]
-    style_loss = args[1]
     return K.sum((CONTENT_WEIGHT * content_loss)+(STYLE_WEIGHT * style_loss))
 
 
@@ -152,7 +150,7 @@ def styleTransfer(cData, sData, tData):
         
         print("   Step %d." % i)
         #TODO: perform gradient descent using fmin_l_bfgs_b.
-        fmin_l_bfgs_b(func=totalLoss2 ,x0=tData,args=(contentLoss , styleLoss), approx_grad=True)
+        scipy.optimize.fmin_l_bfgs_b(func=totalLoss2 ,x0=tData, fprime=grads ,args=(contentLoss , styleLoss), approx_grad=True)
         
         print("      Loss: %f." % tLoss)
         img = deprocessImage(x)
