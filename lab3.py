@@ -107,7 +107,7 @@ def preprocessData(raw):
     img = img.astype("float64")
     img = np.expand_dims(img, axis=0)
     img = vgg19.preprocess_input(img)
-    return tf.convert_to_tensor(img)
+    return img
 
 
 
@@ -144,15 +144,9 @@ def styleTransfer(cData, sData, tData):
 
 def compute_loss_and_grads(cData, sData, tData):
     print("   Building transfer model.")
-    # contentTensor = K.variable(cData)
-    # styleTensor = K.variable(sData)
-    # genTensor = K.placeholder((1, CONTENT_IMG_H, CONTENT_IMG_W, 3))
-    
-    
-    contentTensor = cData
-    styleTensor = sData
-    genTensor = tData
-    
+    contentTensor = K.variable(cData)
+    styleTensor = K.variable(sData)
+    genTensor = K.placeholder((1, CONTENT_IMG_H, CONTENT_IMG_W, 3))
     inputTensor = K.concatenate([contentTensor, styleTensor, genTensor], axis=0) 
     model = vgg19.VGG19(include_top=False , weights="imagenet" ,input_tensor=inputTensor)
     outputDict = dict([(layer.name, layer.output) for layer in model.layers])
@@ -182,7 +176,7 @@ def compute_loss_and_grads(cData, sData, tData):
         loss = loss + (STYLE_WEIGHT / len(styleLayerNames))* styleLoss(styleOutput,genOutput) 
     
     loss +=  totalLoss(genTensor)
-    grads = K.gradients(loss,genTensor)
+    grads = K.gradients(loss,genTensor).flatten().astype("float64")
 
     return loss,grads
 
