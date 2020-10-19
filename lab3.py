@@ -122,6 +122,8 @@ Save the newly generated and deprocessed images.
 '''
 
 
+
+
 def styleTransfer(cData, sData, tData ):   
  
     print("   Beginning transfer.")
@@ -129,27 +131,6 @@ def styleTransfer(cData, sData, tData ):
 
     loss, grads = compute_loss_and_grads(cData, sData, tData )
     
-    outputs = [loss]
-    outputs += K.gradients(loss, genTensor)
-
-    def evaluate_loss_and_gradients(x):
-        x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
-        outs = K.function([genTensor], outputs)([x])
-        loss = outs[0]
-        gradients = outs[1].flatten().astype("float64")
-        return loss, gradients
-
-    class Evaluator:
-
-        def loss(self, x):
-            loss, gradients = evaluate_loss_and_gradients(x)
-            self._gradients = gradients
-            return loss
-
-        def gradients(self, x):
-            return self._gradients
-
-    evaluator = Evaluator()
     x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
@@ -164,7 +145,7 @@ def styleTransfer(cData, sData, tData ):
         
        
 
-
+outputs = 0
 def compute_loss_and_grads(cData, sData, tData):
     print("   Building transfer model.")
     contentTensor = K.variable(cData)
@@ -199,9 +180,30 @@ def compute_loss_and_grads(cData, sData, tData):
         loss = loss + (STYLE_WEIGHT / len(styleLayerNames))* styleLoss(styleOutput,genOutput) 
     
     loss +=  totalLoss(genTensor)
-    grads = K.gradients(loss, genTensor)
     
-    return loss,grads
+    outputs = [loss]
+    outputs += K.gradients(loss, genTensor)
+    
+    return 0
+
+
+
+def evaluate_loss_and_gradients(x):
+    x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
+    outs = K.function([genTensor], outputs)([x])
+    loss = outs[0]
+    gradients = outs[1].flatten().astype("float64")
+    return loss, gradients
+
+class Evaluator:
+
+    def loss(self, x):
+        loss, gradients = evaluate_loss_and_gradients(x)
+        self._gradients = gradients
+        return loss
+
+    def gradients(self, x):
+        return self._gradients
 
 #=========================<Main>================================================
 
