@@ -162,7 +162,7 @@ def styleTransfer(cData, sData, tData):
     # TODO: Setup gradients or use K.gradients().
 
     print("   Beginning transfer.")
-    x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128 
+ 
 
     # grads = K.gradients(loss, tData)
     # outputs = [loss]
@@ -204,7 +204,7 @@ def styleTransfer(cData, sData, tData):
         print("   Step %d." % i)
         x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.grads, maxfun=20)
         print('Current loss value:', min_val)
-        img = deprocess_image(tData)
+        img = deprocess_image(x)
         img = array_to_img(img)
         saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
         # imsave(saveFile, img)   #Uncomment when everything is working right.
