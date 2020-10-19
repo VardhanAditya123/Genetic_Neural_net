@@ -156,9 +156,9 @@ def styleTransfer(cData, sData, tData):
     for i in range(TRANSFER_ROUNDS):
         
         print("   Step %d." % i)
-        optimizer.apply_gradients([(grads, tData)])
+        opt.apply_gradients([(grads, tData)])
         print("   Loss: %f." % tLoss)
-        img = deprocessImage(x)
+        img = deprocessImage(tData)
         saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
         imsave(saveFile, img)   #Uncomment when everything is working right.
         print("      Image saved to \"%s\"." % saveFile)
