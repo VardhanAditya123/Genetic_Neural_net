@@ -129,7 +129,7 @@ def styleTransfer(cData, sData, tData ):
     optimizer = tf.train.AdamOptimizer()
 
     for i in range(TRANSFER_ROUNDS):
-        loss, grads = compute_loss_and_grads(combination_image, base_image, style_reference_image)
+        loss, grads = compute_loss_and_grads(cData, sData, tData )
         print("   Step %d." % i)
         optimizer.apply_gradients([(grads, tData )])
         print("   Loss: %f." % loss)
