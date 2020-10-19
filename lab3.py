@@ -1,4 +1,4 @@
-import os
+mport os
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras
@@ -21,16 +21,18 @@ CONTENT_IMG_H = 500
 CONTENT_IMG_W = 500
 STYLE_IMG_H = 500
 STYLE_IMG_W = 500
-CONTENT_WEIGHT = 1    # Alpha weight.
-STYLE_WEIGHT = 100.0      # Beta weight.
+CONTENT_WEIGHT = 0.1    # Alpha weight.
+STYLE_WEIGHT = 1.0      # Beta weight.
 TOTAL_WEIGHT = 1.0
 img_nrows = 500
 img_ncols = 500
 IMAGE_HEIGHT = 500
 IMAGE_WIDTH = 500
 CHANNELS = 3
+TRANSFER_ROUNDS = 3
 TRANSFER_ROUNDS = 10
 numFilters = 20
+
 #=============================<Helper Fuctions>=================================
 '''
 TODO: implement this.
@@ -125,11 +127,10 @@ def styleTransfer(cData, sData, tData):
         styleOutput = styleLayer[1, :, :, :]
         genOutput = styleLayer[2, :, :, :]
         loss = loss + (STYLE_WEIGHT / len(styleLayerNames))* styleLoss(styleOutput,genOutput) 
-
+   
     loss += TOTAL_WEIGHT * totalLoss(genTensor)
-    # loss += TOTAL_WEIGHT * totalLoss(genTensor)
-
-
+    
+   
     # TODO: Setup gradients or use K.gradients().
     print("   Beginning transfer.")
     x = tData
@@ -153,11 +154,11 @@ def styleTransfer(cData, sData, tData):
         def gradients(self, x):
             return self._gradients
     evaluator = Evaluator()
-    x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
+    x = tData
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
         # x, loss, info = fmin_l_bfgs_b( func=kFunction, x0=x.flatten(), fprime=grads , maxiter=20)
-        x, loss, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.gradients , maxiter=40)
+        x, loss, info = fmin_l_bfgs_b(evaluator.loss, x.flatten(), fprime=evaluator.gradients, maxfun=20)
         print("   Loss: %f." % loss)
         img = deprocess_image(x)
         img = array_to_img(img)
@@ -175,3 +176,5 @@ def main():
     tData = preprocessData(raw[2])   # Transfer image.
     styleTransfer(cData, sData, tData)
     print("Done. Goodbye.")
+if __name__ == "__main__":
+    main()
