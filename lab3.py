@@ -48,7 +48,7 @@ def deprocess_image(x):
     # 'BGR'->'RGB'
     x = x[:, :, ::-1]
     x = np.clip(x, 0, 255).astype("uint8")
-    return x
+    return Image.fromarray(x)
 
 
 def gramMatrix(x):
