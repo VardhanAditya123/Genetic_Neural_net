@@ -160,39 +160,39 @@ def styleTransfer(cData, sData, tData):
     print("   Beginning transfer.")
     x = tData
 
-    grads = K.gradients(loss, tData)
-    outputs = [loss]
-    outputs.append(grads)
-    kFunction = K.function([genTensor] , outputs)
-
+    # grads = K.gradients(loss, tData)
     # outputs = [loss]
-    # outputs += K.gradients(loss, genTensor)
+    # outputs.append(grads)
+    # kFunction = K.function([genTensor] , outputs)([x])
 
-    # def evaluate_loss_and_gradients(x):
-    #     x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
-    #     outs = K.function([genTensor], outputs)([x])
-    #     loss = outs[0]
-    #     gradients = outs[1].flatten().astype("float64")
-    #     return loss, gradients
+    outputs = [loss]
+    outputs += K.gradients(loss, genTensor)
 
-    # class Evaluator:
+    def evaluate_loss_and_gradients(x):
+        x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
+        outs = K.function([genTensor], outputs)([x])
+        loss = outs[0]
+        gradients = outs[1].flatten().astype("float64")
+        return loss, gradients
 
-    #     def loss(self, x):
-    #         loss, gradients = evaluate_loss_and_gradients(x)
-    #         self._gradients = gradients
-    #         return loss
+    class Evaluator:
 
-    #     def gradients(self, x):
-    #         return self._gradients
+        def loss(self, x):
+            loss, gradients = evaluate_loss_and_gradients(x)
+            self._gradients = gradients
+            return loss
 
-    # evaluator = Evaluator()
-    # x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
+        def gradients(self, x):
+            return self._gradients
+
+    evaluator = Evaluator()
+    x = tData
 
 
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
-        x, loss, info = fmin_l_bfgs_b( func=kFunction, x0=x.flatten(), fprime=grads , maxiter=20)
-        # x, loss, info = fmin_l_bfgs_b(evaluator.loss, x.flatten(), fprime=evaluator.gradients, maxfun=20)
+        # x, loss, info = fmin_l_bfgs_b( func=kFunction, x0=x.flatten(), fprime=grads , maxiter=20)
+        x, loss, info = fmin_l_bfgs_b(evaluator.loss, x.flatten(), fprime=evaluator.gradients, maxfun=20)
         print(loss)
         # print("   Loss: %f." % loss)
         img = deprocess_image(x)
