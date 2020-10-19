@@ -65,8 +65,12 @@ def gramMatrix(x):
 
 #========================<Loss Function Builder Functions>======================
 
-def styleLoss(style, gen):
-    return K.sum(K.square(gramMatrix(style) - gramMatrix(gen))) / (4 * (numFilters^2) *((CONTENT_IMG_W * CONTENT_IMG_H)^2))
+def styleLoss(style, combination):
+    S = gram_matrix(style)
+    C = gram_matrix(combination)
+    channels = 3
+    size = img_height * img_width
+    return K.sum(K.square(S - C)) / (4. * (channels ** 2) * (size ** 2))
 
 
 def contentLoss(content, gen):
@@ -152,7 +156,7 @@ def styleTransfer(cData, sData, tData):
         genOutput = styleLayer[2, :, :, :]
         loss = loss + (STYLE_WEIGHT / len(styleLayerNames))* styleLoss(styleOutput,genOutput) 
    
-    # loss += TOTAL_WEIGHT * totalLoss(genTensor)
+    loss += TOTAL_WEIGHT * totalLoss(genTensor)
     
    
     # TODO: Setup gradients or use K.gradients().
@@ -165,32 +169,39 @@ def styleTransfer(cData, sData, tData):
     # outputs.append(grads)
     # kFunction = K.function([genTensor] , outputs)([x])
 
-    outputs = [loss]
-    outputs += K.gradients(loss, genTensor)
+    grads = K.gradients(loss, genTensor)[0]
+    fetch_loss_and_grads = K.function([genTensor], [loss, grads])
 
-    def evaluate_loss_and_gradients(x):
-        x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
-        outs = K.function([genTensor], outputs)([x])
-        loss = outs[0]
-        gradients = outs[1].flatten().astype("float64")
-        return loss, gradients
-
-    class Evaluator:
-
+    class Evaluator(object):
+        
+        def __init__(self):
+                self.loss_value = None
+                self.grads_values = None
+        
         def loss(self, x):
-            loss, gradients = evaluate_loss_and_gradients(x)
-            self._gradients = gradients
-            return loss
+                assert self.loss_value is None
+                x = x.reshape((1, img_height, img_width, 3))
+                outs = fetch_loss_and_grads([x])
+                loss_value = outs[0]
+                grad_values = outs[1].flatten().astype('float64')
+                self.loss_value = loss_value
+                self.grad_values = grad_values
+                return self.loss_value
+        
+        def grads(self, x):
+                assert self.loss_value is not None
+                grad_values = np.copy(self.grad_values)
+                self.loss_value = None
+                self.grad_values = None
+                return grad_values
+        evaluator = Evaluator()
 
-        def gradients(self, x):
-            return self._gradients
-
-    evaluator = Evaluator()
+    x = tData
+    x = x.flatten()
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
-        # x, loss, info = fmin_l_bfgs_b( func=kFunction, x0=x.flatten(), fprime=grads , maxiter=20)
-        tData, loss, info = fmin_l_bfgs_b(evaluator.loss, tData, fprime=evaluator.gradients, maxfun=20)
-        print("   Loss: %f." % loss)
+        x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.grads, maxfun=20)
+        print('Current loss value:', min_val)
         img = deprocess_image(tData)
         img = array_to_img(img)
         saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
