@@ -23,13 +23,8 @@ OUTPUT_IMG_PATH = "output.png"
 
 CONTENT_IMG_H = 500
 CONTENT_IMG_W = 500
-
 STYLE_IMG_H = 500
 STYLE_IMG_W = 500
-
-CONTENT_WEIGHT = 0.01  # Alpha weight.
-STYLE_WEIGHT = 10.0      # Beta weight.
-TOTAL_WEIGHT = 1.0
 img_width = 500
 img_height = 500
 IMAGE_HEIGHT = 500
@@ -37,9 +32,12 @@ IMAGE_WIDTH = 500
 img_nrows = 500
 img_ncols = 500
 CHANNELS = 3
+
 TRANSFER_ROUNDS = 10
 numFilters = 20
-
+TOTAL_WEIGHT = 1e-3
+STYLE_WEIGHT = 0.5
+CONTENT_WEIGHT = 0.025
 #=============================<Helper Fuctions>=================================
 '''
 TODO: implement this.
