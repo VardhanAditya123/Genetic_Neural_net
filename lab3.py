@@ -124,6 +124,7 @@ def styleTransfer(cData, sData, tData):
     genOutput = contentLayer[2, :, :, :]
     c_loss = 0
     s_loss = 0
+    t_loss = 0
 
     c_loss += contentLoss(contentOutput , genOutput)
     
