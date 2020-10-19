@@ -151,12 +151,12 @@ def styleTransfer(cData, sData, tData):
     print("   Beginning transfer.")
     
     outputs = [t_loss]
-    outputs += K.gradients(loss, tData)
+    outputs.append( K.gradients(loss, tData))
 
 
     def evaluate_loss_and_gradients(x):
         x = x.reshape((1, 500, 500, 3))
-        outs = K.function([tData], outputs)([x])
+        outs = K.function([genTensor], outputs)
         loss = outs[0]
         gradients = outs[1].flatten().astype("float64")
         return loss, gradients
