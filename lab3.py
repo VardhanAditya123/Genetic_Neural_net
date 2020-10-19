@@ -7,8 +7,7 @@ import random
 from scipy.misc import imsave, imresize
 from scipy.optimize import fmin_l_bfgs_b   # https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.fmin_l_bfgs_b.html
 from tensorflow.keras.applications import vgg19
-from tensorflow.keras.preprocessing.image import load_img, img_to_array
-from tensorflow.keras.preprocessing import image
+from tensorflow.keras.preprocessing.image import load_img, img_to_array, array_to_img
 import warnings
 
 random.seed(1618)
@@ -163,7 +162,7 @@ def styleTransfer(cData, sData, tData):
         print(loss)
         # print("   Loss: %f." % loss)
         img = deprocess_image(x)
-        img = Image.fromarray(img)
+        img = array_to_img(img)
         saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
         imsave(saveFile, img)   #Uncomment when everything is working right.
         print("      Image saved to \"%s\"." % saveFile)
