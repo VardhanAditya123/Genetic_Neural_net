@@ -152,8 +152,6 @@ def styleTransfer(cData, sData, tData):
     
     opt = tf.train.AdamOptimizer()
 
-
-
     with tf.GradientTape() as tape:
         grads = tape.gradient(loss, tData)
 
@@ -162,7 +160,7 @@ def styleTransfer(cData, sData, tData):
     for i in range(TRANSFER_ROUNDS):
         
         print("   Step %d." % i)
-        opt.apply_gradients([(tf.grads, tData)])
+        opt.apply_gradients([(grads, tData)])
         print("   Loss: %f." % tLoss)
         img = deprocessImage(tData)
         saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
