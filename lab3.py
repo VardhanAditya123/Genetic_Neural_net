@@ -120,31 +120,8 @@ Gradient functions will also need to be created, or you can use K.Gradients().
 Finally, do the style transfer with gradient descent.
 Save the newly generated and deprocessed images.
 '''
-
-
-
-
-def styleTransfer(cData, sData, tData ):   
- 
-    print("   Beginning transfer.")
-    optimizer = tf.train.AdamOptimizer()
-    compute_loss_and_grads(cData, sData, tData )
-    
-    x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
-    for i in range(TRANSFER_ROUNDS):
-        print("   Step %d." % i)
-        x, loss, info = fmin_l_bfgs_b(evaluator.loss, x.flatten(), fprime=evaluator.gradients, maxfun=20)
-        print("   Loss: %f." % loss)
-        img = deprocess_image(x)
-        img = array_to_img(img)
-        saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
-        # imsave(saveFile, img)   #Uncomment when everything is working right.
-        print("      Image saved to \"%s\"." % saveFile)
-        print("   Transfer complete.")
-        
        
 
-outputs = 0
 def compute_loss_and_grads(cData, sData, tData):
     print("   Building transfer model.")
     contentTensor = K.variable(cData)
@@ -203,6 +180,28 @@ class Evaluator:
 
     def gradients(self, x):
         return self._gradients
+
+
+
+def styleTransfer(cData, sData, tData ):   
+ 
+    print("   Beginning transfer.")
+    optimizer = tf.train.AdamOptimizer()
+    compute_loss_and_grads(cData, sData, tData )
+    
+    x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
+    for i in range(TRANSFER_ROUNDS):
+        print("   Step %d." % i)
+        x, loss, info = fmin_l_bfgs_b(evaluator.loss, x.flatten(), fprime=evaluator.gradients, maxfun=20)
+        print("   Loss: %f." % loss)
+        img = deprocess_image(x)
+        img = array_to_img(img)
+        saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
+        # imsave(saveFile, img)   #Uncomment when everything is working right.
+        print("      Image saved to \"%s\"." % saveFile)
+        print("   Transfer complete.")
+
+
 
 #=========================<Main>================================================
 
