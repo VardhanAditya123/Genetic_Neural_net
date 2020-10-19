@@ -29,7 +29,8 @@ STYLE_IMG_W = 500
 CONTENT_WEIGHT = 0.1    # Alpha weight.
 STYLE_WEIGHT = 1.0      # Beta weight.
 TOTAL_WEIGHT = 1.0
-
+img_nrows = 500
+img_ncols = 500
 IMAGE_HEIGHT = 500
 IMAGE_WIDTH = 500
 CHANNELS = 3
@@ -74,10 +75,10 @@ def contentLoss(content, gen):
 
 def totalLoss(x):
     a = tf.square(
-        x[:, : STYLE_IMG_H - 1, : STYLE_IMG_H - 1, :] - x[:, 1:, : STYLE_IMG_H - 1, :]
+        x[:, : img_nrows - 1, : img_ncols - 1, :] - x[:, 1:, : img_ncols - 1, :]
     )
     b = tf.square(
-        x[:, : STYLE_IMG_H - 1, : STYLE_IMG_H - 1, :] - x[:, : STYLE_IMG_H - 1, 1:, :]
+        x[:, : img_nrows - 1, : img_ncols - 1, :] - x[:, : img_nrows - 1, 1:, :]
     )
     return tf.reduce_sum(tf.pow(a + b, 1.25))
 
