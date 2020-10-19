@@ -131,7 +131,7 @@ def styleTransfer(cData, sData, tData ):
     outputs = [loss]
     outputs += backend.gradients(loss, combination_image)
 
-
+    loss, grads = compute_loss_and_grads(cData, sData, tData )
     def evaluate_loss_and_gradients(x):
         x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
         outs = backend.function([combination_image], outputs)([x])
@@ -152,7 +152,6 @@ def styleTransfer(cData, sData, tData ):
     evaluator = Evaluator()
 
     for i in range(TRANSFER_ROUNDS):
-        loss, grads = compute_loss_and_grads(cData, sData, tData )
         print("   Step %d." % i)
         x, loss, info = fmin_l_bfgs_b(evaluator.loss, x.flatten(), fprime=evaluator.gradients, maxfun=20)
         print("   Loss: %f." % loss)
@@ -200,10 +199,7 @@ def compute_loss_and_grads(cData, sData, tData):
         loss = loss + (STYLE_WEIGHT / len(styleLayerNames))* styleLoss(styleOutput,genOutput) 
     
     loss +=  totalLoss(genTensor)
-
-    with tf.GradientTape() as tape:
-        loss +=  totalLoss(genTensor)
-        grads = tape.gradient(loss, tData)
+    grads = tape.gradient(loss, genTensor)
     
     return loss,grads
 
