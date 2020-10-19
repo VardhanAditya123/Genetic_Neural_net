@@ -18,7 +18,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 CONTENT_IMG_PATH = "source.png"           #TODO: Add this.
 STYLE_IMG_PATH = "style.png"             #TODO: Add this.
-
+OUTPUT_IMG_PATH = "output.png"
 
 CONTENT_IMG_H = 500
 CONTENT_IMG_W = 500
@@ -139,6 +139,9 @@ def styleTransfer(cData, sData, tData):
    
     # TODO: Setup gradients or use K.gradients().
     grads = K.gradients(t_loss ,tData)
+
+    outputs = [loss]
+    outputs += backend.gradients(loss, combination_image)
     print("   Beginning transfer.")
     
     # class Evaluator:
@@ -172,11 +175,10 @@ def styleTransfer(cData, sData, tData):
     for i in range(TRANSFER_ROUNDS):
         
         print("   Step %d." % i)
-        #TODO: perform gradient descent using fmin_l_bfgs_b.
         tdata , loss , info = fmin_l_bfgs_b(evaluator.loss ,x0=tData.flatten(), fprime=evaluator.gradients, maxfun=20)
-        print("      Loss: %f." % tLoss)
+        print("   Loss: %f." % tLoss)
         img = deprocessImage(x)
-        saveFile = None   #TODO: Implement.
+        saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
         imsave(saveFile, img)   #Uncomment when everything is working right.
         print("      Image saved to \"%s\"." % saveFile)
     print("   Transfer complete.")
