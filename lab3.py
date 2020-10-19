@@ -121,7 +121,7 @@ Finally, do the style transfer with gradient descent.
 Save the newly generated and deprocessed images.
 '''
        
-
+outputs = 0
 def compute_loss_and_grads(cData, sData, tData):
     print("   Building transfer model.")
     contentTensor = K.variable(cData)
@@ -188,7 +188,7 @@ def styleTransfer(cData, sData, tData ):
     print("   Beginning transfer.")
     optimizer = tf.train.AdamOptimizer()
     compute_loss_and_grads(cData, sData, tData )
-    
+    evaluator = Evaluator()
     x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
