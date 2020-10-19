@@ -36,7 +36,7 @@ IMAGE_WIDTH = 500
 CHANNELS = 3
 TRANSFER_ROUNDS = 10
 numFilters = 20
-
+x=0
 
 #=============================<Helper Fuctions>=================================
 '''
@@ -131,7 +131,7 @@ def styleTransfer(cData, sData, tData ):
     loss, grads = compute_loss_and_grads(cData, sData, tData )
     
     outputs = [loss]
-    outputs += K.gradients(loss, tData)
+    outputs += K.gradients(loss, x)
 
     def evaluate_loss_and_gradients(x):
         x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
@@ -152,6 +152,7 @@ def styleTransfer(cData, sData, tData ):
 
     evaluator = Evaluator()
 
+    x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
         x, loss, info = fmin_l_bfgs_b(evaluator.loss, x.flatten(), fprime=evaluator.gradients, maxfun=20)
