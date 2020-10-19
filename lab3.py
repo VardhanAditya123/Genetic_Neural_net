@@ -162,7 +162,7 @@ def styleTransfer(cData, sData, tData):
     # TODO: Setup gradients or use K.gradients().
 
     print("   Beginning transfer.")
-    x = tData
+    x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128 
 
     # grads = K.gradients(loss, tData)
     # outputs = [loss]
