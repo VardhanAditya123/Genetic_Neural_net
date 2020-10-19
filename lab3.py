@@ -167,10 +167,11 @@ def styleTransfer(cData, sData, tData):
     # print("      Image saved to \"%s\"." % saveFile)
     # print("   Transfer complete.")
     x = x.reshape((500, 500, 3))
+      x[:, :, 0] += 103.939
+    x[:, :, 1] += 116.779
+    x[:, :, 2] += 123.68
+    # 'BGR'->'RGB'
     x = x[:, :, ::-1]
-    x[:, :, 0] += IMAGENET_MEAN_RGB_VALUES[2]
-    x[:, :, 1] += IMAGENET_MEAN_RGB_VALUES[1]
-    x[:, :, 2] += IMAGENET_MEAN_RGB_VALUES[0]
     x = np.clip(x, 0, 255).astype("uint8")
     output_image = Image.fromarray(x)
     print("   Transfer success.")
