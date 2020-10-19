@@ -122,7 +122,9 @@ def styleTransfer(cData, sData, tData):
     contentLayer = outputDict[contentLayerName]
     contentOutput = contentLayer[0, :, :, :]
     genOutput = contentLayer[2, :, :, :]
-    
+    c_loss = 0
+    s_loss = 0
+
     c_loss += contentLoss(contentOutput , genOutput)
     
     print("   Calculating style loss.")
@@ -130,9 +132,9 @@ def styleTransfer(cData, sData, tData):
         styleLayer = outputDict[layerName]
         styleOutput = styleLayer[0, :, :, :]
         genOutput = styleLayer[2, :, :, :]
-        loss += styleLoss(styleOutput,genOutput)
+        s_loss += styleLoss(styleOutput,genOutput)
    
-    s_loss += totalLoss(c_loss , s_loss)
+    t_loss += totalLoss(c_loss , s_loss)
    
     # TODO: Setup gradients or use K.gradients().
     print("   Beginning transfer.")
