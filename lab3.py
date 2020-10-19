@@ -27,7 +27,7 @@ CONTENT_IMG_W = 500
 STYLE_IMG_H = 500
 STYLE_IMG_W = 500
 
-CONTENT_WEIGHT = 0.1    # Alpha weight.
+CONTENT_WEIGHT = 100  # Alpha weight.
 STYLE_WEIGHT = 1.0      # Beta weight.
 TOTAL_WEIGHT = 1.0
 img_nrows = 500
