@@ -26,8 +26,8 @@ CONTENT_IMG_W = 500
 STYLE_IMG_H = 500
 STYLE_IMG_W = 500
 
-CONTENT_WEIGHT = 0.1    # Alpha weight.
-STYLE_WEIGHT = 1.0      # Beta weight.
+CONTENT_WEIGHT = 1    # Alpha weight.
+STYLE_WEIGHT = 100.0      # Beta weight.
 TOTAL_WEIGHT = 1.0
 img_nrows = 500
 img_ncols = 500
@@ -192,7 +192,7 @@ def styleTransfer(cData, sData, tData):
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
         # x, loss, info = fmin_l_bfgs_b( func=kFunction, x0=x.flatten(), fprime=grads , maxiter=20)
-        x, loss, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.gradients , maxiter=30)
+        x, loss, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.gradients , maxiter=40)
         print("   Loss: %f." % loss)
         img = deprocess_image(x)
         img = array_to_img(img)
