@@ -131,7 +131,7 @@ def styleTransfer(cData, sData, tData ):
     loss, grads = compute_loss_and_grads(cData, sData, tData )
     
     outputs = [loss]
-    outputs += backend.gradients(loss, combination_image)
+    outputs += K.gradients(loss, tData)
 
     def evaluate_loss_and_gradients(x):
         x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
