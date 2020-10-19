@@ -204,6 +204,7 @@ def styleTransfer(cData, sData, tData):
         print("   Step %d." % i)
         x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.grads, maxfun=20)
         print('Current loss value:', min_val)
+        img = x.copy().reshape((img_height, img_width, 3))
         img = deprocess_image(x)
         img = array_to_img(img)
         saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
