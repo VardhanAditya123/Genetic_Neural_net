@@ -177,7 +177,7 @@ def compute_loss_and_grads(cData, sData, tData):
     
     loss +=  totalLoss(genTensor)
     with tf.GradientTape() as tape:
-    tape.gradient(loss, tData)
+        tape.gradient(loss, tData)
     
     return loss,grads
 
