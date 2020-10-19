@@ -106,7 +106,7 @@ def preprocessData(raw):
     img = img.astype("float64")
     img = np.expand_dims(img, axis=0)
     img = vgg19.preprocess_input(img)
-    return img
+    return tf.convert_to_tensor(img)
 
 
 
