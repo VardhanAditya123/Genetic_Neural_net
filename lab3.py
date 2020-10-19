@@ -161,7 +161,7 @@ def styleTransfer(cData, sData, tData):
         print("   Step %d." % i)
         x, loss, info = fmin_l_bfgs_b( func=kFunction, x0=x.flatten(), fprime=grads , maxiter=20)
         print("   Loss: %f." % tLoss)
-        img = deprocessImage(tData)
+        img = deprocessImage(x)
         saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
         imsave(saveFile, img)   #Uncomment when everything is working right.
         print("      Image saved to \"%s\"." % saveFile)
