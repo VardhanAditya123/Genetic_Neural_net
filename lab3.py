@@ -160,8 +160,7 @@ def styleTransfer(cData, sData, tData):
         
         print("   Step %d." % i)
         #TODO: perform gradient descent using fmin_l_bfgs_b.
-        scipy.optimize.fmin_l_bfgs_b(evaluator.loss ,x0=tData, fprime=evaluator.gradients, approx_grad=True, maxfun=20)
-        
+        fmin_l_bfgs_b(evaluator.loss ,x0=tData, fprime=evaluator.gradients, approx_grad=True, maxfun=20)
         print("      Loss: %f." % tLoss)
         img = deprocessImage(x)
         saveFile = None   #TODO: Implement.
