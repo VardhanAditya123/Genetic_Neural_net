@@ -155,17 +155,7 @@ def styleTransfer(cData, sData, tData):
     outputs.append(grads)
     kFunction = K.function([genTensor], outputs)
 
-    class Evaluator:
-
-        def loss(self, x):
-            return t_loss
-
-        def gradients(self, x):
-            return grads
-
-    evaluator = Evaluator()
-
-    x = np.random.uniform(0, 255, (1, 500 , 500, 3)) - 128.
+    x = tData
 
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
