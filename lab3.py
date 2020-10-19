@@ -33,7 +33,7 @@ TOTAL_WEIGHT = 1.0
 TRANSFER_ROUNDS = 3
 numFilters = 20
 t_loss = 0
-tData = null
+tData = 0
 #=============================<Helper Fuctions>=================================
 '''
 TODO: implement this.
