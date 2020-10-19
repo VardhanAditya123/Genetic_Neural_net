@@ -179,7 +179,7 @@ def compute_loss (cData, sData, tData):
         genOutput = styleLayer[2, :, :, :]
         loss = loss + (STYLE_WEIGHT / len(styleLayerNames))* styleLoss(styleOutput,genOutput) 
     
-    loss += TOTAL_WEIGHT * totalLoss(tData)
+    loss +=  totalLoss(tData)
 
 #=========================<Main>================================================
 
