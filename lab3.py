@@ -149,42 +149,14 @@ def styleTransfer(cData, sData, tData):
     # TODO: Setup gradients or use K.gradients().
     grads = K.gradients(t_loss ,tData)
 
-    outputs = [loss]
-    outputs += K.gradients(loss, genTensor)
     print("   Beginning transfer.")
     
-    # class Evaluator:
-    #     def loss(self, x):
-    #         loss = t_loss
-    #         return loss
+    opt = tf.train.AdamOptimizer()
 
-    #     def gradients(self, x):
-    #         return grads
-
-    # evaluator = Evaluator()
-    def evaluate_loss_and_gradients(x):
-        x = x.reshape((1, 500 , 500, 3))
-        outs = K.function([genOutput], outputs)([x])
-        loss = outs[0]
-        gradients = outs[1].flatten().astype("float64")
-        return loss, gradients
-
-    class Evaluator:
-
-        def loss(self, x):
-            loss, gradients = evaluate_loss_and_gradients(x)
-            self._gradients = gradients
-            return loss
-
-        def gradients(self, x):
-            return self._gradients
-
-    evaluator = Evaluator()
-    
     for i in range(TRANSFER_ROUNDS):
         
         print("   Step %d." % i)
-        tdata , loss , info = fmin_l_bfgs_b(evaluator.loss ,x0=tData.flatten(), fprime=evaluator.gradients, maxfun=20)
+        optimizer.apply_gradients([(grads, tData)])
         print("   Loss: %f." % tLoss)
         img = deprocessImage(x)
         saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
