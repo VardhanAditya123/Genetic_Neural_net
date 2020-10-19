@@ -36,8 +36,7 @@ IMAGE_WIDTH = 500
 CHANNELS = 3
 TRANSFER_ROUNDS = 10
 numFilters = 20
-x = 0
-
+genTensor=0
 #=============================<Helper Fuctions>=================================
 '''
 TODO: implement this.
@@ -131,7 +130,7 @@ def styleTransfer(cData, sData, tData ):
     loss, grads = compute_loss_and_grads(cData, sData, tData )
     
     outputs = [loss]
-    outputs += K.gradients(loss, x)
+    outputs += K.gradients(loss, genTensor)
 
     def evaluate_loss_and_gradients(x):
         x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
