@@ -65,7 +65,7 @@ def styleLoss(style, gen):
 
 
 def contentLoss(content, gen):
-    return K.sum(K.square(gen - content))
+    return tf.reduce_sum(tf.square(gen - content))
 
 
 def totalLoss(content_loss , style_loss):
