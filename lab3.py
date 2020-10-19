@@ -142,11 +142,6 @@ def styleTransfer(cData, sData, tData):
 
 
 def compute_loss_and_grads(cData, sData, tData):
-    loss = compute_loss(cData, sData, tData)
-    grads = K.gradients(loss, tData)
-    return loss, grads
-
-def compute_loss (cData, sData, tData):
     print("   Building transfer model.")
     contentTensor = K.variable(cData)
     styleTensor = K.variable(sData)
@@ -179,7 +174,10 @@ def compute_loss (cData, sData, tData):
         genOutput = styleLayer[2, :, :, :]
         loss = loss + (STYLE_WEIGHT / len(styleLayerNames))* styleLoss(styleOutput,genOutput) 
     
-    # loss +=  totalLoss(tData)
+    loss +=  totalLoss(genTensor)
+    grads = K.gradients(loss,genTensor)
+
+    return loss,grads
 
 #=========================<Main>================================================
 
