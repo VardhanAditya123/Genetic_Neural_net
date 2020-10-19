@@ -109,6 +109,12 @@ def preprocessData(raw):
     return img
 
 
+
+
+def compute_loss(cData, sData, tData):
+
+
+
 '''
 TODO: Allot of stuff needs to be implemented in this function.
 First, make sure the model is set up properly.
@@ -117,6 +123,8 @@ Gradient functions will also need to be created, or you can use K.Gradients().
 Finally, do the style transfer with gradient descent.
 Save the newly generated and deprocessed images.
 '''
+
+
 def styleTransfer(cData, sData, tData):
    
     print("   Building transfer model.")
@@ -124,15 +132,14 @@ def styleTransfer(cData, sData, tData):
     styleTensor = K.variable(sData)
     genTensor = K.placeholder((1, CONTENT_IMG_H, CONTENT_IMG_W, 3))
     inputTensor = K.concatenate([contentTensor, styleTensor, genTensor], axis=0)
-    
-    
-    model = vgg19.VGG19(include_top =False, weights = "imagenet" , input_tensor = inputTensor)
-   
+    model = vgg19.VGG19(include_top =False, weights = "imagenet" , input_tensor = inputTensor)   
     outputDict = dict([(layer.name, layer.output) for layer in model.layers])
-    loss = tf.zeros(shape=())
     print("   VGG19 model loaded.")
     styleLayerNames = ["block1_conv1", "block2_conv1", "block3_conv1", "block4_conv1", "block5_conv1"]
     contentLayerName = "block5_conv2"
+    outputDict = dict([(layer.name, layer.output) for layer in model.layers])
+    loss = tf.zeros(shape=())
+    
     print("   Calculating content loss.")
    
     contentLayer = outputDict[contentLayerName]
@@ -160,33 +167,11 @@ def styleTransfer(cData, sData, tData):
     print("   Beginning transfer.")
     x = tData
 
-    # grads = K.gradients(loss, tData)
+    grads = K.gradients(loss, tData)
     # outputs = [loss]
     # outputs.append(grads)
     # kFunction = K.function([genTensor] , outputs)([x])
 
-    outputs = [loss]
-    outputs += K.gradients(loss, genTensor)
-
-    def evaluate_loss_and_gradients(x):
-        x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
-        outs = K.function([genTensor], outputs)([x])
-        loss = outs[0]
-        gradients = outs[1].flatten().astype("float64")
-        return loss, gradients
-
-    class Evaluator:
-
-        def loss(self, x):
-            loss, gradients = evaluate_loss_and_gradients(x)
-            self._gradients = gradients
-            return loss
-
-        def gradients(self, x):
-            return self._gradients
-
-    evaluator = Evaluator()
-    x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
 
     optimizer = tf.train.AdamOptimizer()
 
