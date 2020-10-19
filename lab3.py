@@ -143,7 +143,7 @@ def styleTransfer(cData, sData, tData):
 
 def compute_loss_and_grads(cData, sData, tData):
     loss = compute_loss(cData, sData, tData)
-    grads = K.gradient(loss, tData)
+    grads = K.gradients(loss, tData)
     return loss, grads
 
 def compute_loss (cData, sData, tData):
