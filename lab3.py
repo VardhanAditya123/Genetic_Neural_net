@@ -66,7 +66,17 @@ def totalLoss(content_loss , style_loss):
 def totalLoss2(params , *args):
     return K.sum((CONTENT_WEIGHT * content_loss)+(STYLE_WEIGHT * style_loss))
 
+class Evaluator:
 
+    def loss(self, x):
+        loss, gradients = evaluate_loss_and_gradients(x)
+        self._gradients = gradients
+        return loss
+
+    def gradients(self, x):
+        return self._gradients
+
+evaluator = Evaluator()
 
 
 #=========================<Pipeline Functions>==================================
