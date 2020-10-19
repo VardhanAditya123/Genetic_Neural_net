@@ -63,6 +63,11 @@ def contentLoss(content, gen):
 def totalLoss(content_loss , style_loss):
     return K.sum((CONTENT_WEIGHT * content_loss)+(STYLE_WEIGHT * style_loss))
 
+def totalLoss2(params , *args)):
+    content_loss = args[0]
+    style_loss = args[1]
+    return K.sum((CONTENT_WEIGHT * content_loss)+(STYLE_WEIGHT * style_loss))
+
 
 
 
