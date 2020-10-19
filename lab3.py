@@ -30,6 +30,9 @@ CONTENT_WEIGHT = 0.1    # Alpha weight.
 STYLE_WEIGHT = 1.0      # Beta weight.
 TOTAL_WEIGHT = 1.0
 
+IMAGE_HEIGHT = 500
+IMAGE_WIDTH = 500
+CHANNELS = 3
 TRANSFER_ROUNDS = 3
 numFilters = 20
 
@@ -150,16 +153,40 @@ def styleTransfer(cData, sData, tData):
 
     print("   Beginning transfer.")
     x = tData
-    
-    grads = K.gradients(loss, tData)
+
+    # grads = K.gradients(loss, tData)
+    # outputs = [loss]
+    # outputs.append(grads)
+    # kFunction = K.function([genTensor] , outputs)([x])
+
     outputs = [loss]
-    outputs.append(grads)
-    kFunction = K.function([genTensor] , outputs)([x])
+    outputs += backend.gradients(loss, combination_image)
+
+    def evaluate_loss_and_gradients(x):
+        x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
+        outs = backend.function([genTensor], outputs)([x])
+        loss = outs[0]
+        gradients = outs[1].flatten().astype("float64")
+        return loss, gradients
+
+    class Evaluator:
+
+        def loss(self, x):
+            loss, gradients = evaluate_loss_and_gradients(x)
+            self._gradients = gradients
+            return loss
+
+        def gradients(self, x):
+            return self._gradients
+
+    evaluator = Evaluator()
+    x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
 
 
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
-        x, loss, info = fmin_l_bfgs_b( func=kFunction, x0=x.flatten(), fprime=grads , maxiter=20)
+        # x, loss, info = fmin_l_bfgs_b( func=kFunction, x0=x.flatten(), fprime=grads , maxiter=20)
+        x, loss, info = fmin_l_bfgs_b(evaluator.loss, x.flatten(), fprime=evaluator.gradients, maxfun=20)
         print(loss)
         # print("   Loss: %f." % loss)
         img = deprocess_image(x)
