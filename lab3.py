@@ -142,7 +142,7 @@ def styleTransfer(cData, sData, tData):
    
     # TODO: Setup gradients or use K.gradients().
     grads = K.gradients(t_loss ,tData)
-    outputs = [totalLoss]
+    outputs = [loss]
     outputs.append(grads)
     kFunction = K.function([genTensor], outputs)
 
