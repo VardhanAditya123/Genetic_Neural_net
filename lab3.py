@@ -131,7 +131,7 @@ def styleTransfer(cData, sData, tData):
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
         loss, grads = compute_loss_and_grads(cData , sData , tData)
-        optimizer.apply_gradients([(grads,  tf.convert_to_tensor(tData))])
+        optimizer.apply_gradients([(grads, tData)])
         print("   Loss: %f." % loss)
         img = deprocess_image(tData)
         img = array_to_img(img)
@@ -176,8 +176,7 @@ def compute_loss_and_grads(cData, sData, tData):
         loss = loss + (STYLE_WEIGHT / len(styleLayerNames))* styleLoss(styleOutput,genOutput) 
     
     loss +=  totalLoss(genTensor)
-    with tf.GradientTape() as tape:
-        grads = tape.gradient(loss, tf.convert_to_tensor(tData))
+    grads = K.gradients(loss, tData)
     
    
 
