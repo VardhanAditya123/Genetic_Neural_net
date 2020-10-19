@@ -187,16 +187,12 @@ def styleTransfer(cData, sData, tData):
             return self._gradients
 
     evaluator = Evaluator()
-    x = tData
-
-    x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
-    
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
         # x, loss, info = fmin_l_bfgs_b( func=kFunction, x0=x.flatten(), fprime=grads , maxiter=20)
-        x, loss, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.gradients, maxfun=20)
+        tData, loss, info = fmin_l_bfgs_b(evaluator.loss, tData, fprime=evaluator.gradients, maxfun=20)
         print("   Loss: %f." % loss)
-        img = deprocess_image(x)
+        img = deprocess_image(tData)
         img = array_to_img(img)
         saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
         # imsave(saveFile, img)   #Uncomment when everything is working right.
