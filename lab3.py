@@ -177,9 +177,6 @@ def compute_loss_and_grads(cData, sData, tData):
     
     loss +=  totalLoss(genTensor)
     grads = K.gradients(loss, genTensor)
-    
-   
-
     return loss,grads
 
 #=========================<Main>================================================
