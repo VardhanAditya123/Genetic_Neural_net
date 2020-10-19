@@ -147,7 +147,7 @@ def styleTransfer(cData, sData, tData):
         genOutput = styleLayer[2, :, :, :]
         loss = loss + (STYLE_WEIGHT / len(styleLayerNames))* styleLoss(styleOutput,genOutput) 
    
-    loss =  TOTAL_WEIGHT * totalLoss(c_loss , s_loss)
+    # loss =  TOTAL_WEIGHT * totalLoss(c_loss , s_loss)
    
     # TODO: Setup gradients or use K.gradients().
 
