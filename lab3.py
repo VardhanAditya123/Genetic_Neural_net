@@ -162,6 +162,7 @@ def styleTransfer(cData, sData, tData):
         print(loss)
         # print("   Loss: %f." % loss)
         img = deprocess_image(x)
+        img = Image.fromarray(img)
         saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
         imsave(saveFile, img)   #Uncomment when everything is working right.
         print("      Image saved to \"%s\"." % saveFile)
