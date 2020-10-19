@@ -73,7 +73,6 @@ def contentLoss(content, gen):
     return K.sum(K.square(gen - content))
 
 
-
 def totalLoss(x):
     a = tf.square(
         x[:, : img_nrows - 1, : img_ncols - 1, :] - x[:, 1:, : img_ncols - 1, :]
@@ -153,7 +152,7 @@ def styleTransfer(cData, sData, tData):
         genOutput = styleLayer[2, :, :, :]
         loss = loss + (STYLE_WEIGHT / len(styleLayerNames))* styleLoss(styleOutput,genOutput) 
    
-    loss += TOTAL_WEIGHT * totalLoss(genTensor)
+    # loss += TOTAL_WEIGHT * totalLoss(genTensor)
     
    
     # TODO: Setup gradients or use K.gradients().
