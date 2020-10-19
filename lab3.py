@@ -144,7 +144,7 @@ def styleTransfer(cData, sData, tData):
 def compute_loss_and_grads(cData, sData, tData):
     with tf.GradientTape() as tape:
         loss = compute_loss(cData, sData, tData)
-    grads = tape.gradient(loss, tData)
+    grads = K.gradient(loss, tData)
     return loss, grads
 
 def compute_loss (cData, sData, tData):
