@@ -142,6 +142,10 @@ def styleTransfer(cData, sData, tData):
    
     # TODO: Setup gradients or use K.gradients().
     grads = K.gradients(t_loss ,tData)
+    outputs = [totalLoss]
+    outputs.append(grads)
+    kFunction = K.function([genTensor], outputs)
+
     print("   Beginning transfer.")
     
     
@@ -150,7 +154,7 @@ def styleTransfer(cData, sData, tData):
         
         print("   Step %d." % i)
         #TODO: perform gradient descent using fmin_l_bfgs_b.
-        scipy.optimize.fmin_l_bfgs_b(func=totalLoss2 ,x0=tData, fprime=grads ,args=(contentLoss , styleLoss), approx_grad=True)
+        scipy.optimize.fmin_l_bfgs_b(func=kFunction ,x0=tData, fprime=grads ,args=(contentLoss , styleLoss), approx_grad=True)
         
         print("      Loss: %f." % tLoss)
         img = deprocessImage(x)
