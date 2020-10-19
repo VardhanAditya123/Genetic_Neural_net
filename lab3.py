@@ -32,8 +32,8 @@ TOTAL_WEIGHT = 1.0
 
 TRANSFER_ROUNDS = 3
 numFilters = 20
-
-
+t_loss = 0
+tData = null
 #=============================<Helper Fuctions>=================================
 '''
 TODO: implement this.
@@ -69,12 +69,12 @@ def totalLoss2(params , *args):
 class Evaluator:
 
     def loss(self, x):
-        loss, gradients = evaluate_loss_and_gradients(x)
-        self._gradients = gradients
+        loss = t_loss
         return loss
 
     def gradients(self, x):
-        return self._gradients
+        grads = K.gradients(t_loss ,tData)
+        return grads
 
 evaluator = Evaluator()
 
@@ -151,10 +151,6 @@ def styleTransfer(cData, sData, tData):
     t_loss += totalLoss(c_loss , s_loss)
    
     # TODO: Setup gradients or use K.gradients().
-    grads = K.gradients(t_loss ,tData)
-    outputs = [loss]
-    outputs.append(grads)
-    kFunction = K.function([genTensor], outputs)
 
     print("   Beginning transfer.")
     
@@ -164,7 +160,7 @@ def styleTransfer(cData, sData, tData):
         
         print("   Step %d." % i)
         #TODO: perform gradient descent using fmin_l_bfgs_b.
-        scipy.optimize.fmin_l_bfgs_b(func=kFunction ,x0=tData, fprime=grads ,args=(contentLoss , styleLoss), approx_grad=True)
+        scipy.optimize.fmin_l_bfgs_b(evaluator.loss ,x0=tData, fprime=evaluator.gradients, approx_grad=True, maxfun=20)
         
         print("      Loss: %f." % tLoss)
         img = deprocessImage(x)
