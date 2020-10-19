@@ -155,7 +155,7 @@ def styleTransfer(cData, sData, tData):
 
 
     def evaluate_loss_and_gradients(x):
-        x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
+        x = x.reshape((1, 500, 500, 3))
         outs = backend.function([combination_image], outputs)([x])
         loss = outs[0]
         gradients = outs[1].flatten().astype("float64")
