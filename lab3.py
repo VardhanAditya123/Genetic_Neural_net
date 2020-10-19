@@ -130,7 +130,7 @@ def styleTransfer(cData, sData, tData):
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
         loss, grads = compute_loss_and_grads(cData , sData , tData)
-        # optimizer.apply_gradients([(grads, tData)])
+        optimizer.apply_gradients([(grads, tData)])
         print("   Loss: %f." % loss)
         img = deprocess_image(tData)
         img = array_to_img(img)
@@ -158,7 +158,7 @@ def compute_loss (cData, sData, tData):
     styleLayerNames = ["block1_conv1", "block2_conv1", "block3_conv1", "block4_conv1", "block5_conv1"]
     contentLayerName = "block5_conv2"
     outputDict = dict([(layer.name, layer.output) for layer in model.layers])
-    loss = tf.zeros(shape=())
+    loss = 0.0
     
     print("   Calculating content loss.")
    
