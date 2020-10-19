@@ -42,9 +42,9 @@ def deprocess_image(x):
     # Util function to convert a tensor into a valid image
     x = x.reshape((CONTENT_IMG_H ,  CONTENT_IMG_W, 3))
     # Remove zero-center by mean pixel
-    x[:, :, 0] += 103.939
-    x[:, :, 1] += 116.779
-    x[:, :, 2] += 123.68
+    # x[:, :, 0] += 103.939
+    # x[:, :, 1] += 116.779
+    # x[:, :, 2] += 123.68
     # 'BGR'->'RGB'
     x = x[:, :, ::-1]
     x = np.clip(x, 0, 255).astype("uint8")
@@ -137,6 +137,7 @@ def styleTransfer(cData, sData, tData):
     print("After Content:\n")
     print(loss)
     print("   Calculating style loss.")
+   
     for layerName in styleLayerNames:
         styleLayer = outputDict[layerName]
         styleOutput = styleLayer[1, :, :, :]
