@@ -162,18 +162,13 @@ def styleTransfer(cData, sData, tData):
     # TODO: Setup gradients or use K.gradients().
 
     print("   Beginning transfer.")
-    x = tData
-
-    grads = K.gradients(loss, tData)
-    # outputs = [loss]
-    # outputs.append(grads)
-    # kFunction = K.function([genTensor] , outputs)([x])
 
 
     optimizer = tf.train.AdamOptimizer()
 
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
+        loss, grads = compute_loss_and_grads(cData , sData , tData)
         optimizer.apply_gradients([(grads, tData)])
         print("   Loss: %f." % loss)
         img = deprocess_image(tData)
@@ -184,7 +179,12 @@ def styleTransfer(cData, sData, tData):
         print("   Transfer complete.")
        
 
-
+@tf.function
+def compute_loss_and_grads(base_image, style_reference_image,combination_image,):
+    with tf.GradientTape() as tape:
+        loss = compute_loss(combination_image, base_image, style_reference_image)
+    grads = tape.gradient(loss, combination_image)
+    return loss, grads
 
 
 
