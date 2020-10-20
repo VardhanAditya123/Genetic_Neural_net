@@ -176,7 +176,7 @@ def styleTransfer(cData, sData, tData):
             self._gradients = gradients
             return loss
 
-        def gradients(self, x):
+        def grads(self, x):
             return self._gradients
     
     
