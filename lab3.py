@@ -128,17 +128,17 @@ def styleTransfer(cData, sData, tData):
     # TODO: Setup gradients or use K.gradients().
 
     print("   Beginning transfer.")
+    outputDict = dict([(layer.name, layer.output) for layer in model.layers])
+    loss = tf.zeros(shape=())
+    print("   VGG19 model loaded.")
+    styleLayerNames = ["block1_conv1", "block2_conv1", "block3_conv1", "block4_conv1", "block5_conv1"]
+    contentLayerName = "block5_conv2"
+    print("   Calculating content loss.")
  
 
 
 
     def evaluate_loss_and_gradients(x):
-        outputDict = dict([(layer.name, layer.output) for layer in model.layers])
-        loss = tf.zeros(shape=())
-        print("   VGG19 model loaded.")
-        styleLayerNames = ["block1_conv1", "block2_conv1", "block3_conv1", "block4_conv1", "block5_conv1"]
-        contentLayerName = "block5_conv2"
-        print("   Calculating content loss.")
     
         contentLayer = outputDict[contentLayerName]
         contentOutput = contentLayer[0, :, :, :]
