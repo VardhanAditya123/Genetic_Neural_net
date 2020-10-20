@@ -186,7 +186,7 @@ def styleTransfer(cData, sData, tData):
 
     with tf.GradientTape() as tape: 
         all_loss = loss
-    grads = tape.gradient(loss, genTensor), all_loss
+    grads = tape.gradient(loss, genTensor)
     opt = tf.train.AdamOptimizer(learning_rate=10.0)
 
     # Compute gradients wrt input image
