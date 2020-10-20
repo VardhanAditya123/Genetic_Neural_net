@@ -183,7 +183,7 @@ def styleTransfer(cData, sData, tData):
             outs = fetch_loss_and_grads([x])
             loss_value = outs[0]
             self.loss_value = loss_value
-            self.grad_values = grad_values
+            self.grad_values = outs[1].flatten().astype('float64')
             return self.loss_value
 
         def grads(self, x):
