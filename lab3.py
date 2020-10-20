@@ -105,7 +105,6 @@ def preprocessData(raw):
     return img
 
 
-
 '''
 TODO: Allot of stuff needs to be implemented in this function.
 First, make sure the model is set up properly.
@@ -184,20 +183,12 @@ def styleTransfer(cData, sData, tData):
     
     evaluator = Evaluator()
 
-    with tf.GradientTape() as tape: 
-        all_loss = loss
-    grads = tape.gradient(loss, genTensor)
-    opt = tf.train.AdamOptimizer(learning_rate=10.0)
-
-    # Compute gradients wrt input image
-    total_loss = all_loss[0]
     # x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
     x = tData
     x = x.flatten()
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
-        # x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.grads, maxiter = 100)
-        opt.apply_gradients([(grads, genTensor)])
+        x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.grads, maxiter = 1)
         print('Current loss value:', min_val)
         img = x.copy().reshape((img_height, img_width, 3))
         img = deprocess_image(x)
