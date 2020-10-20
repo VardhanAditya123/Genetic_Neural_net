@@ -180,12 +180,12 @@ def styleTransfer(cData, sData, tData):
 
         def loss(self, x):
             self.loss_value = totalLoss(c_loss , s_loss)
-            print("HEERE 1")
+            print(self.loss_value)
             return self.loss_value
 
         def grads(self, x):
             self.grad_values = K.gradients(loss, genTensor)
-            print("HEERE 2")
+            print(self.grad_values)
             return self.grad_values
     
     
