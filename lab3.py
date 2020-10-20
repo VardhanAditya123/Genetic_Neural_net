@@ -35,7 +35,7 @@ CHANNELS = 3
 
 TRANSFER_ROUNDS = 50
 numFilters = 20
-STYLE_WEIGHT = 0.3
+STYLE_WEIGHT = 30
 CONTENT_WEIGHT = 0.7
 #=============================<Helper Fuctions>=================================
 '''
