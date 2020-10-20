@@ -170,7 +170,7 @@ def styleTransfer(cData, sData, tData):
     # outputs.append(grads)
     # kFunction = K.function([genTensor] , outputs)([x])
     loss = totalLoss(c_loss , s_loss)
-    grads = K.gradients(loss, genTensor)
+    grads = K.gradients(loss, genTensor)[0]
     fetch_loss_and_grads = K.function([genTensor], [loss, grads])
 
     class Evaluator(object):
@@ -181,7 +181,6 @@ def styleTransfer(cData, sData, tData):
         def loss(self, x):
             outs = fetch_loss_and_grads([x])
             loss_value = outs[0]
-            grad_values = outs[1].flatten().astype('float64')
             self.loss_value = loss_value
             self.grad_values = grad_values
             return self.loss_value
