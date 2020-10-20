@@ -35,9 +35,8 @@ CHANNELS = 3
 
 TRANSFER_ROUNDS = 10
 numFilters = 20
-TOTAL_WEIGHT = 1e-3
-STYLE_WEIGHT = 0.5
-CONTENT_WEIGHT = 0.025
+STYLE_WEIGHT = 0.3
+CONTENT_WEIGHT = 0.7
 #=============================<Helper Fuctions>=================================
 '''
 TODO: implement this.
