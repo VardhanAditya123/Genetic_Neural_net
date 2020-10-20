@@ -171,7 +171,6 @@ def styleTransfer(cData, sData, tData):
 
         def loss(self, x):
             loss, gradients = evaluate_loss_and_gradients(x)
-            print("TEESTTTTT")
             self._gradients = gradients
             return loss
 
@@ -187,7 +186,7 @@ def styleTransfer(cData, sData, tData):
     x = x.flatten()
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
-        x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.grads, maxiter=30)
+        x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.grads, maxiter=1)
         print('Current loss value:', min_val)
         img = x.copy().reshape((img_height, img_width, 3))
         img = deprocess_image(x)
