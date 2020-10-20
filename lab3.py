@@ -176,18 +176,23 @@ def styleTransfer(cData, sData, tData):
 
     class Evaluator(object):
         def __init__(self):
-            self.loss_value = None
-            self.grads_values = None
-
+                self.loss_value = None
+                self.grads_values = None
         def loss(self, x):
-            outs = fetch_loss_and_grads([x])
-            loss_value = outs[0]
-            self.loss_value = loss_value
-            self.grad_values = outs[1].flatten().astype('float64')
-            return self.loss_value
-
+                assert self.loss_value is None
+                x = x.reshape((1, img_height, img_width, 3))
+                outs = fetch_loss_and_grads([x])
+                loss_value = outs[0]
+                grad_values = outs[1].flatten().astype('float64')
+                self.loss_value = loss_value
+                self.grad_values = grad_values
+                return self.loss_value
         def grads(self, x):
-            return self.grad_values
+                assert self.loss_value is not None
+                grad_values = np.copy(self.grad_values)
+                self.loss_value = None
+                self.grad_values = None
+                return grad_values
     
     
     
@@ -198,7 +203,7 @@ def styleTransfer(cData, sData, tData):
     x = x.flatten()
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
-        x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.grads, maxfun=20)
+        x, min_val, info = fmin_l_bfgs_b(evaluator.loss2, x, fprime=evaluator.grads, maxfun=20)
         print('Current loss value:', min_val)
         img = x.copy().reshape((img_height, img_width, 3))
         img = deprocess_image(x)
