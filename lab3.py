@@ -45,12 +45,12 @@ This function should take the tensor and re-convert it to an image.
 def deprocess_image(x):
     # Util function to convert a tensor into a valid image
     x = x.reshape((CONTENT_IMG_H ,  CONTENT_IMG_W, 3))
+    x = x[:, :, ::-1]
     # Remove zero-center by mean pixel
     x[:, :, 0] += 103.939
     x[:, :, 1] += 116.779
     x[:, :, 2] += 123.68
     # 'BGR'->'RGB'
-    x = x[:, :, ::-1]
     x = np.clip(x, 0, 255).astype("uint8")
     return x
 
@@ -187,7 +187,7 @@ def styleTransfer(cData, sData, tData):
     x = x.flatten()
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
-        x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.grads, maxfun=20)
+        x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.grads, maxfun=20 , maxiter=100)
         print('Current loss value:', min_val)
         img = x.copy().reshape((img_height, img_width, 3))
         img = deprocess_image(x)
