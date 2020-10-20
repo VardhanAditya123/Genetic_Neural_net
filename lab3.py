@@ -77,14 +77,14 @@ def contentLoss(base, combination):
     return K.sum(K.square(combination - base))
 
 
-# def totalLoss(x):
-#     a = tf.square(
-#         x[:, : img_nrows - 1, : img_ncols - 1, :] - x[:, 1:, : img_ncols - 1, :]
-#     )
-#     b = tf.square(
-#         x[:, : img_nrows - 1, : img_ncols - 1, :] - x[:, : img_nrows - 1, 1:, :]
-#     )
-#     return tf.reduce_sum(tf.pow(a + b, 1.25))
+def totalLoss2(x):
+    a = tf.square(
+        x[:, : img_nrows - 1, : img_ncols - 1, :] - x[:, 1:, : img_ncols - 1, :]
+    )
+    b = tf.square(
+        x[:, : img_nrows - 1, : img_ncols - 1, :] - x[:, : img_nrows - 1, 1:, :]
+    )
+    return tf.reduce_sum(tf.pow(a + b, 1.25))
 
 def totalLoss(c_loss , s_loss):
     return (CONTENT_WEIGHT * c_loss)+(STYLE_WEIGHT * s_loss)
@@ -169,7 +169,8 @@ def styleTransfer(cData, sData, tData):
     # outputs = [loss]
     # outputs.append(grads)
     # kFunction = K.function([genTensor] , outputs)([x])
-    loss = totalLoss(c_loss , s_loss)
+    # loss = totalLoss(c_loss , s_loss)
+    loss = totalLoss2(genTensor)
     grads = K.gradients(loss, genTensor)[0]
     fetch_loss_and_grads = K.function([genTensor], [loss, grads])
 
