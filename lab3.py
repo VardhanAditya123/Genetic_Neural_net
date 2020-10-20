@@ -73,7 +73,7 @@ def styleLoss(style, combination):
     return K.sum(K.square(S - C)) / (4. * (channels ** 2) * (size ** 2))
 
 
-def content_loss(base, combination):
+def contentLoss(base, combination):
     return K.sum(K.square(combination - base))
 
 
