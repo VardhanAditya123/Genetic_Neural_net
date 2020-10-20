@@ -128,7 +128,7 @@ def styleTransfer(cData, sData, tData):
 
 
     def evaluate_loss_and_gradients(x):
-        
+
         model = vgg19.VGG19(include_top =False, weights = "imagenet" , input_tensor = inputTensor)
         print("   Beginning transfer.")
         outputDict = dict([(layer.name, layer.output) for layer in model.layers])
@@ -171,6 +171,7 @@ def styleTransfer(cData, sData, tData):
 
         def loss(self, x):
             loss, gradients = evaluate_loss_and_gradients(x)
+            print("TEESTTTTT")
             self._gradients = gradients
             return loss
 
