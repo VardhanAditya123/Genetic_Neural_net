@@ -183,6 +183,7 @@ def styleTransfer(cData, sData, tData):
     
     evaluator = Evaluator()
     opt = tf.train.AdamOptimizer()
+    grads = opt.compute_gradients(loss, genTensor)
     x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
     # x = tData
     x = x.flatten()
