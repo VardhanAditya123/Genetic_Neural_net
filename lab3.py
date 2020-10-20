@@ -77,15 +77,17 @@ def contentLoss(base, combination):
     return K.sum(K.square(combination - base))
 
 
-def totalLoss(x):
-    a = tf.square(
-        x[:, : img_nrows - 1, : img_ncols - 1, :] - x[:, 1:, : img_ncols - 1, :]
-    )
-    b = tf.square(
-        x[:, : img_nrows - 1, : img_ncols - 1, :] - x[:, : img_nrows - 1, 1:, :]
-    )
-    return tf.reduce_sum(tf.pow(a + b, 1.25))
+# def totalLoss(x):
+#     a = tf.square(
+#         x[:, : img_nrows - 1, : img_ncols - 1, :] - x[:, 1:, : img_ncols - 1, :]
+#     )
+#     b = tf.square(
+#         x[:, : img_nrows - 1, : img_ncols - 1, :] - x[:, : img_nrows - 1, 1:, :]
+#     )
+#     return tf.reduce_sum(tf.pow(a + b, 1.25))
 
+def totalLoss(c_loss , s_loss):
+    return K.sum((CONTENT_WEIGHT * c_loss)+(STYLE_WEIGHT * s_loss))
 
 #=========================<Pipeline Functions>==================================
 
@@ -145,7 +147,9 @@ def styleTransfer(cData, sData, tData):
     c_loss = 0
     s_loss = 0
 
-    loss = loss + (CONTENT_WEIGHT)*contentLoss(contentOutput , genOutput)
+    # loss = loss + (CONTENT_WEIGHT)*contentLoss(contentOutput , genOutput)
+    c_loss = contentLoss(contentOutput , genOutput)
+
     print("After Content:\n")
     print(loss)
     print("   Calculating style loss.")
@@ -154,10 +158,7 @@ def styleTransfer(cData, sData, tData):
         styleLayer = outputDict[layerName]
         styleOutput = styleLayer[1, :, :, :]
         genOutput = styleLayer[2, :, :, :]
-        loss = loss + (STYLE_WEIGHT / len(styleLayerNames))* styleLoss(styleOutput,genOutput) 
-   
-    loss += TOTAL_WEIGHT * totalLoss(genTensor)
-    
+        s_loss = styleLoss(styleOutput,genOutput) 
    
     # TODO: Setup gradients or use K.gradients().
 
@@ -178,27 +179,19 @@ def styleTransfer(cData, sData, tData):
             self.grads_values = None
 
         def loss(self, x):
-            assert self.loss_value is None
-            x = x.reshape((1, img_height, img_width, 3))
-            outs = fetch_loss_and_grads([x])
-            loss_value = outs[0]
-            grad_values = outs[1].flatten().astype('float64')
-            self.loss_value = loss_value
-            self.grad_values = grad_values
+            self.loss_value = totalLoss(c_loss , s_loss)
             return self.loss_value
 
         def grads(self, x):
-            assert self.loss_value is not None
-            grad_values = np.copy(self.grad_values)
-            self.loss_value = None
-            self.grad_values = None
-            return grad_values
+            self.grad_values = K.gradients(loss, genTensor)
+            return self.grad_values
     
     
     
     evaluator = Evaluator()
 
-    x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
+    # x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
+    x = tData
     x = x.flatten()
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
