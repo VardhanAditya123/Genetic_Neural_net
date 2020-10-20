@@ -87,7 +87,7 @@ def contentLoss(base, combination):
 #     return tf.reduce_sum(tf.pow(a + b, 1.25))
 
 def totalLoss(c_loss , s_loss):
-    return K.sum((CONTENT_WEIGHT * c_loss)+(STYLE_WEIGHT * s_loss))
+    return (CONTENT_WEIGHT * c_loss)+(STYLE_WEIGHT * s_loss)
 
 #=========================<Pipeline Functions>==================================
 
