@@ -184,14 +184,13 @@ def styleTransfer(cData, sData, tData):
     evaluator = Evaluator()
     opt = tf.train.AdamOptimizer()
     grads = opt.compute_gradients(loss, genTensor)
-    capped_grads_and_vars = [(MyCapper(gv[0]), gv[1]) for gv in grads]
     x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
     # x = tData
     x = x.flatten()
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
         # x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.grads, maxiter = 2000)
-        opt.apply_gradients(capped_grads_and_vars)
+        opt.apply_gradients([(grads, x)])
         print('Current loss value:', min_val)
         img = x.copy().reshape((img_height, img_width, 3))
         img = deprocess_image(x)
