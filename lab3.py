@@ -184,7 +184,7 @@ def styleTransfer(cData, sData, tData):
 
     x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
     # x = tData
-    x = x.flatten()
+    # x = x.flatten()
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
         x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.grads, maxfun=20 , maxiter=100)
