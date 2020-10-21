@@ -129,8 +129,8 @@ Save the newly generated and deprocessed images.
 
 def compute_loss(cData, sData, tData):
     
-    inputTensor = K.concatenate([cData, sData, tData], axis=0)
-    genTensor = tData
+    inputTensor = K.concatenate([cData, sData, combination_image], axis=0)
+    # genTensor = tData
     model = vgg19.VGG19(include_top =False, weights = "imagenet" , input_tensor = inputTensor)
     outputDict = dict([(layer.name, layer.output) for layer in model.layers])
     loss = 0
@@ -150,7 +150,7 @@ def compute_loss(cData, sData, tData):
         s_loss = styleLoss(styleOutput,genOutput) 
 
     loss = totalLoss(c_loss , s_loss)
-    grads = K.gradients(loss, genTensor)
+    # grads = K.gradients(loss, genTensor)
     return loss
 
 
@@ -169,7 +169,7 @@ def styleTransfer(cData, sData, tData):
         
         
         print("   Step %d." % i)
-        loss,grads = compute_loss_and_grads(cData, sData, tData)
+        loss,grads = compute_loss_and_grads(cData, sData, combination_image)
         # outputs = [loss]
         # outputs += grads
        
