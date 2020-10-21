@@ -1,4 +1,3 @@
-  
 import os
 import numpy as np
 import tensorflow as tf
@@ -10,7 +9,6 @@ from scipy.optimize import fmin_l_bfgs_b   # https://docs.scipy.org/doc/scipy/re
 from tensorflow.keras.applications import vgg19
 from tensorflow.keras.preprocessing.image import load_img, img_to_array, array_to_img
 import warnings
-
 
 random.seed(1618)
 np.random.seed(1618)
@@ -34,22 +32,10 @@ img_nrows = 500
 img_ncols = 500
 CHANNELS = 3
 
-TRANSFER_ROUNDS = 10
+TRANSFER_ROUNDS = 1
 numFilters = 20
 STYLE_WEIGHT = 30
 CONTENT_WEIGHT = 0.7
-
-
-
-# model = vgg19.VGG19(include_top =False, weights = "imagenet" , input_tensor = inputTensor)
-# model = vgg19.VGG19(include_top =False, weights = "imagenet")
-print("   Beginning transfer.")
-print("   VGG19 model loaded.")
-styleLayerNames = ["block1_conv1", "block2_conv1", "block3_conv1", "block4_conv1", "block5_conv1"]
-contentLayerName = "block5_conv2"
-print("   Calculating content loss.")
-
-genTensor = 0
 #=============================<Helper Fuctions>=================================
 '''
 TODO: implement this.
@@ -115,7 +101,7 @@ def preprocessData(raw):
     img = img.astype("float64")
     img = np.expand_dims(img, axis=0)
     img = vgg19.preprocess_input(img)
-    return tf.convert_to_tensor(img)
+    return img
 
 
 '''
@@ -126,22 +112,30 @@ Gradient functions will also need to be created, or you can use K.Gradients().
 Finally, do the style transfer with gradient descent.
 Save the newly generated and deprocessed images.
 '''
+def styleTransfer(cData, sData, tData):
+   
+    print("   Building transfer model.")
+    contentTensor = K.variable(cData)
+    styleTensor = K.variable(sData)
+    genTensor = K.placeholder((1, CONTENT_IMG_H, CONTENT_IMG_W, 3))
+    inputTensor = K.concatenate([contentTensor, styleTensor, genTensor], axis=0)
 
-def compute_loss(cData, sData, combination_image):
-    
-    inputTensor = K.concatenate([cData, sData, combination_image], axis=0)
-    # genTensor = tData
     model = vgg19.VGG19(include_top =False, weights = "imagenet" , input_tensor = inputTensor)
+    print("   Beginning transfer.")
     outputDict = dict([(layer.name, layer.output) for layer in model.layers])
-    loss = 0
-    
+    loss = tf.zeros(shape=())
+    print("   VGG19 model loaded.")
+    styleLayerNames = ["block1_conv1", "block2_conv1", "block3_conv1", "block4_conv1", "block5_conv1"]
+    contentLayerName = "block5_conv2"
+    print("   Calculating content loss.")
+
     contentLayer = outputDict[contentLayerName]
     contentOutput = contentLayer[0, :, :, :]
     genOutput = contentLayer[2, :, :, :]
     c_loss = 0
     s_loss = 0
 
-    
+    # loss = loss + (CONTENT_WEIGHT)*contentLoss(contentOutput , genOutput)
     c_loss = contentLoss(contentOutput , genOutput)
     for layerName in styleLayerNames:
         styleLayer = outputDict[layerName]
@@ -150,43 +144,38 @@ def compute_loss(cData, sData, combination_image):
         s_loss = styleLoss(styleOutput,genOutput) 
 
     loss = totalLoss(c_loss , s_loss)
-    # grads = K.gradients(loss, genTensor)
-    return loss
+    grads = K.gradients(loss, genTensor)
+    outputs = [loss]
+    outputs += grads
 
+    def evaluate_loss_and_gradients(x):
+        x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
+        outs = K.function([genTensor], outputs)([x])
+        loss = outs[0]
+        gradients = outs[1].flatten().astype("float64")
+        return loss, gradients
 
-def styleTransfer(cData, sData, tData):
-   
-    print("   Building transfer model.")
-    x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128
-    x1 =  x.copy().reshape((1,img_height, img_width, 3))
-    x1 = x1.astype("float64")
-    x1 = tf.convert_to_tensor(x1)
-    # tData = x1
-    opt = tf.train.AdamOptimizer()
-    combination_image = tf.Variable(tData)
-   
+    class Evaluator:
+
+        def loss(self, x):
+            loss, gradients = evaluate_loss_and_gradients(x)
+            self._gradients = gradients
+            return loss
+
+        def grads(self, x):
+            return self._gradients
+    
+    
+    
+    evaluator = Evaluator()
+
+    x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
+    # x = tData
+    x = x.flatten()
     for i in range(TRANSFER_ROUNDS):
-        
-        
         print("   Step %d." % i)
-        loss,grads = compute_loss_and_grads(cData, sData, combination_image)
-        # outputs = [loss]
-        # outputs += grads
-       
-        # x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
-        # outs = K.function([tData], outputs)([x])
-        # loss = outs[0]
-        # grads = outs[1]
-        # gradients = grads.reshape(1,img_height, img_width, 3)
-        # print(gradients)
-
-        # combination_image = tf.Variable(tData)
-        grads2 = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128
-        
-        opt.apply_gradients([(grads, combination_image)])
-        # tData = tf.convert_to_tensor(combination_image)
-
-        print('Current loss value:', loss)
+        x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.grads, maxiter=5000)
+        print('Current loss value:', min_val)
         img = x.copy().reshape((img_height, img_width, 3))
         img = deprocess_image(x)
         img = array_to_img(img)
@@ -197,11 +186,7 @@ def styleTransfer(cData, sData, tData):
        
 
 
-def compute_loss_and_grads( base_image, style_reference_image,combination_image):
-    with tf.GradientTape() as tape:
-        loss = compute_loss(base_image, style_reference_image,combination_image)
-    grads = tape.gradient(loss, combination_image)
-    return loss, grads
+
 
 
 #=========================<Main>================================================
