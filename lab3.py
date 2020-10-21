@@ -185,8 +185,8 @@ def styleTransfer(cData, sData, tData):
         # gradients = grads.reshape(1,img_height, img_width, 3)
         # gradients=  gradients.astype("float64")
         
-    
-        grads = tape.gradient(loss, combination_image)
+        with tf.GradientTape() as tape:
+            grads = tape.gradient(loss, combination_image)
         opt.apply_gradients([(grads, combination_image)])
        
        
