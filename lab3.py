@@ -32,7 +32,7 @@ img_nrows = 500
 img_ncols = 500
 CHANNELS = 3
 
-TRANSFER_ROUNDS = 1
+TRANSFER_ROUNDS = 100
 numFilters = 20
 STYLE_WEIGHT = 0.3
 CONTENT_WEIGHT = 0.7
@@ -174,7 +174,7 @@ def styleTransfer(cData, sData, tData):
     x = x.flatten()
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
-        x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.grads, maxfun= 500)
+        x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.grads, maxfun= 10)
         print('Current loss value:', min_val)
         img = x.copy().reshape((img_height, img_width, 3))
         img = deprocess_image(x)
