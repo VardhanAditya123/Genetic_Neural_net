@@ -151,7 +151,7 @@ def compute_loss(cData, sData, tData):
 
     loss = totalLoss(c_loss , s_loss)
     grads = K.gradients(loss, genTensor)
-    return loss,grads
+    return loss
 
 
 def styleTransfer(cData, sData, tData):
@@ -169,7 +169,7 @@ def styleTransfer(cData, sData, tData):
         
         
         print("   Step %d." % i)
-        loss,grads = compute_loss(cData, sData, tData)
+        loss,grads = compute_loss_and_grads(cData, sData, tData)
         outputs = [loss]
         outputs += grads
        
@@ -197,7 +197,11 @@ def styleTransfer(cData, sData, tData):
        
 
 
-
+def compute_loss_and_grads( base_image, style_reference_image,combination_image):
+    with tf.GradientTape() as tape:
+        loss = compute_loss(base_image, style_reference_image,combination_image)
+    grads = tape.gradient(loss, combination_image)
+    return loss, grads
 
 
 #=========================<Main>================================================
