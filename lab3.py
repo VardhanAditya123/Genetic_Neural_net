@@ -126,7 +126,7 @@ def styleTransfer(cData, sData, tData):
     contentLayerName = "block5_conv2"
     print("   Calculating content loss.")
     
-    
+    genTensor = 0
 
 
     def compute_loss():
