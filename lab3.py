@@ -180,7 +180,7 @@ def styleTransfer(cData, sData, tData):
         img = deprocess_image(x)
         img = array_to_img(img)
         saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
-        # imsave(saveFile, img)   #Uncomment when everything is working right.
+        imsave(saveFile, img)   #Uncomment when everything is working right.
         print("      Image saved to \"%s\"." % saveFile)
         print("   Transfer complete.")
        
