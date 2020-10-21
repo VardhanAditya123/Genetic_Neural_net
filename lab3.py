@@ -135,7 +135,7 @@ def styleTransfer(cData, sData, tData):
         genTensor = tData
         model = vgg19.VGG19(include_top =False, weights = "imagenet" , input_tensor = inputTensor)
         outputDict = dict([(layer.name, layer.output) for layer in model.layers])
-        loss = tf.zeros(shape=())
+        loss = 0
         
         contentLayer = outputDict[contentLayerName]
         contentOutput = contentLayer[0, :, :, :]
