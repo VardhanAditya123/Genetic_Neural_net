@@ -170,21 +170,21 @@ def styleTransfer(cData, sData, tData):
         
         print("   Step %d." % i)
         loss,grads = compute_loss_and_grads(cData, sData, tData)
-        outputs = [loss]
-        outputs += grads
+        # outputs = [loss]
+        # outputs += grads
        
-        x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
-        outs = K.function([tData], outputs)([x])
-        loss = outs[0]
-        grads = outs[1]
-        gradients = grads.reshape(1,img_height, img_width, 3)
+        # x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
+        # outs = K.function([tData], outputs)([x])
+        # loss = outs[0]
+        # grads = outs[1]
+        # gradients = grads.reshape(1,img_height, img_width, 3)
         # print(gradients)
 
-        combination_image = tf.Variable(tData)
+        # combination_image = tf.Variable(tData)
         grads2 = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128
         
-        opt.apply_gradients([(gradients, combination_image)])
-        tData = tf.convert_to_tensor(combination_image)
+        opt.apply_gradients([(grads, combination_image)])
+        # tData = tf.convert_to_tensor(combination_image)
 
         print('Current loss value:', loss)
         img = x.copy().reshape((img_height, img_width, 3))
