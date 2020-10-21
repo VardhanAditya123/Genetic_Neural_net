@@ -157,20 +157,18 @@ def compute_loss(cData, sData, tData):
 def styleTransfer(cData, sData, tData):
    
     print("   Building transfer model.")
-
-    
-    
-    combination_image = tf.Variable(tData)
     x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128
     x1 =  x.copy().reshape((1,img_height, img_width, 3))
     x1 = x1.astype("float64")
     x1 = tf.convert_to_tensor(x1)
     tData = x1
     opt = tf.train.AdamOptimizer()
-   
+    
+    combination_image = tf.Variable(tData)
+    
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
-        loss,grads = compute_loss(cData, sData, tData)
+        loss,grads = compute_loss(cData, sData, tf.convert_to_tensor(combination_image))
         outputs = [loss]
         outputs += grads
        
@@ -182,12 +180,6 @@ def styleTransfer(cData, sData, tData):
         gradients=  gradients.astype("float64")
         
         opt.apply_gradients([(gradients, combination_image)])
-       
-       
-        x1 =  x.copy().reshape((1,img_height, img_width, 3))
-        x1 = x1.astype("float64")
-        x1 = tf.convert_to_tensor(x1)
-        tData = x1
 
         print('Current loss value:', loss)
         img = x.copy().reshape((img_height, img_width, 3))
