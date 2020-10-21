@@ -119,7 +119,7 @@ def styleTransfer(cData, sData, tData):
     
 
     # model = vgg19.VGG19(include_top =False, weights = "imagenet" , input_tensor = inputTensor)
-    model = vgg19.VGG19(include_top =False, weights = "imagenet")
+    # model = vgg19.VGG19(include_top =False, weights = "imagenet")
     print("   Beginning transfer.")
     print("   VGG19 model loaded.")
     styleLayerNames = ["block1_conv1", "block2_conv1", "block3_conv1", "block4_conv1", "block5_conv1"]
@@ -132,7 +132,7 @@ def styleTransfer(cData, sData, tData):
     def compute_loss():
         
         inputTensor = K.concatenate([cData, sData, tData], axis=0)
-        model.add(input_tensor = inputTensor)
+        model = vgg19.VGG19(include_top =False, weights = "imagenet" , input_tensor = inputTensor)
         outputDict = dict([(layer.name, layer.output) for layer in model.layers])
         loss = tf.zeros(shape=())
         
