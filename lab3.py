@@ -209,7 +209,7 @@ def styleTransfer(cData, sData, tData):
         x1 = x1.astype("float64")
         x1 = tf.convert_to_tensor(x1)
         tData = x1
-        print('Current loss value:', min_val)
+        print('Current loss value:', loss)
         img = x.copy().reshape((img_height, img_width, 3))
         img = deprocess_image(x)
         img = array_to_img(img)
