@@ -179,20 +179,22 @@ def styleTransfer(cData, sData, tData):
     
     
     evaluator = Evaluator()
+    combination_image = tf.Variable(tData)
     x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128
     x1 =  x.copy().reshape((1,img_height, img_width, 3))
     x1 = x1.astype("float64")
     x1 = tf.convert_to_tensor(x1)
     tData = x1
-    combination_image = tf.Variable(x1)
     opt = tf.train.AdamOptimizer()
    
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
         # x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.grads, maxiter=1)
         loss,grads = compute_loss()
+        
         with tf.GradientTape() as tape:
             grads = tape.gradient(loss, combination_image)
+        
         opt.apply_gradients([(grads, tf.Variable(x1))])
        
        
