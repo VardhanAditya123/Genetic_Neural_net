@@ -102,7 +102,7 @@ def preprocessData(raw):
     img = img.astype("float64")
     img = np.expand_dims(img, axis=0)
     img = vgg19.preprocess_input(img)
-    return img
+    return tf.convert_to_tensor(img)
 
 
 '''
@@ -116,10 +116,7 @@ Save the newly generated and deprocessed images.
 def styleTransfer(cData, sData, tData):
    
     print("   Building transfer model.")
-    contentTensor = K.variable(cData)
-    styleTensor = K.variable(sData)
-    genTensor = K.placeholder((1, CONTENT_IMG_H, CONTENT_IMG_W, 3))
-    inputTensor = K.concatenate([contentTensor, styleTensor, genTensor], axis=0)
+    
 
     # model = vgg19.VGG19(include_top =False, weights = "imagenet" , input_tensor = inputTensor)
     model = vgg19.VGG19(include_top =False, weights = "imagenet")
@@ -130,10 +127,13 @@ def styleTransfer(cData, sData, tData):
     contentLayerName = "block5_conv2"
     print("   Calculating content loss.")
     feature_extractor = keras.Model(inputs=model.inputs, outputs=outputDict)
+    
+
 
     def compute_loss():
         loss = tf.zeros(shape=())
-        inputTensor = K.concatenate([contentTensor, styleTensor, genTensor], axis=0)
+        tData = tf.Variable(tData)
+        inputTensor = K.concatenate([cData, sData, tData], axis=0)
         features = feature_extractor(inputTensor)
         
         contentLayer = features[contentLayerName]
@@ -179,12 +179,11 @@ def styleTransfer(cData, sData, tData):
     
     evaluator = Evaluator()
 
-    x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
-    x = x.flatten()
+   
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
         x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.grads, maxiter=1)
-        genTensor =tf.convert_to_tensor(  (x.copy().reshape((img_height, img_width, 3))).astype("float64") ) 
+        genTensor = x
         print('Current loss value:', min_val)
         img = x.copy().reshape((img_height, img_width, 3))
         img = deprocess_image(x)
