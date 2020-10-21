@@ -134,7 +134,7 @@ def styleTransfer(cData, sData, tData):
     def compute_loss():
         loss = tf.zeros(shape=())
         inputTensor = K.concatenate([contentTensor, styleTensor, genTensor], axis=0)
-        features = feature_extractor(input_tensor)
+        features = feature_extractor(inputTensor)
         
         contentLayer = features[contentLayerName]
         contentOutput = contentLayer[0, :, :, :]
