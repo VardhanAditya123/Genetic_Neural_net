@@ -132,7 +132,6 @@ def styleTransfer(cData, sData, tData):
 
     def compute_loss():
         loss = tf.zeros(shape=())
-        tData = tf.Variable(tData)
         inputTensor = K.concatenate([cData, sData, tData], axis=0)
         features = feature_extractor(inputTensor)
         
@@ -178,12 +177,11 @@ def styleTransfer(cData, sData, tData):
     
     
     evaluator = Evaluator()
-
+    tData = tf.Variable(tData)
    
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
-        x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.grads, maxiter=1)
-        genTensor = x
+        tData, min_val, info = fmin_l_bfgs_b(evaluator.loss, tData, fprime=evaluator.grads, maxiter=1)
         print('Current loss value:', min_val)
         img = x.copy().reshape((img_height, img_width, 3))
         img = deprocess_image(x)
