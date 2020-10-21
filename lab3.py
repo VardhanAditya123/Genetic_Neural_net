@@ -129,7 +129,7 @@ def styleTransfer(cData, sData, tData):
     styleLayerNames = ["block1_conv1", "block2_conv1", "block3_conv1", "block4_conv1", "block5_conv1"]
     contentLayerName = "block5_conv2"
     print("   Calculating content loss.")
-    feature_extractor = keras.Model(inputs=model.inputs, outputs=outputs_dict)
+    feature_extractor = keras.Model(inputs=model.inputs, outputs=outputDict)
 
     def compute_loss():
         loss = tf.zeros(shape=())
