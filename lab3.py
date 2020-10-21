@@ -185,7 +185,7 @@ def styleTransfer(cData, sData, tData):
         # gradients = grads.reshape(1,img_height, img_width, 3)
         # gradients=  gradients.astype("float64")
        
-        opt.apply_gradients([(grads, combination_image)])
+        opt.apply_gradients([(grads[0], combination_image)])
        
        
         x1 =  x.copy().reshape((1,img_height, img_width, 3))
