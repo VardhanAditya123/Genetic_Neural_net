@@ -155,7 +155,7 @@ def compute_loss(cData, sData, combination_image):
         genOutput = styleLayer[2, :, :, :]
         s_loss = styleLoss(styleOutput,genOutput) 
 
-    loss = totalLoss(c_loss , s_loss)
+    loss = totalLoss(combination_image)
     # grads = K.gradients(loss, genTensor)
     return loss
 
