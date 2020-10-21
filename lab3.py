@@ -170,12 +170,15 @@ def styleTransfer(cData, sData, tData):
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
         loss,grads = compute_loss(cData, sData, tData)
-        
-        outputs = grads
-        outs = K.function([tData], outputs)
-        grads = outs
+        outputs = [loss]
+        outputs += grads
+       
+        x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
+        outs = K.function([tData], outputs)([x])
+        loss = outs[0]
+        grads = outs[1]
+        print(type(grads))
 
-    
         gradients = grads.reshape(1,img_height, img_width, 3)
         gradients=  gradients.astype("float64")
        
