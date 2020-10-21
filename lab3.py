@@ -119,7 +119,6 @@ def styleTransfer(cData, sData, tData):
     styleTensor = K.variable(sData)
     genTensor = K.placeholder((1, CONTENT_IMG_H, CONTENT_IMG_W, 3))
 
-
     inputTensor = K.concatenate([contentTensor, styleTensor, genTensor], axis=0)
     model = vgg19.VGG19(include_top =False, weights = "imagenet" , input_tensor = inputTensor)
     print("   Beginning transfer.")
@@ -137,6 +136,7 @@ def styleTransfer(cData, sData, tData):
     s_loss = 0
 
     c_loss = contentLoss(contentOutput , genOutput)
+    
     for layerName in styleLayerNames:
         styleLayer = outputDict[layerName]
         styleOutput = styleLayer[1, :, :, :]
