@@ -178,7 +178,7 @@ def styleTransfer(cData, sData, tData):
         print('Current loss value:', min_val)
         img = x.copy().reshape((img_height, img_width, 3))
         img = deprocess_image(x)
-        img = array_to_img(img)
+        # img = array_to_img(img)
         saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
         # imsave(saveFile, img)   #Uncomment when everything is working right.
         print("      Image saved to \"%s\"." % saveFile)
