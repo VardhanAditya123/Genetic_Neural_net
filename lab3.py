@@ -181,6 +181,7 @@ def styleTransfer(cData, sData, tData):
         print("HERE BUFDDY")
         print('Current loss value:', min_val)
         img = x.copy().reshape((img_height, img_width, 3))
+        img = img.astype("float64")
         img = deprocess_image(x)
         genTensor = tf.convert_to_tensor(x)
         img = array_to_img(img)
