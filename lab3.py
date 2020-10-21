@@ -192,8 +192,8 @@ def styleTransfer(cData, sData, tData):
         # x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.grads, maxiter=1)
         loss,grads = compute_loss()
         
-        with tf.GradientTape() as tape:
-            grads = tape.gradient(loss, combination_image)
+        # with tf.GradientTape() as tape:
+        #     grads = tape.gradient(loss, combination_image)
         
         opt.apply_gradients([(grads, tf.Variable(x1))])
        
