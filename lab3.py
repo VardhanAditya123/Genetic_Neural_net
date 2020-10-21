@@ -17,7 +17,7 @@ tf.compat.v1.logging.set_verbosity( tf.compat.v1.logging.ERROR)
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 CONTENT_IMG_PATH = "source.png"           #TODO: Add this.
-STYLE_IMG_PATH = "style2.png"             #TODO: Add this.
+STYLE_IMG_PATH = "style.png"             #TODO: Add this.
 OUTPUT_IMG_PATH = "output.png"
 
 CONTENT_IMG_H = 500
@@ -174,7 +174,7 @@ def styleTransfer(cData, sData, tData):
     x = x.flatten()
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
-        x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.grads, maxfun= 10)
+        x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.grads, maxfun= 50)
         print('Current loss value:', min_val)
         img = x.copy().reshape((img_height, img_width, 3))
         img = deprocess_image(x)
