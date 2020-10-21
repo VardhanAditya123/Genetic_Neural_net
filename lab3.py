@@ -175,6 +175,7 @@ def styleTransfer(cData, sData, tData):
         # loss = outs[0]
         print(type(grads))
         grads = np.asarray(grads)
+        print(grads)
         gradients = grads.reshape(1,img_height, img_width, 3)
         gradients=  gradients.astype("float64")
        
