@@ -178,10 +178,11 @@ def styleTransfer(cData, sData, tData):
         loss = outs[0]
         grads = outs[1]
         gradients = grads.reshape(1,img_height, img_width, 3)
-        print(gradients)
+        # print(gradients)
 
         combination_image = tf.Variable(tData)
         grads2 = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128
+        
         opt.apply_gradients([(grads2, combination_image)])
         tData = tf.convert_to_tensor(combination_image)
 
