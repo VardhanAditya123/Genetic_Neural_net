@@ -200,7 +200,7 @@ def styleTransfer(cData, sData, tData):
 def compute_loss_and_grads( base_image, style_reference_image,combination_image):
     with tf.GradientTape() as tape:
         loss = compute_loss(base_image, style_reference_image,combination_image)
-    grads = tape.gradient(loss, tf.convert_to_tensor(combination_image))
+    grads = tape.gradient(loss, combination_image)
     return loss, grads
 
 
