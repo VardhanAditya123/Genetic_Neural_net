@@ -177,7 +177,7 @@ def styleTransfer(cData, sData, tData):
     x = x.flatten()
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
-        x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.grads, maxfun= 1)
+        genTensor, min_val, info = fmin_l_bfgs_b(evaluator.loss, genTensor, fprime=evaluator.grads, maxfun= 1)
         print("HERE BUFDDY")
         print('Current loss value:', min_val)
     
