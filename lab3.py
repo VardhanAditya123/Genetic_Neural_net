@@ -201,7 +201,7 @@ def styleTransfer(cData, sData, tData):
         # with tf.GradientTape() as tape:
         #     grads = tape.gradient(loss, combination_image)
         
-        opt.apply_gradients([(grads, tf.Variable(x1))])
+        opt.apply_gradients([(gradients, tf.Variable(x1))])
        
        
         x1 =  x.copy().reshape((1,img_height, img_width, 3))
