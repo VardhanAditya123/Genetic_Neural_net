@@ -39,7 +39,6 @@ numFilters = 20
 STYLE_WEIGHT = 30
 CONTENT_WEIGHT = 0.7
 
-tf.enable_eager_execution()
 
 # model = vgg19.VGG19(include_top =False, weights = "imagenet" , input_tensor = inputTensor)
 # model = vgg19.VGG19(include_top =False, weights = "imagenet")
@@ -155,7 +154,7 @@ def compute_loss(cData, sData, combination_image):
 
 
 def styleTransfer(cData, sData, tData):
-   
+    tf.enable_eager_execution()
     print("   Building transfer model.")
     x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128
     x1 =  x.copy().reshape((1,img_height, img_width, 3))
