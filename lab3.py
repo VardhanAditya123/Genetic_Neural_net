@@ -10,6 +10,7 @@ from scipy.optimize import fmin_l_bfgs_b   # https://docs.scipy.org/doc/scipy/re
 from tensorflow.keras.applications import vgg19
 from tensorflow.keras.preprocessing.image import load_img, img_to_array, array_to_img
 import warnings
+tf.enable_eager_execution()
 
 random.seed(1618)
 np.random.seed(1618)
