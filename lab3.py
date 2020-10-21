@@ -173,7 +173,7 @@ def styleTransfer(cData, sData, tData):
         x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
         outs = K.function([tData], outputs)([x])
         loss = outs[0]
-        grads = numpy.array(grads)
+        grads = np.array(grads)
         gradients = outs[1].reshape((1,img_height, img_width, 3))
         gradients=  gradients.astype("float64")
        
