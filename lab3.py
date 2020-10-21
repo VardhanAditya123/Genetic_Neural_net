@@ -68,7 +68,7 @@ def styleLoss(style, combination):
     C = gram_matrix(combination)
     channels = 3
     size = img_height * img_width
-    return K.sum(K.square(S - C)) / (4. * (channels ** 2) * (size ** 2))
+    return K.sum(K.square(S - C)) / (4 * (channels ** 2) * (size ** 2))
 
 
 def contentLoss(base, combination):
