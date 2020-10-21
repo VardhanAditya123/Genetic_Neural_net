@@ -180,8 +180,8 @@ def styleTransfer(cData, sData, tData):
         # print(type(grads))
 
         grads = K.get_value(grads)
-        print(type(grads))
-        grads = np.asarray(grads)
+        print(grads)
+        # grads = np.asarray(grads)
         gradients = grads.reshape(1,img_height, img_width, 3)
         gradients=  gradients.astype("float64")
        
