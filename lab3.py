@@ -118,37 +118,40 @@ def styleTransfer(cData, sData, tData):
     contentTensor = K.variable(cData)
     styleTensor = K.variable(sData)
     genTensor = K.placeholder((1, CONTENT_IMG_H, CONTENT_IMG_W, 3))
-    inputTensor = K.concatenate([contentTensor, styleTensor, genTensor], axis=0)
 
-    model = vgg19.VGG19(include_top =False, weights = "imagenet" , input_tensor = inputTensor)
-    print("   Beginning transfer.")
-    outputDict = dict([(layer.name, layer.output) for layer in model.layers])
-    loss = tf.zeros(shape=())
-    print("   VGG19 model loaded.")
-    styleLayerNames = ["block1_conv1", "block2_conv1", "block3_conv1", "block4_conv1", "block5_conv1"]
-    contentLayerName = "block5_conv2"
-    print("   Calculating content loss.")
+    def compute_loss():
+        inputTensor = K.concatenate([contentTensor, styleTensor, genTensor], axis=0)
+        model = vgg19.VGG19(include_top =False, weights = "imagenet" , input_tensor = inputTensor)
+        print("   Beginning transfer.")
+        outputDict = dict([(layer.name, layer.output) for layer in model.layers])
+        loss = tf.zeros(shape=())
+        print("   VGG19 model loaded.")
+        styleLayerNames = ["block1_conv1", "block2_conv1", "block3_conv1", "block4_conv1", "block5_conv1"]
+        contentLayerName = "block5_conv2"
+        print("   Calculating content loss.")
 
-    contentLayer = outputDict[contentLayerName]
-    contentOutput = contentLayer[0, :, :, :]
-    genOutput = contentLayer[2, :, :, :]
-    c_loss = 0
-    s_loss = 0
+        contentLayer = outputDict[contentLayerName]
+        contentOutput = contentLayer[0, :, :, :]
+        genOutput = contentLayer[2, :, :, :]
+        c_loss = 0
+        s_loss = 0
 
-    # loss = loss + (CONTENT_WEIGHT)*contentLoss(contentOutput , genOutput)
-    c_loss = contentLoss(contentOutput , genOutput)
-    for layerName in styleLayerNames:
-        styleLayer = outputDict[layerName]
-        styleOutput = styleLayer[1, :, :, :]
-        genOutput = styleLayer[2, :, :, :]
-        s_loss = styleLoss(styleOutput,genOutput) 
+        c_loss = contentLoss(contentOutput , genOutput)
+        for layerName in styleLayerNames:
+            styleLayer = outputDict[layerName]
+            styleOutput = styleLayer[1, :, :, :]
+            genOutput = styleLayer[2, :, :, :]
+            s_loss = styleLoss(styleOutput,genOutput) 
 
-    loss = totalLoss(c_loss , s_loss)
-    grads = K.gradients(loss, genTensor)
-    outputs = [loss]
-    outputs += grads
+        loss = totalLoss(c_loss , s_loss)
+        grads = K.gradients(loss, genTensor)
+        return loss,grads
+       
 
     def evaluate_loss_and_gradients(x):
+        loss , grads = compute_loss()
+        outputs = [loss]
+        outputs += grads
         x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
         outs = K.function([genTensor], outputs)([x])
         loss = outs[0]
@@ -178,7 +181,7 @@ def styleTransfer(cData, sData, tData):
         print('Current loss value:', min_val)
         img = x.copy().reshape((img_height, img_width, 3))
         img = deprocess_image(x)
-        x = img
+        genTensor = tf.convert_to_tensor(x)
         img = array_to_img(img)
         saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
         # imsave(saveFile, img)   #Uncomment when everything is working right.
