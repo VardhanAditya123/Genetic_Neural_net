@@ -161,11 +161,12 @@ def styleTransfer(cData, sData, tData):
     x1 =  x.copy().reshape((1,img_height, img_width, 3))
     x1 = x1.astype("float64")
     x1 = tf.convert_to_tensor(x1)
-    tData = x1
+    # tData = x1
     opt = tf.train.AdamOptimizer()
     
    
     for i in range(TRANSFER_ROUNDS):
+        tData = tf.convert_to_tensor(combination_image)
         combination_image = tf.Variable(tData)
         print("   Step %d." % i)
         loss,grads = compute_loss(cData, sData, tData)
