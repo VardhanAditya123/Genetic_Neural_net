@@ -149,7 +149,7 @@ def compute_loss(cData, sData, tData):
         genOutput = styleLayer[2, :, :, :]
         s_loss = styleLoss(styleOutput,genOutput) 
 
-    # loss = totalLoss(c_loss , s_loss)
+    loss = totalLoss(c_loss , s_loss)
     grads = K.gradients(loss, genTensor)
     return loss,grads
 
