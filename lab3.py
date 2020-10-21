@@ -32,7 +32,7 @@ img_nrows = 500
 img_ncols = 500
 CHANNELS = 3
 
-TRANSFER_ROUNDS = 100
+TRANSFER_ROUNDS = 1
 numFilters = 20
 STYLE_WEIGHT = 0.3
 CONTENT_WEIGHT = 0.7
