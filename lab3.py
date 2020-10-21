@@ -88,7 +88,7 @@ def contentLoss(base, combination):
     return K.sum(K.square(combination - base))
 
 
-def totalLoss(c_loss , s_loss):
+def totalLoss(x):
     a = tf.square(
         x[:, : img_nrows - 1, : img_ncols - 1, :] - x[:, 1:, : img_ncols - 1, :]
     )
