@@ -168,7 +168,7 @@ def styleTransfer(cData, sData, tData):
     
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
-        loss,grads = compute_loss(cData, sData, tf.convert_to_tensor(combination_image))
+        loss,grads = compute_loss(cData, sData, combination_image)
         outputs = [loss]
         outputs += grads
        
