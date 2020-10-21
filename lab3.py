@@ -143,6 +143,7 @@ def styleTransfer(cData, sData, tData):
         c_loss = 0
         s_loss = 0
 
+       
         c_loss = contentLoss(contentOutput , genOutput)
         for layerName in styleLayerNames:
             styleLayer = outputDict[layerName]
@@ -154,7 +155,7 @@ def styleTransfer(cData, sData, tData):
         grads = K.gradients(loss, genTensor)
         return loss,grads
     
-
+    
     combination_image = tf.Variable(tData)
     x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128
     x1 =  x.copy().reshape((1,img_height, img_width, 3))
@@ -172,8 +173,12 @@ def styleTransfer(cData, sData, tData):
         x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
         outs = K.function([tData], outputs)([x])
         loss = outs[0]
-        gradients = grads.reshape((1,img_height, img_width, 3))
+        grads = numpy.array(grads)
+        gradients = outs[1].reshape((1,img_height, img_width, 3))
         gradients=  gradients.astype("float64")
+       
+        # with tf.GradientTape() as tape:
+        #     grads = tape.gradient(loss, combination_image)
         
         opt.apply_gradients([(gradients, tf.Variable(x1))])
        
