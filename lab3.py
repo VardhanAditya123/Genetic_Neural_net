@@ -10,7 +10,7 @@ from scipy.optimize import fmin_l_bfgs_b   # https://docs.scipy.org/doc/scipy/re
 from tensorflow.keras.applications import vgg19
 from tensorflow.keras.preprocessing.image import load_img, img_to_array, array_to_img
 import warnings
-tf.enable_eager_execution()
+
 
 random.seed(1618)
 np.random.seed(1618)
@@ -160,7 +160,11 @@ def styleTransfer(cData, sData, tData):
     x1 = x1.astype("float64")
     x1 = tf.convert_to_tensor(x1)
     # tData = x1
-    opt = tf.train.AdamOptimizer()
+    opt = keras.optimizers.SGD(
+    keras.optimizers.schedules.ExponentialDecay(
+        initial_learning_rate=100.0, decay_steps=100, decay_rate=0.96
+    )
+)
     combination_image = tf.Variable(tData)
    
     for i in range(TRANSFER_ROUNDS):
