@@ -118,8 +118,8 @@ def styleTransfer(cData, sData, tData):
     contentTensor = K.variable(cData)
     styleTensor = K.variable(sData)
     genTensor = K.placeholder((1, CONTENT_IMG_H, CONTENT_IMG_W, 3))
-
     inputTensor = K.concatenate([contentTensor, styleTensor, genTensor], axis=0)
+
     model = vgg19.VGG19(include_top =False, weights = "imagenet" , input_tensor = inputTensor)
     print("   Beginning transfer.")
     outputDict = dict([(layer.name, layer.output) for layer in model.layers])
@@ -135,20 +135,18 @@ def styleTransfer(cData, sData, tData):
     c_loss = 0
     s_loss = 0
 
+    # loss = loss + (CONTENT_WEIGHT)*contentLoss(contentOutput , genOutput)
     c_loss = contentLoss(contentOutput , genOutput)
-    
     for layerName in styleLayerNames:
         styleLayer = outputDict[layerName]
         styleOutput = styleLayer[1, :, :, :]
         genOutput = styleLayer[2, :, :, :]
-        s_loss = styleLoss(styleOutput,genOutput) 
+        s_loss += styleLoss(styleOutput,genOutput) 
 
     loss = totalLoss(c_loss , s_loss)
     grads = K.gradients(loss, genTensor)
     outputs = [loss]
     outputs += grads
-    
-       
 
     def evaluate_loss_and_gradients(x):
         x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
@@ -171,19 +169,16 @@ def styleTransfer(cData, sData, tData):
     
     evaluator = Evaluator()
 
-    x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
-    # x = tData
+    # x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
+    x = tData
     x = x.flatten()
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
-        x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.grads, maxfun= 1)
-        print("HERE BUFDDY")
+        x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.grads, maxfun= 10)
         print('Current loss value:', min_val)
-    
-        img = x.copy().reshape((1,img_height, img_width, 3))
-        img = img.astype("float32")
-        genTensor = tf.convert_to_tensor(img)
+        img = x.copy().reshape((img_height, img_width, 3))
         img = deprocess_image(x)
+        x = img
         img = array_to_img(img)
         saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
         # imsave(saveFile, img)   #Uncomment when everything is working right.
