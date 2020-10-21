@@ -39,7 +39,7 @@ numFilters = 20
 STYLE_WEIGHT = 30
 CONTENT_WEIGHT = 0.7
 
-
+tf.enable_eager_execution()
 
 # model = vgg19.VGG19(include_top =False, weights = "imagenet" , input_tensor = inputTensor)
 # model = vgg19.VGG19(include_top =False, weights = "imagenet")
