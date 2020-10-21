@@ -167,8 +167,7 @@ def styleTransfer(cData, sData, tData):
    
     for i in range(TRANSFER_ROUNDS):
         
-        combination_image = tf.Variable(tData)
-        tData = tf.convert_to_tensor(combination_image)
+        
         print("   Step %d." % i)
         loss,grads = compute_loss(cData, sData, tData)
         outputs = [loss]
@@ -181,7 +180,9 @@ def styleTransfer(cData, sData, tData):
         gradients = grads.reshape(1,img_height, img_width, 3)
         gradients=  gradients.astype("float64")
         
+        combination_image = tf.Variable(tData)
         opt.apply_gradients([(gradients, combination_image)])
+        tData = tf.convert_to_tensor(combination_image)
 
         print('Current loss value:', loss)
         img = x.copy().reshape((img_height, img_width, 3))
