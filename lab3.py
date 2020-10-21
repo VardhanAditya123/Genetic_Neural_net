@@ -172,12 +172,12 @@ def styleTransfer(cData, sData, tData):
     
     evaluator = Evaluator()
 
-    # x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
-    x = tData
+    x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
+    # x = tData
     x = x.flatten()
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
-        genTensor, min_val, info = fmin_l_bfgs_b(evaluator.loss, genTensor, fprime=evaluator.grads, maxfun= 1)
+        x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.grads, maxfun= 1)
         print("HERE BUFDDY")
         print('Current loss value:', min_val)
     
