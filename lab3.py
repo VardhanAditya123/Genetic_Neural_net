@@ -10,7 +10,7 @@ from scipy.optimize import fmin_l_bfgs_b   # https://docs.scipy.org/doc/scipy/re
 from tensorflow.keras.applications import vgg19
 from tensorflow.keras.preprocessing.image import load_img, img_to_array, array_to_img
 import warnings
-
+tf.enable_eager_execution()
 
 random.seed(1618)
 np.random.seed(1618)
@@ -154,7 +154,6 @@ def compute_loss(cData, sData, combination_image):
 
 
 def styleTransfer(cData, sData, tData):
-    tf.enable_eager_execution()
     print("   Building transfer model.")
     x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128
     x1 =  x.copy().reshape((1,img_height, img_width, 3))
