@@ -143,7 +143,6 @@ def styleTransfer(cData, sData, tData):
         c_loss = 0
         s_loss = 0
 
-        # loss = loss + (CONTENT_WEIGHT)*contentLoss(contentOutput , genOutput)
         c_loss = contentLoss(contentOutput , genOutput)
         for layerName in styleLayerNames:
             styleLayer = outputDict[layerName]
@@ -156,29 +155,6 @@ def styleTransfer(cData, sData, tData):
         return loss,grads
     
 
-    def evaluate_loss_and_gradients(x):
-        loss,grads = compute_loss()
-        outputs = [loss]
-        outputs += grads
-        x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
-        outs = K.function([tData], outputs)([x])
-        loss = outs[0]
-        gradients = outs[1].flatten().astype("float64")
-        return loss, gradients
-
-    class Evaluator:
-
-        def loss(self, x):
-            loss, gradients = evaluate_loss_and_gradients(x)
-            self._gradients = gradients
-            return loss
-
-        def grads(self, x):
-            return self._gradients
-    
-    
-    
-    evaluator = Evaluator()
     combination_image = tf.Variable(tData)
     x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128
     x1 =  x.copy().reshape((1,img_height, img_width, 3))
@@ -196,11 +172,8 @@ def styleTransfer(cData, sData, tData):
         x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
         outs = K.function([tData], outputs)([x])
         loss = outs[0]
-        gradients = outs[1].reshape((1,img_height, img_width, 3))
+        gradients = grads.reshape((1,img_height, img_width, 3))
         gradients=  gradients.astype("float64")
-       
-        # with tf.GradientTape() as tape:
-        #     grads = tape.gradient(loss, combination_image)
         
         opt.apply_gradients([(gradients, tf.Variable(x1))])
        
