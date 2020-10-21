@@ -191,7 +191,13 @@ def styleTransfer(cData, sData, tData):
         print("   Step %d." % i)
         # x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.grads, maxiter=1)
         loss,grads = compute_loss()
-        grads = grads.flatten().astype("float64")
+        outputs = [loss]
+        outputs += grads
+        x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
+        outs = K.function([tData], outputs)([x])
+        loss = outs[0]
+        gradients = outs[1].flatten().astype("float64")
+       
         # with tf.GradientTape() as tape:
         #     grads = tape.gradient(loss, combination_image)
         
