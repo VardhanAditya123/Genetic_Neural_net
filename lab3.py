@@ -163,7 +163,7 @@ def styleTransfer(cData, sData, tData):
     x1 = tf.convert_to_tensor(x1)
     # tData = x1
     opt = tf.train.AdamOptimizer()
-    
+    combination_image = tf.Variable(tData)
    
     for i in range(TRANSFER_ROUNDS):
         
