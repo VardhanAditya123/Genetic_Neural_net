@@ -156,7 +156,7 @@ def styleTransfer(cData, sData, tData):
     
 
     def evaluate_loss_and_gradients(x):
-        loss,grads = compute_loss(contentTensor, styleTensor, genTensor)
+        loss,grads = compute_loss()
         outputs = [loss]
         outputs += grads
         x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
