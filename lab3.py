@@ -145,12 +145,12 @@ def styleTransfer(cData, sData, tData):
 
     loss = totalLoss(c_loss , s_loss)
     grads = K.gradients(loss, genTensor)
+    outputs = [loss]
+    outputs += grads
     
        
 
     def evaluate_loss_and_gradients(x):
-        outputs = [loss]
-        outputs += grads
         x = x.reshape((1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS))
         outs = K.function([genTensor], outputs)([x])
         loss = outs[0]
