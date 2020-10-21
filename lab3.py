@@ -180,12 +180,12 @@ def styleTransfer(cData, sData, tData):
         # print(type(grads))
 
         grads = K.get_value(grads)
-        print(grads)
+        # print(grads)
         # grads = np.asarray(grads)
-        gradients = grads.reshape(1,img_height, img_width, 3)
-        gradients=  gradients.astype("float64")
+        # gradients = grads.reshape(1,img_height, img_width, 3)
+        # gradients=  gradients.astype("float64")
        
-        opt.apply_gradients([(gradients, combination_image)])
+        opt.apply_gradients([(grads, combination_image)])
        
        
         x1 =  x.copy().reshape((1,img_height, img_width, 3))
