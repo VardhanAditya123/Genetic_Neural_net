@@ -177,13 +177,13 @@ def styleTransfer(cData, sData, tData):
     x = x.flatten()
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
-        x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.grads, maxfun= 10)
+        x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x, fprime=evaluator.grads, maxfun= 1)
         print("HERE BUFDDY")
         print('Current loss value:', min_val)
         img = x.copy().reshape((img_height, img_width, 3))
         img = img.astype("float64")
+        genTensor = tf.convert_to_tensor(img)
         img = deprocess_image(x)
-        genTensor = tf.convert_to_tensor(x)
         img = array_to_img(img)
         saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
         # imsave(saveFile, img)   #Uncomment when everything is working right.
