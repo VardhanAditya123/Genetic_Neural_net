@@ -34,8 +34,8 @@ CHANNELS = 3
 
 TRANSFER_ROUNDS = 1
 numFilters = 20
-STYLE_WEIGHT = 0.3
-CONTENT_WEIGHT = 0.7
+STYLE_WEIGHT = 0.7
+CONTENT_WEIGHT = 0.99
 #=============================<Helper Fuctions>=================================
 '''
 TODO: implement this.
@@ -169,8 +169,7 @@ def styleTransfer(cData, sData, tData):
     
     evaluator = Evaluator()
 
-    x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
-    # x = tData
+    x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128
     x = x.flatten()
     for i in range(TRANSFER_ROUNDS):
         print("   Step %d." % i)
