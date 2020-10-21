@@ -169,7 +169,7 @@ def styleTransfer(cData, sData, tData):
     
     evaluator = Evaluator()
 
-    # x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
+    x = np.random.uniform(0, 255, (1, IMAGE_HEIGHT, IMAGE_WIDTH, 3)) - 128.
     x = tData
     x = x.flatten()
     for i in range(TRANSFER_ROUNDS):
