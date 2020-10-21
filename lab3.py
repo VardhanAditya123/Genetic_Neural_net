@@ -126,7 +126,7 @@ Finally, do the style transfer with gradient descent.
 Save the newly generated and deprocessed images.
 '''
 
-def compute_loss():
+def compute_loss(cData, sData, tData):
     
     inputTensor = K.concatenate([cData, sData, tData], axis=0)
     genTensor = tData
