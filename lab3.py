@@ -182,7 +182,7 @@ def styleTransfer(cData, sData, tData):
         saveFile = img.save( OUTPUT_IMG_PATH )   #TODO: Implement.
         # imsave(saveFile, img)   #Uncomment when everything is working right.
         print("      Image saved to \"%s\"." % saveFile)
-        print("   Transfer complete.")
+        print("   Transfer complete.") 
        
 
 
