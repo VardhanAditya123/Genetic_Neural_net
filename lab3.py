@@ -17,7 +17,7 @@ tf.compat.v1.logging.set_verbosity( tf.compat.v1.logging.ERROR)
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 CONTENT_IMG_PATH = "source.png"           #TODO: Add this.
-STYLE_IMG_PATH = "style.png"             #TODO: Add this.
+STYLE_IMG_PATH = "style2.png"             #TODO: Add this.
 OUTPUT_IMG_PATH = "output.png"
 
 CONTENT_IMG_H = 500
@@ -34,8 +34,8 @@ CHANNELS = 3
 
 TRANSFER_ROUNDS = 1
 numFilters = 20
-STYLE_WEIGHT = 0.1
-CONTENT_WEIGHT = 25
+STYLE_WEIGHT = 0.3
+CONTENT_WEIGHT = 0.7
 #=============================<Helper Fuctions>=================================
 '''
 TODO: implement this.
