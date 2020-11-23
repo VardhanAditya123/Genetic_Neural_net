@@ -153,7 +153,7 @@ def buildGAN(images, epochs = 40000, batchSize = 32, loggingInterval = 0):
 
         # Train discriminator with a true and false batch
         arr = np.random.randint(0, images.shape[0], batchSize)
-        batch = np.random.randint(0, images.shape[0], (IMAGE_SHAPE , batchSize))
+        batch = np.random.randint(0, images.shape[0], (batchSize,))
         for i in range(batchSize):
             batch[i] = images[arr[i]]
         noise = np.random.normal(0, 1, (batchSize, NOISE_SIZE))
@@ -163,7 +163,7 @@ def buildGAN(images, epochs = 40000, batchSize = 32, loggingInterval = 0):
         advLoss = np.add(advTrueLoss, advFalseLoss) * 0.5
 
         # Train generator by training GAN while keeping adversary component constant
-        noise = np.random.normal(0, 1, (batchSize, NOISE_SIZE))
+        noise = np.random.normal(0, 1, (batchSize, IH ,IW ,IZ))
         genLoss = gan.train_on_batch(noise, trueCol)
 
         # Logging
