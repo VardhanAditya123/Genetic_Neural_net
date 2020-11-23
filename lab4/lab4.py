@@ -157,7 +157,7 @@ def buildGAN(images, epochs = 40000, batchSize = 32, loggingInterval = 0):
         batch = np.random.randint(0, images.shape[0], (batchSize , IW ,IH ,))
         print("SHAPE OF %s." % str(images.shape))
         for i in range(batchSize):
-            batch[i] = (images[arr[i]]).Reshape( IW ,IH ,IZ)
+            batch[i] = (images[arr[i]]).reshape( IW ,IH ,IZ)
         print(batch.shape)
         noise = np.random.normal(0, 1, (batchSize, NOISE_SIZE))
         genImages = generator.predict(noise)
