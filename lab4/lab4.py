@@ -160,7 +160,7 @@ def buildGAN(images, epochs = 40000, batchSize = 32, loggingInterval = 0):
         # print(batch.shape)
         noise = np.random.normal(0, 1, (batchSize, NOISE_SIZE))
         genImages = generator.predict(noise)
-        print("SHAPE OF %s." % str(genImages.shape))
+        print("SHAPE OF %s." % str(trueCol.shape))
         advTrueLoss = adversary.train_on_batch(batch, trueCol)
         advFalseLoss = adversary.train_on_batch(genImages, falseCol)
         advLoss = np.add(advTrueLoss, advFalseLoss) * 0.5
