@@ -102,6 +102,10 @@ def buildDiscriminator():
     model.add(Flatten(input_shape=IMAGE_SHAPE))
     model.add(Dense(512))
     model.add(LeakyReLU(alpha=0.2))
+    model.add(Dense(512))
+    model.add(LeakyReLU(alpha=0.2))
+    model.add(Dense(512))
+    model.add(LeakyReLU(alpha=0.2))
     model.add(Dense(256))
     model.add(LeakyReLU(alpha=0.2))
     model.add(Dense(1, activation= "sigmoid" ))
@@ -117,6 +121,12 @@ def buildGenerator():
 
     # Creating a Keras Model out of the network
     model.add(Dense(256 , input_dim = NOISE_SIZE))
+    model.add(LeakyReLU(alpha=0.2))
+    model.add(BatchNormalization(momentum=0.8))
+    model.add(Dense(512))
+    model.add(LeakyReLU(alpha=0.2))
+    model.add(BatchNormalization(momentum=0.8))
+    model.add(Dense(512))
     model.add(LeakyReLU(alpha=0.2))
     model.add(BatchNormalization(momentum=0.8))
     model.add(Dense(512))
