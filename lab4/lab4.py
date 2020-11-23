@@ -153,7 +153,7 @@ def buildGAN(images, epochs = 40000, batchSize = 32, loggingInterval = 0):
 
         # Train discriminator with a true and false batch
         arr = np.random.randint(0, images.shape[0], batchSize)
-        batch = np.random.randint(0, images.shape[0], (batchSize , IW ,IH ,IZ))
+        batch = np.random.randint(0, images.shape[0], (batchSize , IW ,IH ))
         print("SHAPE OF %s." % str(images.shape))
         for i in range(batchSize):
             batch[i] = images[arr[i]]
