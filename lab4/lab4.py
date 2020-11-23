@@ -130,10 +130,6 @@ def buildGenerator():
     inputTensor = Input(shape=(NOISE_SIZE,))
     return Model(inputTensor,model(inputTensor))
 
-
-    inputTensor = Input(shape = (NOISE_SIZE,))
-    return Model(inputTensor, model(inputTensor))
-
 def buildGAN(images, epochs = 40000, batchSize = 32, loggingInterval = 0):
     # Setup
     opt = Adam(lr = 0.0002)
