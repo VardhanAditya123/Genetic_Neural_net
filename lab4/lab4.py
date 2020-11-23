@@ -28,7 +28,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 DATASET = "mnist_d"
 # DATASET = "mnist_f"
 #DATASET = "cifar_10"
-global batch
+
 if DATASET == "mnist_d":
     IMAGE_SHAPE = (IH, IW, IZ) = (28, 28, 1)
     LABEL = "numbers"
@@ -153,9 +153,9 @@ def buildGAN(images, epochs = 40000, batchSize = 32, loggingInterval = 0):
 
         # Train discriminator with a true and false batch
         arr = np.random.randint(0, images.shape[0], batchSize)
-        # batch = images[np.random.randint(0, images.shape[0], batchSize)]
+        batch = np.random.randint(0, images.shape[0], (IMAGE_SHAPE* batchSize))
         for i in range(batchSize):
-            batch.add(images[arr[i]])
+            batch[i] = images[arr[i]]
         noise = np.random.normal(0, 1, (batchSize, NOISE_SIZE))
         genImages = generator.predict(noise)
         advTrueLoss = adversary.train_on_batch(batch, trueCol)
