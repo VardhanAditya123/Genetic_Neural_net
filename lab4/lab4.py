@@ -104,7 +104,7 @@ def buildDiscriminator():
     model.add(LeakyReLU(alpha=0.2))
     model.add(Dense(256))
     model.add(LeakyReLU(alpha=0.2))
-    model.add(Dense(1, actiavtion= "sigmoid" ))
+    model.add(Dense(1, activation= "sigmoid" ))
     inputTensor = Input(shape = IMAGE_SHAPE)
     return Model(inputTensor, model(inputTensor))
 
