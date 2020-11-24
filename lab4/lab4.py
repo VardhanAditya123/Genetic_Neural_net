@@ -132,15 +132,13 @@ def buildDiscriminator():
     # model.fit(x,y,epochs = 10)
 
 # Model that generates a fake image from random noise
-def buildGenerator():
-    model = Sequential()
-    # TODO: build a generator which takes in a (NOISE_SIZE) noise array and outputs a fake
+# TODO: build a generator which takes in a (NOISE_SIZE) noise array and outputs a fake
     #       mnist_f (28 x 28 x 1) image
-
-    # Creating a Keras Model out of the network
-    
-    model.add(Dense(256 , input_dim = NOISE_SIZE))
-    model.add(LeakyReLU(alpha=0.2))
+ # Creating a Keras Model out of the network
+def buildGenerator():
+    model = Sequential()    
+    model.add(Dense(IMAGE_SIZE , activation = "tanh",input_dim=NOISE_SIZE))
+    model.add(Reshape(IMAGE_SHAPE))
     model.add(keras.layers.Conv2D(32, kernel_size =(4, 4), activation = "relu", input_shape = IMAGE_SHAPE,strides=(2,2)))
     model.add(keras.layers.Conv2D(32, kernel_size =(3, 3), activation = "relu", strides=(1,1)))
     model.add(keras.layers.Conv2D(32, kernel_size =(3, 3), activation = "relu", strides=(1,1)))
