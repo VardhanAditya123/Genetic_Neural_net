@@ -101,7 +101,7 @@ def buildDiscriminator():
     model = Sequential()
     lossType = keras.losses.sparse_categorical_crossentropy
     opt = tf.train.AdamOptimizer()
-    model.add(keras.layers.Conv2D(32, kernel_size =(4, 4), activation = "relu", input_shape = inShape,strides=(2,2)))
+    model.add(keras.layers.Conv2D(32, kernel_size =(4, 4), activation = "relu", input_shape = IMAGE_SHAPE,strides=(2,2)))
     model.add(keras.layers.Conv2D(32, kernel_size =(3, 3), activation = "relu", strides=(1,1)))
     model.add(keras.layers.Conv2D(32, kernel_size =(3, 3), activation = "relu", strides=(1,1)))
     model.add(keras.layers.Conv2D(32, kernel_size =(2, 2), activation = "relu", strides=(1,1)))
