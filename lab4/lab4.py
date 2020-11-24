@@ -152,7 +152,7 @@ def buildGenerator():
     model.add(BatchNormalization(momentum=0.8))
     model.add(Dense(IMAGE_SIZE , activation = "tanh"))
     model.add(Reshape(IMAGE_SHAPE))
-    inputTensor = Input(shape=(NOISE_SIZE,))
+    inputTensor = Input(shape=(IMAGE_SHAPE,))
     return Model(inputTensor,model(inputTensor))
 
 def buildGAN(images, epochs = 40000, batchSize = 32, loggingInterval = 0):
