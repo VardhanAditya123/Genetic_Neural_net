@@ -134,25 +134,22 @@ def buildDiscriminator():
 # Model that generates a fake image from random noise
 def buildGenerator():
     model = Sequential()
-
     # TODO: build a generator which takes in a (NOISE_SIZE) noise array and outputs a fake
     #       mnist_f (28 x 28 x 1) image
 
     # Creating a Keras Model out of the network
-    model = Sequential()
-    lossType = keras.losses.sparse_categorical_crossentropy
-    opt = tf.train.AdamOptimizer()
+    
+    model.add(Dense(256 , input_dim = NOISE_SIZE))
+    model.add(LeakyReLU(alpha=0.2))
     model.add(keras.layers.Conv2D(32, kernel_size =(4, 4), activation = "relu", input_shape = IMAGE_SHAPE,strides=(2,2)))
     model.add(keras.layers.Conv2D(32, kernel_size =(3, 3), activation = "relu", strides=(1,1)))
     model.add(keras.layers.Conv2D(32, kernel_size =(3, 3), activation = "relu", strides=(1,1)))
     model.add(keras.layers.Conv2D(32, kernel_size =(2, 2), activation = "relu", strides=(1,1)))
     model.add(keras.layers.Flatten())
-    model.add(keras.layers.Dense(128 , activation = "relu"))
-    model.add(LeakyReLU(alpha=0.2))
     model.add(BatchNormalization(momentum=0.8))
     model.add(Dense(IMAGE_SIZE , activation = "tanh"))
     model.add(Reshape(IMAGE_SHAPE))
-    inputTensor = Input(shape=(IMAGE_SHAPE,))
+    inputTensor = Input(shape=(NOISE_SIZE,))
     return Model(inputTensor,model(inputTensor))
 
 def buildGAN(images, epochs = 40000, batchSize = 32, loggingInterval = 0):
