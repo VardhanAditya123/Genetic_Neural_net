@@ -137,7 +137,7 @@ def buildDiscriminator():
  # Creating a Keras Model out of the network
 def buildGenerator():
     model = Sequential()    
-    model.add(Dense(IMAGE_SIZE , activation = "tanh",input_dim=NOISE_SIZE))
+    model.add(Dense(IMAGE_SIZE , activation = "relu",input_dim=NOISE_SIZE))
     model.add(Reshape(IMAGE_SHAPE))
     model.add(keras.layers.Conv2D(32, kernel_size =(4, 4), activation = "relu", input_shape = IMAGE_SHAPE,strides=(2,2)))
     model.add(keras.layers.Conv2D(32, kernel_size =(3, 3), activation = "relu", strides=(1,1)))
