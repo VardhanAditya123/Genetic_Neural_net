@@ -26,8 +26,8 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 # NOTE: mnist_d is no credit
 # NOTE: cifar_10 is extra credit
 # DATASET = "mnist_d"
-# DATASET = "mnist_f"
-DATASET = "cifar_10"
+DATASET = "mnist_f"
+# DATASET = "cifar_10"
 
 if DATASET == "mnist_d":
     IMAGE_SHAPE = (IH, IW, IZ) = (28, 28, 1)
@@ -37,7 +37,7 @@ elif DATASET == "mnist_f":
     IMAGE_SHAPE = (IH, IW, IZ) = (28, 28, 1)
     CLASSLIST = ["top", "trouser", "pullover", "dress", "coat", "sandal", "shirt", "sneaker", "bag", "ankle boot"]
     # TODO: choose a label to train on from the CLASSLIST above
-    LABEL = "trouser"
+    LABEL = "coat"
 
 elif DATASET == "cifar_10":
     IMAGE_SHAPE = (IH, IW, IZ) = (32, 32, 3)
