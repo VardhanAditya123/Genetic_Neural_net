@@ -39,3 +39,24 @@ def buildDiscriminator():
     model.add(Reshape(IMAGE_SHAPE))
     inputTensor = Input(shape=(NOISE_SIZE,))
     return Model(inputTensor,model(inputTensor))
+
+
+     # model = keras.Sequential()
+    # inShape = (IH, IW, IZ)
+    # lossType = keras.losses.sparse_categorical_crossentropy
+    # opt = tf.train.AdamOptimizer()
+   
+    # model.add(keras.layers.Conv2D(32, kernel_size =(3, 3), activation = "relu", input_shape = inShape))
+    # model.add(keras.layers.MaxPooling2D(pool_size = (2,2)))
+    # model.add(tf.keras.layers.Dropout(dropRate))
+
+
+    # model.add(keras.layers.Conv2D(64, kernel_size =(3, 3), activation = "relu"))
+    # model.add(keras.layers.MaxPooling2D(pool_size = (3,3)))
+
+    # model.add(keras.layers.Flatten())
+    # model.add(keras.layers.Dense(128 , activation = "relu"))
+    # model.add(keras.layers.Dense(NUM_CLASSES , activation = "softmax"))
+    # model.compile(optimizer = opt, loss = lossType ,metrics=['accuracy'])
+
+    # model.fit(x,y,epochs = 10)
