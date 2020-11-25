@@ -107,12 +107,12 @@ def buildDiscriminator():
         model.add(keras.layers.Conv2D(32, kernel_size =(3, 3), activation = "relu", strides=(1,1)))
         model.add(keras.layers.Conv2D(32, kernel_size =(2, 2), activation = "relu", strides=(1,1)))
     else:
-        model.add(keras.layers.Conv2D(32, kernel_size =(4, 4 ,3), activation = "relu", input_shape = IMAGE_SHAPE,strides=(2,2)))
-        model.add(keras.layers.Conv2D(32, kernel_size =(3, 3 ,3), activation = "relu", strides=(2,2)))
-        model.add(keras.layers.Conv2D(32, kernel_size =(2, 2 ,3), activation = "relu", strides=(1,1)))
-        model.add(keras.layers.Conv2D(32, kernel_size =(2, 2 ,3), activation = "relu", strides=(1,1)))
-        model.add(keras.layers.Conv2D(32, kernel_size =(2, 2 ,3), activation = "relu", strides=(1,1)))
-        model.add(keras.layers.Conv2D(32, kernel_size =(2, 2 ,3), activation = "relu", strides=(1,1)))
+        model.add(keras.layers.Conv2D(32, kernel_size =(4, 4 ), activation = "relu", input_shape = IMAGE_SHAPE,strides=(2,2)))
+        model.add(keras.layers.Conv2D(32, kernel_size =(3, 3 ), activation = "relu", strides=(2,2)))
+        model.add(keras.layers.Conv2D(32, kernel_size =(2, 2 ), activation = "relu", strides=(1,1)))
+        model.add(keras.layers.Conv2D(32, kernel_size =(2, 2 ), activation = "relu", strides=(1,1)))
+        model.add(keras.layers.Conv2D(32, kernel_size =(2, 2 ), activation = "relu", strides=(1,1)))
+        model.add(keras.layers.Conv2D(32, kernel_size =(2, 2 ), activation = "relu", strides=(1,1)))
 
     model.add(keras.layers.Flatten())
     model.add(keras.layers.Dense(128 , activation = "relu"))
