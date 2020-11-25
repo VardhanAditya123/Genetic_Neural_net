@@ -26,8 +26,8 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 # NOTE: mnist_d is no credit
 # NOTE: cifar_10 is extra credit
 # DATASET = "mnist_d"
-DATASET = "mnist_f"
-#DATASET = "cifar_10"
+# DATASET = "mnist_f"
+DATASET = "cifar_10"
 
 if DATASET == "mnist_d":
     IMAGE_SHAPE = (IH, IW, IZ) = (28, 28, 1)
