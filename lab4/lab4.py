@@ -140,7 +140,7 @@ def buildGenerator():
         model.add(keras.layers.Conv2D(32, kernel_size =(3, 3 ), strides=(2,2)))
         model.add(LeakyReLU(alpha=0.2))
         model.add(BatchNormalization(momentum=0.8))
-        model.add(keras.layers.Conv2D(32, kernel_size =(2, 2 ), strides=(1,1)))4
+        model.add(keras.layers.Conv2D(32, kernel_size =(2, 2 ), strides=(1,1)))
         model.add(LeakyReLU(alpha=0.2))
         model.add(BatchNormalization(momentum=0.8))
         model.add(keras.layers.Conv2D(32, kernel_size =(2, 2 ), activation = "relu", strides=(1,1)))
