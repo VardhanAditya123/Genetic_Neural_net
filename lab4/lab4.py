@@ -101,10 +101,19 @@ def buildDiscriminator():
     model = Sequential()
     lossType = keras.losses.sparse_categorical_crossentropy
     opt = tf.train.AdamOptimizer()
-    model.add(keras.layers.Conv2D(32, kernel_size =(4, 4), activation = "relu", input_shape = IMAGE_SHAPE,strides=(2,2)))
-    model.add(keras.layers.Conv2D(32, kernel_size =(3, 3), activation = "relu", strides=(1,1)))
-    model.add(keras.layers.Conv2D(32, kernel_size =(3, 3), activation = "relu", strides=(1,1)))
-    model.add(keras.layers.Conv2D(32, kernel_size =(2, 2), activation = "relu", strides=(1,1)))
+    if DATASET != "cifar_10":
+        model.add(keras.layers.Conv2D(32, kernel_size =(4, 4), activation = "relu", input_shape = IMAGE_SHAPE,strides=(2,2)))
+        model.add(keras.layers.Conv2D(32, kernel_size =(3, 3), activation = "relu", strides=(1,1)))
+        model.add(keras.layers.Conv2D(32, kernel_size =(3, 3), activation = "relu", strides=(1,1)))
+        model.add(keras.layers.Conv2D(32, kernel_size =(2, 2), activation = "relu", strides=(1,1)))
+    else:
+        model.add(keras.layers.Conv2D(32, kernel_size =(4, 4 ,3), activation = "relu", input_shape = IMAGE_SHAPE,strides=(2,2)))
+        model.add(keras.layers.Conv2D(32, kernel_size =(3, 3 ,3), activation = "relu", strides=(2,2)))
+        model.add(keras.layers.Conv2D(32, kernel_size =(2, 2 ,3), activation = "relu", strides=(1,1)))
+        model.add(keras.layers.Conv2D(32, kernel_size =(2, 2 ,3), activation = "relu", strides=(1,1)))
+        model.add(keras.layers.Conv2D(32, kernel_size =(2, 2 ,3), activation = "relu", strides=(1,1)))
+        model.add(keras.layers.Conv2D(32, kernel_size =(2, 2 ,3), activation = "relu", strides=(1,1)))
+
     model.add(keras.layers.Flatten())
     model.add(keras.layers.Dense(128 , activation = "relu"))
     model.add(Dense(1, activation= "sigmoid" ))
@@ -120,10 +129,19 @@ def buildGenerator():
     model = Sequential()    
     model.add(Dense(IMAGE_SIZE , activation = "relu",input_dim=NOISE_SIZE))
     model.add(Reshape(IMAGE_SHAPE))
-    model.add(keras.layers.Conv2D(32, kernel_size =(4, 4), activation = "relu", input_shape = IMAGE_SHAPE,strides=(2,2)))
-    model.add(keras.layers.Conv2D(32, kernel_size =(3, 3), activation = "relu", strides=(1,1)))
-    model.add(keras.layers.Conv2D(32, kernel_size =(3, 3), activation = "relu", strides=(1,1)))
-    model.add(keras.layers.Conv2D(32, kernel_size =(2, 2), activation = "relu", strides=(1,1)))
+    if DATASET != "cifar_10":
+        model.add(keras.layers.Conv2D(32, kernel_size =(4, 4), activation = "relu", input_shape = IMAGE_SHAPE,strides=(2,2)))
+        model.add(keras.layers.Conv2D(32, kernel_size =(3, 3), activation = "relu", strides=(1,1)))
+        model.add(keras.layers.Conv2D(32, kernel_size =(3, 3), activation = "relu", strides=(1,1)))
+        model.add(keras.layers.Conv2D(32, kernel_size =(2, 2), activation = "relu", strides=(1,1)))
+    else:
+        model.add(keras.layers.Conv2D(32, kernel_size =(4, 4 ,3), activation = "relu", input_shape = IMAGE_SHAPE,strides=(2,2)))
+        model.add(keras.layers.Conv2D(32, kernel_size =(3, 3 ,3), activation = "relu", strides=(2,2)))
+        model.add(keras.layers.Conv2D(32, kernel_size =(2, 2 ,3), activation = "relu", strides=(1,1)))
+        model.add(keras.layers.Conv2D(32, kernel_size =(2, 2 ,3), activation = "relu", strides=(1,1)))
+        model.add(keras.layers.Conv2D(32, kernel_size =(2, 2 ,3), activation = "relu", strides=(1,1)))
+        model.add(keras.layers.Conv2D(32, kernel_size =(2, 2 ,3), activation = "relu", strides=(1,1)))
+    
     model.add(keras.layers.Flatten())
     model.add(BatchNormalization(momentum=0.8))
     model.add(Dense(IMAGE_SIZE , activation = "tanh"))
