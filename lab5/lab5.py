@@ -143,9 +143,11 @@ class NeuralNetwork_NLayer():
 
     
 def mutate(new_individual):
+    global NETCOUNT
     genes = []
     CUSTOM = 1
     mute_individual = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1)
+    NETCOUNT+=1
     for x in range (NO_OF_LAYERS):
         gene = new_individual.W[x]
         rows = gene.shape[0]
@@ -177,9 +179,6 @@ def crossover(individuals):
             else:
                 parentA = random.choice(individuals[:])
                 parentB = random.choice(individuals[:])
-
-            print(type(parentA.W[0]))
-            print(type(parentB.W[0]))
 
             CUSTOM = 1
             new_individual = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1)
