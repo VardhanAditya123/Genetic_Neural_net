@@ -351,10 +351,10 @@ def main():
         model = buildModel()
         individuals.append(model)
     
-    for generation in range(no_of_generations):
-        print("================<NEXT GENERATION>===================")
-        individuals = train_nets(data, individuals)
-        individuals = evolve(individuals)
+    # for generation in range(no_of_generations):
+    #     print("================<NEXT GENERATION>===================")
+    #     individuals = train_nets(data, individuals)
+    #     individuals = evolve(individuals)
     
     model =  individuals[0]
     preds = runModel(data[1][0], model)
