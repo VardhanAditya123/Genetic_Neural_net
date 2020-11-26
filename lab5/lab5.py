@@ -27,11 +27,11 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 NUM_CLASSES = 10
 IMAGE_SIZE = 784
 # For N layer custom net
-NO_OF_LAYERS = 4
+NO_OF_LAYERS = 6
 NEURONS_PER_LAYER = 40
 no_of_generations = 5
 no_of_individuals = 15
-mutate_factor = 0.001
+mutate_factor = 0.01
 NETCOUNT = 1
 # Use these to set the algorithm to use.
 # ALGORITHM = "guesser"
