@@ -169,8 +169,10 @@ def crossover(individuals):
     new_individuals = []
     new_individuals.append(individuals[0])
     new_individuals.append(individuals[1])
+    new_individuals.append(individuals[2])
+    new_individuals.append(individuals[3])
 
-    for i in range(2, no_of_individuals):
+    for i in range(4, no_of_individuals):
 
         parentA = random.choice(individuals[:])
         parentB = random.choice(individuals[:])
