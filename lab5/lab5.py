@@ -76,18 +76,7 @@ class NeuralNetwork_NLayer():
                 self.W.append(np.random.randn(self.neuronsPerLayer ,self.neuronsPerLayer))
             i+=1
                  
-    def __init__(custom ,self, inputSize, outputSize, neuronsPerLayer, layers, netcount , learningRate = 0.1):
-        self.accuracy = 0
-        self.name = "n"+ str(netcount)
-        self.inputSize = inputSize
-        self.outputSize = outputSize
-        self.neuronsPerLayer = neuronsPerLayer
-        self.lr = learningRate
-        self.W = []
-        self.L = []
-        self.Z = []
-        self.delta=[]
-        self.N_layers = layers
+    
 
     # Activation function.
     def __sigmoid(self, x):
