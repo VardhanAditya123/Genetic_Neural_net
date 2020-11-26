@@ -168,6 +168,7 @@ def crossover(individuals):
     global NETCOUNT
     new_individuals = []
     for x in range (elites):
+        individuals[x].loss = 0
         new_individuals.append(individuals[x])
 
     for i in range(elites, no_of_individuals):
@@ -323,8 +324,6 @@ def evolve(individuals):
 def train_nets(data, individuals):
     (xVals,yVals) = data[0]
     i = 0
-    for k in range (len(individuals)):
-        individuals[k].loss = 0
     while i < 60000:
         for j in range (len(individuals)):
             x = xVals[i]
