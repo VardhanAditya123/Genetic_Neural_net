@@ -338,11 +338,9 @@ def main():
         # runModels(data, individuals)
         # individuals = evolve(individuals)
         individuals = train_nets(data, individuals)
-        runModels(data,individuals)
+    
+    runModels(data,individuals)
 
-    # individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
-    # for n in individuals:
-    #     print(n.accuracy)
     
 
 
