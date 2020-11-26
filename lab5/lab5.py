@@ -319,7 +319,7 @@ def train_nets(data, individuals):
             individuals[j].loss = y[ind] - L[ind]
         individuals = evolve(individuals)
         i+=1
-        print(i)
+
     return individuals
 
     
