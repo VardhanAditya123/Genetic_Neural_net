@@ -192,9 +192,9 @@ def crossover(individuals):
             else:
                 Br = parentB.W
                 new_individual.addLayer(Br[j])
-        new_individuals.append(mutate(new_individual))
+        # new_individuals.append(mutate(new_individual))
 
-    # new_individuals.append(new_individual)
+        new_individuals.append(new_individual)
     return new_individuals
 
 
@@ -331,7 +331,7 @@ def train_nets(data, individuals):
             L  = (individuals[j]).predict_N(x)
             ind = findMax(y)
             losss = y[ind] - L[ind]
-            print(losss)
+            # print(losss)
             individuals[j].loss += losss
         # individuals = evolve(individuals)
         i+=1
