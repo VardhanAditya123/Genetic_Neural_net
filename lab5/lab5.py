@@ -314,12 +314,13 @@ def runModel(data, model):
 
 
 
-def evalResults(data, preds ):   #TODO: Add F1 score confusion matrix here.
+def evalResults(data, preds , individual ):   #TODO: Add F1 score confusion matrix here.
     xTest, yTest = data
     acc = 0
     for i in range(preds.shape[0]):
         if np.array_equal(preds[i], yTest[i]):   acc = acc + 1
     accuracy = acc / preds.shape[0]
+    individual.accuracy = accuracy
     confMatrix(data,preds)
     print("Classifier algorithm: %s" % ALGORITHM)
     print("Classifier accuracy: %f%%" % (accuracy * 100))
@@ -333,8 +334,8 @@ def trainModels(data , individuals):
 
 def runModels (data , individuals):
     for individual in individuals:
-        preds = runModel(data[1][0],individual)
-        evalResults(data[1], preds , individual)
+        preds = runModel(data[0][0],individual)
+        evalResults(data[0], preds , individual)
 
 def evolve(individuals):
     individuals = sorted(individuals, key=lambda x: x.loss, reverse=False)
@@ -347,8 +348,6 @@ def evolve(individuals):
 def train_nets(data, individuals):
     (xVals,yVals) = data[0]
     i = 0
-    for k in range(len(individuals)):
-        individuals[k].loss = 0
     while i < 60000:
         for j in range (len(individuals)):
             x = xVals[i]
@@ -356,9 +355,7 @@ def train_nets(data, individuals):
             L  = (individuals[j]).predict_N(x)
             ind = findMax(y)
             losss = y[ind] - L[ind]
-            # print(losss)
             individuals[j].loss += losss
-        # individuals = evolve(individuals)
         i+=1
 
     return individuals
@@ -377,7 +374,7 @@ def main():
     
     for generation in range(no_of_generations):
         print("================<NEXT GENERATION>===================")
-        individuals = train_nets(data, individuals)
+        individuals = runModels(data,individuals)
         individuals = evolve(individuals)
     
     # model =  buildModel()
