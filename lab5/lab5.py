@@ -313,7 +313,7 @@ def train_nets(data, individuals):
     i = 0
     layer = self.N_layers
     while i < 60000:
-        for j in range len(individuals):
+        for j in range (len(individuals)):
             x = xVals[i]
             y = yVals[i]
             L  = individuals[j].__forward(x)
