@@ -109,31 +109,31 @@ class NeuralNetwork_NLayer():
 
 
     def train(self, xVals, yVals, epochs = 100000, minibatches = True, mbs = 100):
-    i = 0
-    layer = self.N_layers
-    while i < 60000:
-        x = xVals[i]
-        y = yVals[i]
-        L  = self.__forward(x)
-        Z = self.Z
-        j = layer -1
-        self.delta={}
-        while j >=0:
-            if(j == layer -1):
-                self.delta.update( {j : (L[j] - y)*self.__sigmoidDerivative(Z[j])} )
-            else:
-                self.delta.update({j :np.dot(  self.W[j+1].T ,  (self.delta[j+1]) ) * self.__sigmoidDerivative(Z[j])})
-            j-=1
-        
-        j = 0
-        
-        while j < layer:
-                if j == 0:
-                    self.W[j] -= (self.delta[j]).dot(x.T)   
+        i = 0
+        layer = self.N_layers
+        while i < 60000:
+            x = xVals[i]
+            y = yVals[i]
+            L  = self.__forward(x)
+            Z = self.Z
+            j = layer -1
+            self.delta={}
+            while j >=0:
+                if(j == layer -1):
+                    self.delta.update( {j : (L[j] - y)*self.__sigmoidDerivative(Z[j])} )
                 else:
-                    self.W[j] -= (self.delta[j]).dot(L[j-1].T)
-                j+=1
-        i+=1
+                    self.delta.update({j :np.dot(  self.W[j+1].T ,  (self.delta[j+1]) ) * self.__sigmoidDerivative(Z[j])})
+                j-=1
+            
+            j = 0
+            
+            while j < layer:
+                    if j == 0:
+                        self.W[j] -= (self.delta[j]).dot(x.T)   
+                    else:
+                        self.W[j] -= (self.delta[j]).dot(L[j-1].T)
+                    j+=1
+            i+=1
 
     # Forward pass.
     def forward(self, input ):
