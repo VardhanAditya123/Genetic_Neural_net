@@ -68,26 +68,23 @@ class NeuralNetwork_NLayer():
         self.N_layers = layers
         self.lc = 0
         i = 0
-        while i < layers:
-            if i == 0:
-                self.W.append(np.random.randn(self.neuronsPerLayer, self.inputSize))
-            elif i == (layers - 1):
-                self.W.append(np.random.randn(self.outputSize ,self.neuronsPerLayer))
-            else:
-                self.W.append(np.random.randn(self.neuronsPerLayer ,self.neuronsPerLayer))
-            i+=1
+        if(custom == 0):
+            while i < layers:
+                if i == 0:
+                    self.W.append(np.random.randn(self.neuronsPerLayer, self.inputSize))
+                elif i == (layers - 1):
+                    self.W.append(np.random.randn(self.outputSize ,self.neuronsPerLayer))
+                else:
+                    self.W.append(np.random.randn(self.neuronsPerLayer ,self.neuronsPerLayer))
+                i+=1
         
-        if(custom == 1):
-            self.W = []
-                 
-    def addLayer():
+    
+
+
+
+    def addLayer(layer):
         i = self.lc
-        if (i == 0):
-            self.W.append(np.random.randn(self.neuronsPerLayer, self.inputSize))
-        elif i == (layers - 1):
-            self.W.append(np.random.randn(self.outputSize ,self.neuronsPerLayer))
-        else:
-            self.W.append(np.random.randn(self.neuronsPerLayer ,self.neuronsPerLayer))
+        self.W.append(layer)
         self.lc += 1
 
 
