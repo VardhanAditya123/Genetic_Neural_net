@@ -324,7 +324,7 @@ def train_nets(data, individuals):
     (xVals,yVals) = data[0]
     i = 0
     for k in range (len(individuals)):
-        individuals[j].loss = 0
+        individuals[k].loss = 0
     while i < 60000:
         for j in range (len(individuals)):
             x = xVals[i]
