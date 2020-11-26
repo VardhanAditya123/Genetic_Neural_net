@@ -305,7 +305,7 @@ def runModels (data , individuals):
         evalResults(data[1], preds , individual)
 
 def evolve(individuals):
-    individuals = sorted(individuals, key=lambda x: x.loss, reverse=True)
+    individuals = sorted(individuals, key=lambda x: x.loss, reverse=False)
     for x in individuals:
         print(x.loss)
     print("DOOONE\n")
