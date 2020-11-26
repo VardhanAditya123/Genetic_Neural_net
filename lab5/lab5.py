@@ -181,6 +181,7 @@ def crossover(individuals):
 
         CUSTOM = 1
         new_individual = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1)
+        NETCOUNT+=1
 
         for j in range(NO_OF_LAYERS):
             n = np.random.rand()
@@ -313,7 +314,7 @@ def runModels (data , individuals):
 def evolve(individuals):
     individuals = sorted(individuals, key=lambda x: x.loss, reverse=False)
     for x in individuals:
-        print(x.loss)
+        print(x.name)
     print("DOOONE\n")
     new_individuals = crossover(individuals)
     return new_individuals
