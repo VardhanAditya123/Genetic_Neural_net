@@ -197,48 +197,7 @@ def crossover(individuals):
 
         # new_individuals.append(new_individual)
     return new_individuals
-
-
-#=========================<HELPER Functions>==================================
-
-
-def Customclassifier(xTest , model):
-    ans = []
-    for x in xTest:
-        pred = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        check = (model.predict_N(x)).flatten()
-        index = findMax(check)
-        pred[index] = 1
-        ans.append(pred)
-        
-    return np.array(ans)
-
-def findMax(layer):
-    max = layer[0]
-    max_l = 0
-    i = 0
-    while i < 10:
-        if layer[i] > max:
-            max = layer[i]
-            max_l = i
-        i+=1
-    return max_l
-    
  
-def confMatrix(data, preds):
-    xTest, yTest = data
-    n_preds=[]
-    n_yTest=[]
-    for i in range(preds.shape[0]):
-        n_preds.append(findMax(preds[i] ))
-        n_yTest.append(findMax(yTest[i] ))
-    labels = [0,1,2,3,4,5,6,7,8,9]
-    confusion = metrics.confusion_matrix(n_yTest, n_preds,labels)
-    report = metrics.classification_report(n_yTest, n_preds,labels)
-    print("\nConfusion Matrix:\n")
-    print(confusion)
-    print("\nReport:")
-    print(report)   
 
 #=========================<Pipeline Functions>==================================
 
@@ -284,10 +243,40 @@ def trainModel(data , model):
     return model
 
 
-def runModel(data, model):
-    return Customclassifier(data , model)
+    
+def trainModels(data , individuals):
+    for i  in range (len(individuals)):
+        individuals[i] = trainModel(data[0] , individuals[i])
+    return individuals
 
 
+
+#=========================<RUN MODEL>================================== 
+def findMax(layer):
+    max = layer[0]
+    max_l = 0
+    i = 0
+    while i < 10:
+        if layer[i] > max:
+            max = layer[i]
+            max_l = i
+        i+=1
+    return max_l
+
+def confMatrix(data, preds):
+    xTest, yTest = data
+    n_preds=[]
+    n_yTest=[]
+    for i in range(preds.shape[0]):
+        n_preds.append(findMax(preds[i] ))
+        n_yTest.append(findMax(yTest[i] ))
+    labels = [0,1,2,3,4,5,6,7,8,9]
+    confusion = metrics.confusion_matrix(n_yTest, n_preds,labels)
+    report = metrics.classification_report(n_yTest, n_preds,labels)
+    print("\nConfusion Matrix:\n")
+    print(confusion)
+    print("\nReport:")
+    print(report) 
 
 
 def evalResults(data, preds , individual ):   #TODO: Add F1 score confusion matrix here.
@@ -302,17 +291,27 @@ def evalResults(data, preds , individual ):   #TODO: Add F1 score confusion matr
     print("Classifier accuracy: %f%%" % (accuracy * 100))
     print()
 
-    
-def trainModels(data , individuals):
-    for i  in range (len(individuals)):
-        individuals[i] = trainModel(data[0] , individuals[i])
-    return individuals
+def Customclassifier(xTest , model):
+    ans = []
+    for x in xTest:
+        pred = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        check = (model.predict_N(x)).flatten()
+        index = findMax(check)
+        pred[index] = 1
+        ans.append(pred)
+        
+    return np.array(ans)
+ 
+
+def runModel(data, model):
+    return Customclassifier(data[0][0] , model)
 
 def runModels (data , individuals):
     for individual in individuals:
-        preds = runModel(data[0][0],individual)
-        evalResults(data[0], preds , individual)
+        preds = runModel(data,individual)
+        evalResults(data, preds , individual)
         return individuals
+
 
 def evolve(individuals):
     individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=False)
@@ -322,20 +321,6 @@ def evolve(individuals):
     new_individuals = crossover(individuals)
     return new_individuals
 
-def train_nets(data, individuals):
-    (xVals,yVals) = data[0]
-    i = 0
-    while i < 60000:
-        for j in range (len(individuals)):
-            x = xVals[i]
-            y = yVals[i]
-            L  = (individuals[j]).predict_N(x)
-            ind = findMax(y)
-            losss = y[ind] - L[ind]
-            individuals[j].loss += losss
-        i+=1
-
-    return individuals
 
     
 #=========================<Main>================================================

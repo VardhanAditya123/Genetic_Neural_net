@@ -130,3 +130,18 @@ def main():
     
 if __name__ == '__main__':
     main()
+
+def train_nets(data, individuals):
+    (xVals,yVals) = data[0]
+    i = 0
+    while i < 60000:
+        for j in range (len(individuals)):
+            x = xVals[i]
+            y = yVals[i]
+            L  = (individuals[j]).predict_N(x)
+            ind = findMax(y)
+            losss = y[ind] - L[ind]
+            individuals[j].loss += losss
+        i+=1
+
+    return individuals
