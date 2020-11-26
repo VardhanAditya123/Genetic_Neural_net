@@ -29,8 +29,8 @@ IMAGE_SIZE = 784
 # For N layer custom net
 NO_OF_LAYERS = 6
 NEURONS_PER_LAYER = 25
-no_of_generations = 2
-no_of_individuals = 5
+no_of_generations = 10
+no_of_individuals = 25
 mutate_factor = 0.01
 NETCOUNT = 1
 # Use these to set the algorithm to use.
@@ -175,7 +175,7 @@ def crossover(individuals):
     for i in range(4, no_of_individuals):
 
         parentA = random.choice(individuals[:4])
-        parentB = random.choice(individuals[:10])
+        parentB = random.choice(individuals[4:])
 
         CUSTOM = 1
         new_individual = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1)
@@ -187,10 +187,10 @@ def crossover(individuals):
                 new_individual.addLayer(Ar[j])
             else:
                 Br = parentB.W
-                # new_individual.addLayer(Br[j])
-            new_individuals.append(mutate(new_individual))
+                new_individual.addLayer(Br[j])
+        # new_individuals.append(mutate(new_individual))
 
-        new_individuals.append(new_individual)
+    # new_individuals.append(new_individual)
     return new_individuals
 
 
