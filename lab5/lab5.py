@@ -192,9 +192,10 @@ def crossover(individuals):
             else:
                 Br = parentB.W
                 new_individual.addLayer(Br[j])
-        # new_individuals.append(mutate(new_individual))
+        
+        new_individuals.append(mutate(new_individual))
 
-        new_individuals.append(new_individual)
+        # new_individuals.append(new_individual)
     return new_individuals
 
 
@@ -352,9 +353,6 @@ def main():
     
     for generation in range(no_of_generations):
         print("================<NEXT GENERATION>===================")
-        # individuals = trainModels(data,individuals)
-        # runModels(data, individuals)
-        # individuals = evolve(individuals)
         individuals = train_nets(data, individuals)
         individuals = evolve(individuals)
     
