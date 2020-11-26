@@ -82,7 +82,7 @@ class NeuralNetwork_NLayer():
                  
     def addLayer():
         i = self.lc
-            if i == 0:
+            if (i == 0):
                 self.W.append(np.random.randn(self.neuronsPerLayer, self.inputSize))
             elif i == (layers - 1):
                 self.W.append(np.random.randn(self.outputSize ,self.neuronsPerLayer))
