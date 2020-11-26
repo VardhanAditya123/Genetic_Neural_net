@@ -67,6 +67,7 @@ class NeuralNetwork_NLayer():
         self.delta=[]
         self.N_layers = layers
         self.lc = 0
+        self.loss = 0
         i = 0
         if(custom == 0):
             while i < layers:
@@ -107,12 +108,7 @@ class NeuralNetwork_NLayer():
 
 
     def train(self, xVals, yVals, epochs = 100000, minibatches = True, mbs = 100):
-        i = 0
-        layer = self.N_layers
-        while i < 60000:
-            x = xVals[i]
-            y = yVals[i]
-            L  = self.__forward(x)
+        pass
 
 
     # Forward pass.
@@ -163,9 +159,6 @@ def mutate(new_individual):
                 if(n < mutate_factor):
                     gene[x,y] = (random.random())
         mute_individual.addLayer(gene)
-
-
-
     return mute_individual
 
 
@@ -237,6 +230,15 @@ def confMatrix(data, preds):
     # print("\nReport:")
     # print(report)   
 
+def train_nets():
+    i = 0
+    layer = self.N_layers
+    while i < 60000:
+        x = xVals[i]
+        y = yVals[i]
+        L  = self.__forward(x)
+        ind = findMax(y)
+        self.loss = yVal[ind] - L[ind]
 #=========================<Pipeline Functions>==================================
 
 def getRawData():
