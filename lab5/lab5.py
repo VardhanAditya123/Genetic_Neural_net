@@ -338,6 +338,7 @@ def main():
     model = individuals[0]
     preds = runModel(data[1][0], model)
     evalResults(data[1], preds ,model)
+    confMatrix(data[1],preds)
     
 
 
