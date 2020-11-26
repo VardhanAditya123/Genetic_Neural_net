@@ -173,12 +173,12 @@ def crossover(individuals):
             print(parentA.name)
             print(parentB.name)
 
-            for i in range(len(parentA)):
+            for i in range(NO_OF_LAYERS):
                 n = random.random()
                 if(n< 0.5):
-                    new_individual.append(parentA[i])
+                    new_individual.append(parentA.W[i])
                 else:
-                    new_individual.append(parentB[i])
+                    new_individual.append(parentB.W[i])
         
         else:
             new_individual = random.choice(individuals[:])
