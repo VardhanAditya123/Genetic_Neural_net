@@ -75,6 +75,9 @@ class NeuralNetwork_NLayer():
             else:
                 self.W.append(np.random.randn(self.neuronsPerLayer ,self.neuronsPerLayer))
             i+=1
+        
+        if(CUSTOM == 1):
+            self.W = []
                  
     
 
