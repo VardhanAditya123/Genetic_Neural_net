@@ -290,13 +290,12 @@ def runModel(data, model):
 
 
 
-def evalResults(data, preds , individual):   #TODO: Add F1 score confusion matrix here.
+def evalResults(data, preds ):   #TODO: Add F1 score confusion matrix here.
     xTest, yTest = data
     acc = 0
     for i in range(preds.shape[0]):
         if np.array_equal(preds[i], yTest[i]):   acc = acc + 1
     accuracy = acc / preds.shape[0]
-    individual.accuracy = accuracy
     confMatrix(data,preds)
     print("Classifier algorithm: %s" % ALGORITHM)
     print("Classifier accuracy: %f%%" % (accuracy * 100))
