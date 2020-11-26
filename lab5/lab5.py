@@ -314,7 +314,7 @@ def train_nets(data, individuals):
         for j in range (len(individuals)):
             x = xVals[i]
             y = yVals[i]
-            L  = (individuals[j]).forward(x)
+            L  = (individuals[j]).predict_N(x)
             ind = findMax(y)
             print("DEBUG")
             print(y[ind] - L[ind])
