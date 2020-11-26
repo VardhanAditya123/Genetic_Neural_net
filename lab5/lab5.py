@@ -110,7 +110,6 @@ class NeuralNetwork_NLayer():
     def train(self, xVals, yVals, epochs = 100000, minibatches = True, mbs = 100):
         pass
 
-
     # Forward pass.
     def __forward(self, input ):
         
