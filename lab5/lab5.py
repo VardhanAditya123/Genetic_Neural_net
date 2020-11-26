@@ -346,17 +346,17 @@ def main():
     raw = getRawData()
     data = preprocessData(raw)
 
-    individuals = []
-    for i in range(no_of_individuals):
-        model = buildModel()
-        individuals.append(model)
+    # individuals = []
+    # for i in range(no_of_individuals):
+    #     model = buildModel()
+    #     individuals.append(model)
     
     # for generation in range(no_of_generations):
     #     print("================<NEXT GENERATION>===================")
     #     individuals = train_nets(data, individuals)
     #     individuals = evolve(individuals)
     
-    model =  individuals[0]
+    model =  buildModel()
     preds = runModel(data[1][0], model)
     evalResults(data[1], preds)
 
