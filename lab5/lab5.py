@@ -381,7 +381,7 @@ def main():
     # model.train(data[0][0],data[0][1])
     model = individuals[0]
     preds = runModel(data[1][0], model)
-    evalResults(data[1], preds)
+    evalResults(data[1], preds , model)
 
     
 
