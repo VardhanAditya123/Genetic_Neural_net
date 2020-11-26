@@ -146,7 +146,8 @@ def mutate(new_individual):
     genes = []
     CUSTOM = 1
     mute_individual = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1)
-    for gene in new_individual:
+    for x in range (len(new_individual):
+        gene = new_individual[x]
         rows = gene.shape[0]
         col1 = gene.shape[1]
         for x in range(0, rows):
