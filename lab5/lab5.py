@@ -30,7 +30,7 @@ IMAGE_SIZE = 784
 NO_OF_LAYERS = 6
 NEURONS_PER_LAYER = 40
 no_of_generations = 5
-no_of_individuals = 15
+no_of_individuals = 7
 mutate_factor = 0.01
 NETCOUNT = 1
 # Use these to set the algorithm to use.
