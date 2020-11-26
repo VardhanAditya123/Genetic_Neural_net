@@ -230,15 +230,6 @@ def confMatrix(data, preds):
     # print("\nReport:")
     # print(report)   
 
-def train_nets():
-    i = 0
-    layer = self.N_layers
-    while i < 60000:
-        x = xVals[i]
-        y = yVals[i]
-        L  = self.__forward(x)
-        ind = findMax(y)
-        self.loss = yVal[ind] - L[ind]
 #=========================<Pipeline Functions>==================================
 
 def getRawData():
@@ -313,9 +304,25 @@ def runModels (data , individuals):
         evalResults(data[1], preds , individual)
 
 def evolve(individuals):
-    individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
+    individuals = sorted(individuals, key=lambda x: x.loss, reverse=True)
     new_individuals = crossover(individuals)
     return new_individuals
+
+def train_nets(data, individuals):
+    (xVals,yVals) = data[0]
+    i = 0
+    layer = self.N_layers
+    while i < 60000:
+        for j in range len(individuals):
+            x = xVals[i]
+            y = yVals[i]
+            L  = individuals[j].__forward(x)
+            ind = findMax(y)
+            individuals[j].loss = yVal[ind] - L[ind]
+        individuals = evolve(individuals)
+    return individuals
+
+    
 #=========================<Main>================================================
 
 def main():
@@ -329,9 +336,11 @@ def main():
     
     for generation in range(no_of_generations):
         print("================<NEXT GENERATION>===================")
-        individuals = trainModels(data,individuals)
-        runModels(data, individuals)
-        individuals = evolve(individuals)
+        # individuals = trainModels(data,individuals)
+        # runModels(data, individuals)
+        # individuals = evolve(individuals)
+        individuals = train_nets(data, individuals)
+        runModels(data,individuals)
 
     # individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
     # for n in individuals:
