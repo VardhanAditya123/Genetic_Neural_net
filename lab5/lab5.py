@@ -162,8 +162,7 @@ def crossover(individuals):
     new_individuals.append(individuals[1])
 
     for i in range(2, no_of_individuals):
-        CUSTOM = 1
-        new_individual = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1)
+
         if(i < (no_of_individuals - 2)):
             if(i == 2):
                 parentA = random.choice(individuals[:3])
@@ -175,6 +174,9 @@ def crossover(individuals):
             print(type(parentA.W[0]))
             print(type(parentB.W[0]))
 
+            CUSTOM = 1
+            new_individual = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1)
+            
             for i1 in range(NO_OF_LAYERS):
                 n = random.random()
                 if(n< 0.5):
