@@ -175,7 +175,7 @@ def crossover(individuals):
         while(1):
             n2 = np.random.randint(0,elites)
             if(n2 != n):
-                parentB = individuals[n2])
+                parentB = individuals[n2]
                 break
 
         CUSTOM = 1
