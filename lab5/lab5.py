@@ -358,7 +358,9 @@ def main():
         individuals = train_nets(data, individuals)
         individuals = evolve(individuals)
     
-    runModels(data,individuals)
+    model =  individuals[0]
+    preds = runModel(data[1][0], model)
+    evalResults(data[1], preds)
 
     
 
