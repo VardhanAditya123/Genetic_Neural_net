@@ -188,8 +188,8 @@ def crossover(individuals):
         else:
             new_individual = random.choice(individuals[:])
 
-        # new_individuals.append(mutate(new_individual))
-        new_individuals.append(new_individual)
+        new_individuals.append(mutate(new_individual))
+        # new_individuals.append(new_individual)
     return new_individuals
 
 
