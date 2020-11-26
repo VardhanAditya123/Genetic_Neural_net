@@ -336,6 +336,7 @@ def runModels (data , individuals):
     for individual in individuals:
         preds = runModel(data[0][0],individual)
         evalResults(data[0], preds , individual)
+        return individuals
 
 def evolve(individuals):
     individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=False)
@@ -374,7 +375,7 @@ def main():
     
     for generation in range(no_of_generations):
         print("================<NEXT GENERATION>===================")
-        individuals = runModels(data,individuals)
+        runModels(data,individuals)
         individuals = evolve(individuals)
     
     model = individuals[0]
