@@ -114,7 +114,7 @@ class NeuralNetwork_NLayer():
         while i < 60000:
             x = xVals[i]
             y = yVals[i]
-            L  = self.__forward(x)
+            L  = self.forward(x)
             Z = self.Z
             j = layer -1
             self.delta={}
