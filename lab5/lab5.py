@@ -66,6 +66,7 @@ class NeuralNetwork_NLayer():
         self.Z = []
         self.delta=[]
         self.N_layers = layers
+        self.lc = 0
         i = 0
         while i < layers:
             if i == 0:
@@ -79,7 +80,16 @@ class NeuralNetwork_NLayer():
         if(custom == 1):
             self.W = []
                  
-    
+    def addLayer():
+        i = self.lc
+            if i == 0:
+                self.W.append(np.random.randn(self.neuronsPerLayer, self.inputSize))
+            elif i == (layers - 1):
+                self.W.append(np.random.randn(self.outputSize ,self.neuronsPerLayer))
+            else:
+                self.W.append(np.random.randn(self.neuronsPerLayer ,self.neuronsPerLayer))
+            self.lc+ = 1
+
 
     # Activation function.
     def __sigmoid(self, x):
