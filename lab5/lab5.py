@@ -29,8 +29,8 @@ IMAGE_SIZE = 784
 # For N layer custom net
 NO_OF_LAYERS = 4
 NEURONS_PER_LAYER = 40
-no_of_generations = 15
-no_of_individuals = 10
+no_of_generations = 2
+no_of_individuals = 5
 mutate_factor = 0.1
 NETCOUNT = 1
 # Use these to set the algorithm to use.
@@ -144,6 +144,7 @@ class NeuralNetwork_NLayer():
     
 def mutate(new_individual):
     genes = []
+
     for gene in new_individual:
         n = random.random()
         if(n < mutate_factor):
@@ -173,17 +174,18 @@ def crossover(individuals):
             print(parentA.name)
             print(parentB.name)
 
-            for i in range(NO_OF_LAYERS):
+            for i1 in range(NO_OF_LAYERS):
                 n = random.random()
                 if(n< 0.5):
-                    new_individual.append(parentA.W[i])
+                    new_individual.append(parentA.W[i1])
                 else:
-                    new_individual.append(parentB.W[i])
+                    new_individual.append(parentB.W[i1])
         
         else:
             new_individual = random.choice(individuals[:])
 
-        new_individuals.append(mutate(new_individual))
+        # new_individuals.append(mutate(new_individual))
+        new_individuals.append(new_individual)
     return new_individuals
 
 
@@ -312,18 +314,18 @@ def main():
     data = preprocessData(raw)
 
     individuals = []
-    for i in range(5):
+    for i in range(no_of_individuals):
         model = buildModel()
         individuals.append(model)
     
-    for generation in range(1):
+    for generation in range(no_of_generations):
         individuals = trainModels(data,individuals)
         runModels(data, individuals)
         individuals = evolve(individuals)
 
-    individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
-    for n in individuals:
-        print(n.accuracy)
+    # individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
+    # for n in individuals:
+    #     print(n.accuracy)
     
 
 
