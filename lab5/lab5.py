@@ -27,13 +27,12 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 NUM_CLASSES = 10
 IMAGE_SIZE = 784
 # For N layer custom net
-NO_OF_LAYERS = 3
-NEURONS_PER_LAYER = 20
-no_of_generations = 2
+NO_OF_LAYERS = 4
+NEURONS_PER_LAYER = 40
+no_of_generations = 5
 no_of_individuals = 5
-mutate_factor = 0.3
+mutate_factor = 0.001
 NETCOUNT = 1
-elites = 2
 # Use these to set the algorithm to use.
 # ALGORITHM = "guesser"
 ALGORITHM = "custom_net"
@@ -68,7 +67,6 @@ class NeuralNetwork_NLayer():
         self.delta=[]
         self.N_layers = layers
         self.lc = 0
-        self.loss = 0
         i = 0
         if(custom == 0):
             while i < layers:
@@ -111,8 +109,9 @@ class NeuralNetwork_NLayer():
     def train(self, xVals, yVals, epochs = 100000, minibatches = True, mbs = 100):
         pass
 
+
     # Forward pass.
-    def forward(self, input ):
+    def __forward(self, input ):
         
         self.L=[]
         self.Z=[]
@@ -133,7 +132,7 @@ class NeuralNetwork_NLayer():
 
     # Predict.
     def predict_N(self, xVals):
-        L = self.forward(xVals)
+        L = self.__forward(xVals)
         return L[self.N_layers - 1]
 
     
@@ -148,7 +147,6 @@ def mutate(new_individual):
     genes = []
     CUSTOM = 1
     mute_individual = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1)
-    mute_individual.W=[]
     NETCOUNT+=1
     for x in range (NO_OF_LAYERS):
         gene = new_individual.W[x]
@@ -156,48 +154,92 @@ def mutate(new_individual):
         cols = gene.shape[1]
         for x in range(0, rows):
             for y in range(0, cols):
-                n = np.random.rand()
+                n = random.random()
                 if(n < mutate_factor):
                     gene[x,y] = (random.random())
         mute_individual.addLayer(gene)
+
+
+
     return mute_individual
 
 
 
 def crossover(individuals):
-    global NETCOUNT
     new_individuals = []
-    for x in range (elites):
-        new_individuals.append(individuals[x])
+    new_individuals.append(individuals[0])
+    new_individuals.append(individuals[1])
 
-    for i in range(elites, no_of_individuals):
+    for i in range(2, no_of_individuals):
 
-        n = np.random.randint(0,elites)
-        parentA = individuals[n]
-        while(1):
-            n2 = np.random.randint(0,elites)
-            if(n2 != n):
-                parentB = individuals[n2]
-                break
-
-        CUSTOM = 1
-        new_individual = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1)
-        NETCOUNT+=1
-
-        for j in range(NO_OF_LAYERS):
-            n = np.random.rand()
-            if(n< 0.5):
-                Ar = parentA.W
-                new_individual.addLayer(Ar[j])
+        if(i < (no_of_individuals - 2)):
+            if(i == 2):
+                parentA = random.choice(individuals[:3])
+                parentB = random.choice(individuals[:3])
             else:
-                Br = parentB.W
-                new_individual.addLayer(Br[j])
-        
-        new_individuals.append(mutate(new_individual))
+                parentA = random.choice(individuals[:])
+                parentB = random.choice(individuals[:])
 
+            CUSTOM = 1
+            new_individual = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1)
+
+            for j in range(NO_OF_LAYERS):
+                n = random.random()
+                if(n< 0.5):
+                    Ar = parentA.W
+                    new_individual.addLayer(Ar[j])
+                else:
+                    Br = parentB.W
+                    new_individual.addLayer(Br[j])
+        
+        else:
+            new_individual = random.choice(individuals[:])
+
+        new_individuals.append(mutate(new_individual))
         # new_individuals.append(new_individual)
     return new_individuals
+
+
+#=========================<HELPER Functions>==================================
+
+
+def Customclassifier(xTest , model):
+    ans = []
+    for x in xTest:
+        pred = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        check = (model.predict_N(x)).flatten()
+        index = findMax(check)
+        pred[index] = 1
+        ans.append(pred)
+        
+    return np.array(ans)
+
+def findMax(layer):
+    max = layer[0]
+    max_l = 0
+    i = 0
+    while i < 10:
+        if layer[i] > max:
+            max = layer[i]
+            max_l = i
+        i+=1
+    return max_l
+    
  
+def confMatrix(data, preds):
+    xTest, yTest = data
+    n_preds=[]
+    n_yTest=[]
+    for i in range(preds.shape[0]):
+        n_preds.append(findMax(preds[i] ))
+        n_yTest.append(findMax(yTest[i] ))
+    labels = [0,1,2,3,4,5,6,7,8,9]
+    confusion = metrics.confusion_matrix(n_yTest, n_preds,labels)
+    report = metrics.classification_report(n_yTest, n_preds,labels)
+    # print("\nConfusion Matrix:\n")
+    # print(confusion)
+    # print("\nReport:")
+    # print(report)   
 
 #=========================<Pipeline Functions>==================================
 
@@ -243,86 +285,39 @@ def trainModel(data , model):
     return model
 
 
-    
-def trainModels(data , individuals):
-    for i  in range (len(individuals)):
-        individuals[i] = trainModel(data[0] , individuals[i])
-    return individuals
+def runModel(data, model):
+    return Customclassifier(data , model)
 
 
 
-#=========================<RUN MODEL>================================== 
-def findMax(layer):
-    max = layer[0]
-    max_l = 0
-    i = 0
-    while i < 10:
-        if layer[i] > max:
-            max = layer[i]
-            max_l = i
-        i+=1
-    return max_l
 
-def confMatrix(data, preds):
-    xTest, yTest = data
-    n_preds=[]
-    n_yTest=[]
-    for i in range(preds.shape[0]):
-        n_preds.append(findMax(preds[i] ))
-        n_yTest.append(findMax(yTest[i] ))
-    labels = [0,1,2,3,4,5,6,7,8,9]
-    confusion = metrics.confusion_matrix(n_yTest, n_preds,labels)
-    report = metrics.classification_report(n_yTest, n_preds,labels)
-    print("\nConfusion Matrix:\n")
-    print(confusion)
-    print("\nReport:")
-    print(report) 
-
-
-def evalResults(data, preds , individual ):   #TODO: Add F1 score confusion matrix here.
+def evalResults(data, preds , individual):   #TODO: Add F1 score confusion matrix here.
     xTest, yTest = data
     acc = 0
     for i in range(preds.shape[0]):
         if np.array_equal(preds[i], yTest[i]):   acc = acc + 1
     accuracy = acc / preds.shape[0]
     individual.accuracy = accuracy
-    # confMatrix(data,preds)
+    confMatrix(data,preds)
     print("Classifier algorithm: %s" % ALGORITHM)
     print("Classifier accuracy: %f%%" % (accuracy * 100))
     print()
 
-def Customclassifier(xTest , model):
-    ans = []
-    for x in xTest:
-        pred = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        check = (model.predict_N(x)).flatten()
-        index = findMax(check)
-        pred[index] = 1
-        ans.append(pred)
-        
-    return np.array(ans)
- 
-
-def runModel(data, model):
-    return Customclassifier(data[0][0] , model)
+    
+def trainModels(data , individuals):
+    for i  in range (len(individuals)):
+        individuals[i] = trainModel(data[0] , individuals[i])
+    return individuals
 
 def runModels (data , individuals):
     for individual in individuals:
-        preds = runModel(data,individual)
-        evalResults(data[0], preds , individual)
-        return individuals
-
+        preds = runModel(data[1][0],individual)
+        evalResults(data[1], preds , individual)
 
 def evolve(individuals):
-    individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=False)
-    for x in individuals:
-        print(str(x.name) + " " + str(x.accuracy))
-    print("DOOONE\n")
+    individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
     new_individuals = crossover(individuals)
     return new_individuals
-
-
-    
 #=========================<Main>================================================
 
 def main():
@@ -336,13 +331,13 @@ def main():
     
     for generation in range(no_of_generations):
         print("================<NEXT GENERATION>===================")
-        runModels(data,individuals)
+        individuals = trainModels(data,individuals)
+        runModels(data, individuals)
         individuals = evolve(individuals)
-    
-    model = individuals[0]
-    preds = runModel(data[1][0], model)
-    evalResults(data[1], preds , model)
 
+    # individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
+    # for n in individuals:
+    #     print(n.accuracy)
     
 
 
