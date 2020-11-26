@@ -170,8 +170,13 @@ def crossover(individuals):
 
     for i in range(elites, no_of_individuals):
 
-        parentA = random.choice(individuals[:elites])
-        parentB = random.choice(individuals[:elites])
+        n = np.random.randint(0,elites)
+        parentA = individuals[n]
+        while(1):
+            n2 = np.random.randint(0,elites)
+            if(n2 != n):
+                parentB = individuals[n2])
+                break
 
         CUSTOM = 1
         new_individual = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1)
