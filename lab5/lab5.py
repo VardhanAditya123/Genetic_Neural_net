@@ -111,7 +111,7 @@ class NeuralNetwork_NLayer():
         pass
 
     # Forward pass.
-    def __forward(self, input ):
+    def forward(self, input ):
         
         self.L=[]
         self.Z=[]
@@ -132,7 +132,7 @@ class NeuralNetwork_NLayer():
 
     # Predict.
     def predict_N(self, xVals):
-        L = self.__forward(xVals)
+        L = self.forward(xVals)
         return L[self.N_layers - 1]
 
     
@@ -314,7 +314,7 @@ def train_nets(data, individuals):
         for j in range (len(individuals)):
             x = xVals[i]
             y = yVals[i]
-            L  = (individuals[j]).__forward(x)
+            L  = (individuals[j]).forward(x)
             ind = findMax(y)
             individuals[j].loss = yVal[ind] - L[ind]
         individuals = evolve(individuals)
