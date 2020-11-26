@@ -88,7 +88,7 @@ class NeuralNetwork_NLayer():
             self.W.append(np.random.randn(self.outputSize ,self.neuronsPerLayer))
         else:
             self.W.append(np.random.randn(self.neuronsPerLayer ,self.neuronsPerLayer))
-        self.lc+ = 1
+        self.lc += 1
 
 
     # Activation function.
