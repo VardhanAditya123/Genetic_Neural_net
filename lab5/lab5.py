@@ -30,12 +30,13 @@ IMAGE_SIZE = 784
 NO_OF_LAYERS = 4
 NEURONS_PER_LAYER = 40
 no_of_generations = 3
-no_of_individuals = 5
+no_of_individuals = 20
 mutate_factor = 0.01
 NETCOUNT = 1
 # Use these to set the algorithm to use.
 # ALGORITHM = "guesser"
 ALGORITHM = "custom_net"
+elites = 7
 # ALGORITHM = "tf_net" 
 
 if ALGORITHM == "custom_net":
@@ -167,33 +168,31 @@ def mutate(new_individual):
 
 def crossover(individuals):
     new_individuals = []
-    new_individuals.append(individuals[0])
-    new_individuals.append(individuals[1])
+    for x in range (elites):
+        new_individuals.append(individuals[x])
 
-    for i in range(2, no_of_individuals):
+    for i in range(elites, no_of_individuals):
 
-        if(i < (no_of_individuals - 2)):
-            if(i == 2):
-                parentA = random.choice(individuals[:3])
-                parentB = random.choice(individuals[:3])
+        a = np.random.randint(elites)
+        parentA = random.choice(individuals[b])
+        while(1):
+            b = np.random.randint(elites)
+            if(b != a):
+                parentB = random.choice(individuals[b])
+                break
+
+        CUSTOM = 1
+        new_individual = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1)
+
+        for j in range(NO_OF_LAYERS):
+            n = random.random()
+            if(n< 0.5):
+                Ar = parentA.W
+                new_individual.addLayer(Ar[j])
             else:
-                parentA = random.choice(individuals[:])
-                parentB = random.choice(individuals[:])
-
-            CUSTOM = 1
-            new_individual = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1)
-
-            for j in range(NO_OF_LAYERS):
-                n = random.random()
-                if(n< 0.5):
-                    Ar = parentA.W
-                    new_individual.addLayer(Ar[j])
-                else:
-                    Br = parentB.W
-                    new_individual.addLayer(Br[j])
+                Br = parentB.W
+                new_individual.addLayer(Br[j])
         
-        else:
-            new_individual = random.choice(individuals[:])
 
         new_individuals.append(mutate(new_individual))
         # new_individuals.append(new_individual)
