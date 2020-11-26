@@ -306,9 +306,9 @@ def runModels (data , individuals):
 
 def evolve(individuals):
     individuals = sorted(individuals, key=lambda x: x.loss, reverse=True)
-    # for x in individuals:
-    #     print(x.loss)
-    # print("DOOONE\n")
+    for x in individuals:
+        print(x.loss)
+    print("DOOONE\n")
     new_individuals = crossover(individuals)
     return new_individuals
 
@@ -322,7 +322,7 @@ def train_nets(data, individuals):
             L  = (individuals[j]).predict_N(x)
             ind = findMax(y)
             losss = y[ind] - L[ind]
-            print(losss)
+            # print(losss)
             individuals[j].loss = losss
         individuals = evolve(individuals)
         i+=1
