@@ -82,13 +82,13 @@ class NeuralNetwork_NLayer():
                  
     def addLayer():
         i = self.lc
-            if (i == 0):
-                self.W.append(np.random.randn(self.neuronsPerLayer, self.inputSize))
-            elif i == (layers - 1):
-                self.W.append(np.random.randn(self.outputSize ,self.neuronsPerLayer))
-            else:
-                self.W.append(np.random.randn(self.neuronsPerLayer ,self.neuronsPerLayer))
-            self.lc+ = 1
+        if (i == 0):
+            self.W.append(np.random.randn(self.neuronsPerLayer, self.inputSize))
+        elif i == (layers - 1):
+            self.W.append(np.random.randn(self.outputSize ,self.neuronsPerLayer))
+        else:
+            self.W.append(np.random.randn(self.neuronsPerLayer ,self.neuronsPerLayer))
+        self.lc+ = 1
 
 
     # Activation function.
