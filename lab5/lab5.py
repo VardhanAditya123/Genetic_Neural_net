@@ -172,8 +172,8 @@ def crossover(individuals):
                 parentA = random.choice(individuals[:])
                 parentB = random.choice(individuals[:])
 
-            print(parentA.W[0])
-            print(parentB.W[0])
+            print(type(parentA.W[0]))
+            print(type(parentB.W[0]))
 
             for i1 in range(NO_OF_LAYERS):
                 n = random.random()
