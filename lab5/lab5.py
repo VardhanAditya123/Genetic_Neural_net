@@ -262,7 +262,7 @@ def preprocessData(raw):
     xTest = xTest.reshape(10000,784,1)
     yTrainP = to_categorical(yTrain, NUM_CLASSES)
     yTestP = to_categorical(yTest, NUM_CLASSES)
-    yTrainP = yTrainP.reshape(60000,10,1)
+    # yTrainP = yTrainP.reshape(60000,10,1)
     print("\nAfter preprocessing:")
     print("New shape of xTrain dataset: %s." % str(xTrain.shape))
     print("New shape of xTest dataset: %s." % str(xTest.shape))
