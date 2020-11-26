@@ -190,7 +190,7 @@ def crossover(individuals):
                 new_individual.addLayer(Br[j])
         # new_individuals.append(mutate(new_individual))
 
-    new_individuals.append(new_individual)
+        new_individuals.append(new_individual)
     return new_individuals
 
 
