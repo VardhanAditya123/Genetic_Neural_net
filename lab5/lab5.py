@@ -107,7 +107,12 @@ class NeuralNetwork_NLayer():
 
 
     def train(self, xVals, yVals, epochs = 100000, minibatches = True, mbs = 100):
-        pass
+        i = 0
+        layer = self.N_layers
+        while i < 60000:
+            x = xVals[i]
+            y = yVals[i]
+            L  = self.__forward(x)
 
 
     # Forward pass.
