@@ -236,10 +236,10 @@ def confMatrix(data, preds):
     labels = [0,1,2,3,4,5,6,7,8,9]
     confusion = metrics.confusion_matrix(n_yTest, n_preds,labels)
     report = metrics.classification_report(n_yTest, n_preds,labels)
-    # print("\nConfusion Matrix:\n")
-    # print(confusion)
-    # print("\nReport:")
-    # print(report)   
+    print("\nConfusion Matrix:\n")
+    print(confusion)
+    print("\nReport:")
+    print(report)   
 
 #=========================<Pipeline Functions>==================================
 
@@ -298,7 +298,7 @@ def evalResults(data, preds , individual):   #TODO: Add F1 score confusion matri
         if np.array_equal(preds[i], yTest[i]):   acc = acc + 1
     accuracy = acc / preds.shape[0]
     individual.accuracy = accuracy
-    confMatrix(data,preds)
+    # confMatrix(data,preds)
     print("Classifier algorithm: %s" % ALGORITHM)
     print("Classifier accuracy: %f%%" % (accuracy * 100))
     print()
