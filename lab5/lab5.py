@@ -381,7 +381,7 @@ def main():
     #     individuals = evolve(individuals)
     
     model =  buildModel()
-    model.trainModel(data[0])
+    model.train(data[0])
     preds = runModel(data[1][0], model)
     evalResults(data[1], preds)
 
