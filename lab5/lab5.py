@@ -175,7 +175,7 @@ def crossover(individuals):
     for i in range(4, no_of_individuals):
 
         parentA = random.choice(individuals[:4])
-        parentB = random.choice(individuals[:])
+        parentB = random.choice(individuals[4:])
 
         CUSTOM = 1
         new_individual = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1)
@@ -310,9 +310,6 @@ def runModels (data , individuals):
 
 def evolve(individuals):
     individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
-    for x in individuals:
-        print(x.accuracy)
-        
     new_individuals = crossover(individuals)
     return new_individuals
 #=========================<Main>================================================
