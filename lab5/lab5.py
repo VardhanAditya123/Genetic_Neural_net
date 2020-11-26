@@ -320,7 +320,7 @@ def evolve(individuals):
 def train_nets(data, individuals):
     (xVals,yVals) = data[0]
     i = 0
-    while i < 10:
+    while i < 60000:
         for j in range (len(individuals)):
             x = xVals[i]
             y = yVals[i]
@@ -328,8 +328,8 @@ def train_nets(data, individuals):
             ind = findMax(y)
             losss = y[ind] - L[ind]
             # print(losss)
-            individuals[j].loss = losss
-        individuals = evolve(individuals)
+            individuals[j].loss += losss
+        # individuals = evolve(individuals)
         i+=1
 
     return individuals
@@ -352,6 +352,7 @@ def main():
         # runModels(data, individuals)
         # individuals = evolve(individuals)
         individuals = train_nets(data, individuals)
+        individuals = evolve(individuals)
     
     runModels(data,individuals)
 
