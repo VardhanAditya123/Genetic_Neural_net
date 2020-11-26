@@ -321,7 +321,7 @@ def evalResults(data, preds , individual ):   #TODO: Add F1 score confusion matr
         if np.array_equal(preds[i], yTest[i]):   acc = acc + 1
     accuracy = acc / preds.shape[0]
     individual.accuracy = accuracy
-    confMatrix(data,preds)
+    # confMatrix(data,preds)
     print("Classifier algorithm: %s" % ALGORITHM)
     print("Classifier accuracy: %f%%" % (accuracy * 100))
     print()
