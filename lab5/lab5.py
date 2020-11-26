@@ -311,7 +311,6 @@ def evolve(individuals):
 def train_nets(data, individuals):
     (xVals,yVals) = data[0]
     i = 0
-    layer = self.N_layers
     while i < 60000:
         for j in range (len(individuals)):
             x = xVals[i]
