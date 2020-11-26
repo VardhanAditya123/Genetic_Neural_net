@@ -340,7 +340,7 @@ def runModels (data , individuals):
 def evolve(individuals):
     individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=False)
     for x in individuals:
-        print(str(x.name) + " " + str(x.loss))
+        print(str(x.name) + " " + str(x.accuracy))
     print("DOOONE\n")
     new_individuals = crossover(individuals)
     return new_individuals
