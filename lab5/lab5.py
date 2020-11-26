@@ -309,7 +309,7 @@ def runModel(data, model):
 def runModels (data , individuals):
     for individual in individuals:
         preds = runModel(data,individual)
-        evalResults(data, preds , individual)
+        evalResults(data[0], preds , individual)
         return individuals
 
 
