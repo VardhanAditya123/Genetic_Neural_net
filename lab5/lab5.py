@@ -331,7 +331,7 @@ def train_nets(data, individuals):
             L  = (individuals[j]).predict_N(x)
             ind = findMax(y)
             losss = y[ind] - L[ind]
-            # print(losss)
+            print(losss)
             individuals[j].loss += losss
         # individuals = evolve(individuals)
         i+=1
