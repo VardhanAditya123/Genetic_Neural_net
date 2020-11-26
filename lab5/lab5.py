@@ -155,7 +155,7 @@ def mutate(new_individual):
         cols = gene.shape[1]
         for x in range(0, rows):
             for y in range(0, cols):
-                n = random.rand()
+                n = np.random.rand()
                 if(n < mutate_factor):
                     gene[x,y] = (random.random())
         mute_individual.addLayer(gene)
