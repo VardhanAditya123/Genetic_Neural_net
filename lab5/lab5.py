@@ -260,7 +260,7 @@ def preprocessData(raw):
 
 
 def buildModel():
-     CUSTOM = 1
+     CUSTOM = 0
      global NETCOUNT
      n1 = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1) 
      NETCOUNT+=1
