@@ -164,12 +164,13 @@ def mutate(new_individual):
 
 def crossover(individuals):
     new_individuals = []
-    new_individuals.append(individuals[0])
-    new_individuals.append(individuals[1])
-    for i in range(2, no_of_individuals):
+    for x in range (elites):
+        new_individuals.append(individua[elites])
 
-        parentA = random.choice(individuals[:1])
-        parentB = random.choice(individuals[2:])
+    for i in range(elites, no_of_individuals):
+
+        parentA = random.choice(individuals[:elites])
+        parentB = random.choice(individuals[:elites])
 
         CUSTOM = 1
         new_individual = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1)
