@@ -168,7 +168,7 @@ def crossover(individuals):
     global NETCOUNT
     new_individuals = []
     for x in range (elites):
-        new_individuals.append(individuals[elites])
+        new_individuals.append(individuals[x])
 
     for i in range(elites, no_of_individuals):
 
