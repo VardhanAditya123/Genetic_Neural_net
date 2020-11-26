@@ -166,7 +166,7 @@ def mutate(new_individual):
 def crossover(individuals):
     new_individuals = []
     for x in range (elites):
-        new_individuals.append(individua[elites])
+        new_individuals.append(individuals[elites])
 
     for i in range(elites, no_of_individuals):
 
