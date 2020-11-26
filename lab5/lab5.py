@@ -159,9 +159,9 @@ def crossover(individuals):
                 parentA = random.choice(individuals[:])
                 parentB = random.choice(individuals[:])
 
-            for n in individuals:
-                print(n.name)
-
+            print(parentA)
+            print(parentB)
+            
             for i in range(len(parentA)):
                 n = random.random()
                 if(n< 0.5):
