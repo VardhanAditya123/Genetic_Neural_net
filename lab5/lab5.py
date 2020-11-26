@@ -310,7 +310,7 @@ def evolve(individuals):
 def train_nets(data, individuals):
     (xVals,yVals) = data[0]
     i = 0
-    while i < 100:
+    while i < 400:
         for j in range (len(individuals)):
             x = xVals[i]
             y = yVals[i]
