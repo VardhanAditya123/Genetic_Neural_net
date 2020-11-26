@@ -306,7 +306,7 @@ def runModels (data , individuals):
 def evolve(individuals):
     individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
     new_individuals = crossover(individuals)
-    return individuals
+    return new_individuals
 #=========================<Main>================================================
 
 def main():
