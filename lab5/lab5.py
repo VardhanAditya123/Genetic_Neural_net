@@ -54,7 +54,7 @@ else:
 #=========================<NETWORK FUNCTIONS>================================================
 
 class NeuralNetwork_NLayer():
-    def __init__(self, inputSize, outputSize, neuronsPerLayer, layers, netcount , learningRate = 0.1):
+    def __init__(self,custom, inputSize, outputSize, neuronsPerLayer, layers, netcount , learningRate = 0.1):
         self.accuracy = 0
         self.name = "n"+ str(netcount)
         self.inputSize = inputSize
@@ -250,8 +250,9 @@ def preprocessData(raw):
 
 
 def buildModel():
+     CUSTOM = 0
      global NETCOUNT
-     n1 = NeuralNetwork_NLayer(IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1) 
+     n1 = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1) 
      NETCOUNT+=1
      return n1
 
