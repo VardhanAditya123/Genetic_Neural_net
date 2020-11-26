@@ -144,14 +144,21 @@ class NeuralNetwork_NLayer():
     
 def mutate(new_individual):
     genes = []
-    rows = new_individual.shape[0]
-    cols = new_individual.shape[1]
-    for x in range(0, rows):
-        for y in range(0, cols):
-            n = random.random()
-            if(n < mutate_factor):
-                new_individual[x,y] = (random.random())
-    return new_individual
+    CUSTOM = 1
+    mute_individual = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1)
+    for gene in new_individual:
+        rows = gene.shape[0]
+        col1 = gene.shape[1]
+        for x in range(0, rows):
+            for y in range(0, cols):
+                n = random.random()
+                if(n < mutate_factor):
+                    gene[x,y] = (random.random())
+        mute_individual.addLayer(gene)
+
+
+
+    return mute_individual
 
 
 
