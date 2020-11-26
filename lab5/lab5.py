@@ -178,9 +178,9 @@ def crossover(individuals):
             for i1 in range(NO_OF_LAYERS):
                 n = random.random()
                 if(n< 0.5):
-                    new_individual.addLayer(parentA.W[i1])
+                    new_individual.addLayer((parentA.W)[i1])
                 else:
-                    new_individual.addLayer(parentB.W[i1])
+                    new_individual.addLayer((parentB.W)[i1])
         
         else:
             new_individual = random.choice(individuals[:])
