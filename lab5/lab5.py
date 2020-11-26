@@ -31,7 +31,7 @@ NO_OF_LAYERS = 6
 NEURONS_PER_LAYER = 25
 no_of_generations = 3
 no_of_individuals = 5
-mutate_factor = 0.1
+mutate_factor = 0.3
 NETCOUNT = 1
 elites = 3
 # Use these to set the algorithm to use.
@@ -155,7 +155,7 @@ def mutate(new_individual):
         cols = gene.shape[1]
         for x in range(0, rows):
             for y in range(0, cols):
-                n = random.random()
+                n = random.rand()
                 if(n < mutate_factor):
                     gene[x,y] = (random.random())
         mute_individual.addLayer(gene)
