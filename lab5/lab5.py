@@ -316,6 +316,8 @@ def train_nets(data, individuals):
             y = yVals[i]
             L  = (individuals[j]).forward(x)
             ind = findMax(y)
+            print("DEBUG")
+            print(y[ind] - L[ind])
             individuals[j].loss = y[ind] - L[ind]
         individuals = evolve(individuals)
     return individuals
