@@ -149,7 +149,7 @@ def mutate(new_individual):
     for x in range (NO_OF_LAYERS):
         gene = new_individual.W[x]
         rows = gene.shape[0]
-        col1 = gene.shape[1]
+        cols = gene.shape[1]
         for x in range(0, rows):
             for y in range(0, cols):
                 n = random.random()
