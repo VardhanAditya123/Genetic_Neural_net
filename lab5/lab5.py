@@ -191,19 +191,11 @@ def crossover(individuals):
         NETCOUNT+=1
 
         for j in range(NO_OF_LAYERS):
-            n = np.random.rand()
-            if(n < 0.5):
-                Ar = parentA.W[j]
-                new_individual.addLayer(Ar,parentA,parentB,j)
-            else:
-                Br = parentB.W[j]
-                new_individual.addLayer(Br,parentA,parentB,j)
+            Br = parentB.W[j]
+            new_individual.addLayer(Br,parentA,parentB,j)
+
         new_individual = mutate(new_individual)
         new_individuals.append(new_individual)
-        # new_individuals.append(new_individual.mutate())     
-    # for x in range(len(new_individuals)):
-    #     # print(individuals[x].name)
-    #     print(individuals[x].accuracy)
     return new_individuals
 
 def train_nets(data,individuals):
