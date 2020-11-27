@@ -31,7 +31,7 @@ NO_OF_LAYERS = 4
 NEURONS_PER_LAYER = 20
 no_of_generations = 3
 no_of_individuals = 6
-mutate_factor = 0.01
+mutate_factor = 0.1
 NETCOUNT = 1
 # Use these to set the algorithm to use.
 # ALGORITHM = "guesser"
@@ -144,11 +144,7 @@ class NeuralNetwork_NLayer():
 
     
 def mutate(new_individual):
-    global NETCOUNT
-    genes = []
-    # CUSTOM = 1
-    # mute_individual = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1)
-    # NETCOUNT+=1
+
     for x in range (NO_OF_LAYERS):
         gene = new_individual.W[x]
         rows = gene.shape[0]
