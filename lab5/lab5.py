@@ -173,6 +173,7 @@ def crossover(individuals):
 
     for i in range(elites, no_of_individuals):
 
+        print(i)
         a = np.random.randint(elites)
         parentA = individuals[a]
         while(1):
