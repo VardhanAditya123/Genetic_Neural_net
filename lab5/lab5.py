@@ -192,8 +192,9 @@ def crossover(individuals):
     #     print(individuals[x].accuracy)
     return new_individuals
 
-def train_nets(individuals):
+def train_nets(data,individuals):
     i = 0
+    (xTrain , yTrain) = data[0]
     while i < 60000:
         for individual in individuals:
             x = xTrain[i]
@@ -201,8 +202,9 @@ def train_nets(individuals):
             L  = individual.predict_N(x)
             ind = findMax(y)
             individual.loss = y[ind] - L[ind]
-            i+=1
+        i+=1
         indviduals = evolve(individuals)
+    return individuals
 
 
 #=========================<HELPER Functions>==================================
@@ -317,11 +319,12 @@ def trainModels(data , individuals):
 
 def runModels (data , individuals):
     for individual in individuals:
-        preds = runModel(data[0][0],individual)
-        evalResults(data[0], preds , individual)
+        
+        # preds = runModel(data[0][0],individual)
+        # evalResults(data[0], preds , individual)
 
 def evolve(individuals):
-    individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
+    individuals = sorted(individuals, key=lambda x: x.loss, reverse=False)
     new_individuals = crossover(individuals)
     return new_individuals
 #=========================<Main>================================================
@@ -337,10 +340,11 @@ def main():
     
     for generation in range(no_of_generations):
         print("================<NEXT GENERATION>===================")
-        runModels(data, individuals)
-        individuals = evolve(individuals)
+        # runModels(data, individuals)
+        # individuals = evolve(individuals)
+        individuals = train_nets(data,individuals)
 
-    individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
+    individuals = sorted(individuals, key=lambda x: x.loss, reverse=False)
     model = individuals[0]
     preds = runModel(data[1][0], model)
     evalResults(data[1], preds ,model)
