@@ -28,7 +28,7 @@ NUM_CLASSES = 10
 IMAGE_SIZE = 784
 # For N layer custom net
 NO_OF_LAYERS = 5
-NEURONS_PER_LAYER = 10
+NEURONS_PER_LAYER = 8
 no_of_generations = 3
 no_of_individuals = 20
 mutate_factor = 0.1
