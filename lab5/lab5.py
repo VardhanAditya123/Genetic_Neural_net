@@ -103,12 +103,6 @@ class NeuralNetwork_NLayer():
     def train(self, xVals, yVals, epochs = 100000, minibatches = True, mbs = 100):
         pass
 
-    def mutate(self):
-        for x in range (NO_OF_LAYERS):
-            for i in range(3):
-                for j in range(4):
-                    n = np.random.rand()
-
 
     # Forward pass.
     def __forward(self, input ):
@@ -145,19 +139,19 @@ class NeuralNetwork_NLayer():
      #TODO: Implement backprop. allow minibatches. mbs should specify the size of each minibatch.
 
     
-# def mutate(new_individual):
-#     # print("MUTATING FOR THIS GEN")
-#     # print(new_individual.name)
-#     for x in range (NO_OF_LAYERS):
-#         gene = new_individual.W[x]
-#         rows = gene.shape[0]
-#         cols = gene.shape[1]
-#         for i in range(0, rows):
-#             for j in range(0, cols):
-#                 n = np.random.rand()
-#                 if(n < mutate_factor):
-#                     (new_individual.W[x])[i,j] =  (new_individual.W[x])[i,j]/2
-#     return new_individual
+def mutate(new_individual):
+    # print("MUTATING FOR THIS GEN")
+    # print(new_individual.name)
+    # for x in range (NO_OF_LAYERS):
+    #     gene = new_individual.W[x]
+    #     rows = gene.shape[0]
+    #     cols = gene.shape[1]
+    #     for i in range(0, rows):
+    #         for j in range(0, cols):
+    #             n = np.random.rand()
+    #             if(n < mutate_factor):
+    #                 (new_individual.W[x])[i,j] =  (new_individual.W[x])[i,j]/2
+    return new_individual
 
 
 
@@ -189,7 +183,7 @@ def crossover(individuals):
             else:
                 Br = parentB.W[j]
                 new_individual.addLayer(Br)
-
+        new_individual = mutate(new_individual)
         new_individuals.append(new_individual)
         # new_individuals.append(new_individual.mutate())
         
