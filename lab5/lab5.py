@@ -28,9 +28,9 @@ NUM_CLASSES = 10
 IMAGE_SIZE = 784
 # For N layer custom net
 NO_OF_LAYERS = 4
-NEURONS_PER_LAYER = 30
+NEURONS_PER_LAYER = 20
 no_of_generations = 3
-no_of_individuals = 20
+no_of_individuals = 6
 mutate_factor = 0.01
 NETCOUNT = 1
 # Use these to set the algorithm to use.
@@ -315,6 +315,8 @@ def runModels (data , individuals):
 
 def evolve(individuals):
     individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
+    for individual in individuals:
+        print(str(individual.name) + " " + str(individual.accuracy))
     new_individuals = crossover(individuals)
     return new_individuals
 #=========================<Main>================================================
