@@ -69,15 +69,14 @@ class NeuralNetwork_NLayer():
         self.N_layers = layers
         self.lc = 0
         i = 0
-        if(custom == 0):
-            while i < layers:
-                if i == 0:
-                    self.W.append(np.random.randn(self.neuronsPerLayer, self.inputSize))
-                elif i == (layers - 1):
-                    self.W.append(np.random.randn(self.outputSize ,self.neuronsPerLayer))
-                else:
-                    self.W.append(np.random.randn(self.neuronsPerLayer ,self.neuronsPerLayer))
-                i+=1
+        while i < layers:
+            if i == 0:
+                self.W.append(np.random.randn(self.neuronsPerLayer, self.inputSize))
+            elif i == (layers - 1):
+                self.W.append(np.random.randn(self.outputSize ,self.neuronsPerLayer))
+            else:
+                self.W.append(np.random.randn(self.neuronsPerLayer ,self.neuronsPerLayer))
+            i+=1
         
     
 
@@ -187,6 +186,7 @@ def crossover(individuals):
         CUSTOM = 1
         new_individual = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1)
         NETCOUNT+=1
+        new_individual.W=[]
 
         for j in range(NO_OF_LAYERS):
             n = np.random.rand()
