@@ -136,6 +136,18 @@ class NeuralNetwork_NLayer():
         L = self.__forward(xVals)
         return L[self.N_layers - 1]
 
+    def mutate():
+        for x in range (NO_OF_LAYERS):
+            gene = self.W[x]
+            rows = gene.shape[0]
+            cols = gene.shape[1]
+            for i in range(0, rows):
+                for j in range(0, cols):
+                    n = np.random.rand()
+                    if(n < mutate_factor):
+                        (self.W[x])[i,j] =  (self.W[x])[i,j]/2
+
+
     
 #=========================<GENE Functions>==================================
 
@@ -143,19 +155,19 @@ class NeuralNetwork_NLayer():
      #TODO: Implement backprop. allow minibatches. mbs should specify the size of each minibatch.
 
     
-def mutate(new_individual):
-    # print("MUTATING FOR THIS GEN")
-    # print(new_individual.name)
-    for x in range (NO_OF_LAYERS):
-        gene = new_individual.W[x]
-        rows = gene.shape[0]
-        cols = gene.shape[1]
-        for i in range(0, rows):
-            for j in range(0, cols):
-                n = np.random.rand()
-                if(n < mutate_factor):
-                    (new_individual.W[x])[i,j] =  (new_individual.W[x])[i,j]/2
-    return new_individual
+# def mutate(new_individual):
+#     # print("MUTATING FOR THIS GEN")
+#     # print(new_individual.name)
+#     for x in range (NO_OF_LAYERS):
+#         gene = new_individual.W[x]
+#         rows = gene.shape[0]
+#         cols = gene.shape[1]
+#         for i in range(0, rows):
+#             for j in range(0, cols):
+#                 n = np.random.rand()
+#                 if(n < mutate_factor):
+#                     (new_individual.W[x])[i,j] =  (new_individual.W[x])[i,j]/2
+#     return new_individual
 
 
 
@@ -188,7 +200,7 @@ def crossover(individuals):
                 Br = parentB.W[j]
                 new_individual.addLayer(Br)
         # new_individuals.append(new_individual)
-        mutate(new_individual)
+        new_individual.mutate()
         new_individuals.append(new_individual)
         
     for x in range(len(new_individuals)):
