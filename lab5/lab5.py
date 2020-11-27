@@ -145,7 +145,8 @@ class NeuralNetwork_NLayer():
                 for j in range(0, cols):
                     n = np.random.rand()
                     if(n < mutate_factor):
-                        (self.W[x])[i,j] =  (self.W[x])[i,j]/2
+                        pass
+                        # (self.W[x])[i,j] =  (self.W[x])[i,j]/2
 
 
     
@@ -200,8 +201,7 @@ def crossover(individuals):
                 Br = parentB.W[j]
                 new_individual.addLayer(Br)
         # new_individuals.append(new_individual)
-        new_individual.mutate()
-        new_individuals.append(new_individual)
+        new_individuals.append(new_individual.mutate())
         
     for x in range(len(new_individuals)):
         print(individuals[x].accuracy)
