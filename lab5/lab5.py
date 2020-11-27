@@ -34,7 +34,7 @@ no_of_individuals = 50
 mutate_factor = 0.1
 NETCOUNT = 1
 ALGORITHM = "custom_net"
-elites = 10
+elites = 25
  
 
 if ALGORITHM == "custom_net":
