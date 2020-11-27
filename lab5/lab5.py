@@ -87,8 +87,8 @@ class NeuralNetwork_NLayer():
         B = parentB.W[index]
         for i in range(0, rows):
             for j in range(0, cols):
-                n = np.random.rand()
-                if(n <0.5):
+                n = np.random.randint(0 , 100)
+                if(n % 2 == 0):
                     gene[i][j] =A[i][j]
                 else:
                     gene[i][j] =B[i][j]
