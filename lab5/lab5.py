@@ -155,11 +155,6 @@ def mutate(new_individual):
                 n = np.random.rand()
                 if(n < mutate_factor):
                     (new_individual.W[x])[i,j] =  (new_individual.W[x])[i,j]/2
-        # mute_individual.addLayer(gene)
-
-
-
-    # return mute_individual
     return new_individual
 
 
