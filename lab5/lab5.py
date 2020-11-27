@@ -111,17 +111,18 @@ class NeuralNetwork_NLayer():
         pass
 
     def mutate(self):
-        for x in range (NO_OF_LAYERS):
-            gene = self.W[x]
-            rows = gene.shape[0]
-            cols = gene.shape[1]
-            for i in range(rows):
-                for j in range(cols):
-                    n = np.random.rand()
-                    if(n < mutate_factor):
-                        Weight = self.W[x]
-                        Weight[i,j] =  np.random.rand()
-            self.W[x] = Weight
+        # for x in range (NO_OF_LAYERS):
+        #     gene = self.W[x]
+        #     rows = gene.shape[0]
+        #     cols = gene.shape[1]
+        #     for i in range(rows):
+        #         for j in range(cols):
+        #             n = np.random.rand()
+        #             if(n < mutate_factor):
+        #                 Weight = self.W[x]
+        #                 Weight[i,j] =  np.random.rand()
+        #     self.W[x] = Weight
+        pass
 
 
     # Forward pass.
