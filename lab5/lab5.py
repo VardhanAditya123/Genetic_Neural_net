@@ -78,7 +78,7 @@ class NeuralNetwork_NLayer():
 
     def addLayer(self,layer):
         i = self.lc
-        self.W.append(layer)
+        self.W.append(layer.copy())
         self.lc += 1
 
 
