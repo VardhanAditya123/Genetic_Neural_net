@@ -28,10 +28,10 @@ NUM_CLASSES = 10
 IMAGE_SIZE = 784
 # For N layer custom net
 NO_OF_LAYERS = 4
-NEURONS_PER_LAYER = 20
+NEURONS_PER_LAYER = 8
 no_of_generations = 3
 no_of_individuals = 6
-mutate_factor = 0.1
+mutate_factor = 0.05
 NETCOUNT = 1
 # Use these to set the algorithm to use.
 # ALGORITHM = "guesser"
@@ -144,8 +144,8 @@ class NeuralNetwork_NLayer():
 
     
 def mutate(new_individual):
-    print("MUTATING FOR THIS GEN")
-    print(new_individual.name)
+    # print("MUTATING FOR THIS GEN")
+    # print(new_individual.name)
     for x in range (NO_OF_LAYERS):
         gene = new_individual.W[x]
         rows = gene.shape[0]
@@ -183,7 +183,7 @@ def crossover(individuals):
         CUSTOM = 1
         new_individual = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1)
         NETCOUNT+=1
-        
+
         for j in range(NO_OF_LAYERS):
             n = np.random.rand()
             if(n < 0.5):
