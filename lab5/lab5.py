@@ -144,7 +144,8 @@ class NeuralNetwork_NLayer():
 
     
 def mutate(new_individual):
-    print("MUTATING FOR THIS GEN")
+    print("MUTATING FOR HIS GEN")
+    gene = new_individual.W[x]
     for x in range (NO_OF_LAYERS):
         rows = gene.shape[0]
         cols = gene.shape[1]
