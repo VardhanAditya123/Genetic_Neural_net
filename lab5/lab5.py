@@ -195,7 +195,7 @@ def crossover(individuals):
 def train_nets(data,individuals):
     i = 0
     (xTrain , yTrain) = data[0]
-    while i < 60000:
+    while i < 20:
         for individual in individuals:
             x = xTrain[i]
             y = yTrain[i]
