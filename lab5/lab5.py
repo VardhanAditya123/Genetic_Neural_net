@@ -61,6 +61,7 @@ class NeuralNetwork_NLayer():
         self.delta=[]
         self.N_layers = layers
         self.lc = 0
+        self.loss = 0
         i = 0
         if(custom == 0):
             while i < layers:
@@ -185,12 +186,23 @@ def crossover(individuals):
                 new_individual.addLayer(Br)
         new_individual = mutate(new_individual)
         new_individuals.append(new_individual)
-        # new_individuals.append(new_individual.mutate())
-        
+        # new_individuals.append(new_individual.mutate())     
     # for x in range(len(new_individuals)):
     #     # print(individuals[x].name)
     #     print(individuals[x].accuracy)
     return new_individuals
+
+def train_nets(individuals):
+    i = 0
+        while i < 60000:
+            for individual in individuals:
+                x = xTrain[i]
+                y = yTrain[i]
+                L  = individual.predict_N(x)
+                ind = findMax(y)
+                individual.loss = y[ind] - L[ind]
+                i+=1
+            indviduals = evolve(individuals)
 
 
 #=========================<HELPER Functions>==================================
@@ -311,8 +323,6 @@ def runModels (data , individuals):
 def evolve(individuals):
     individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
     new_individuals = crossover(individuals)
-    # for individual in individuals:
-    #     print(str(individual.name) + " " + str(individual.accuracy))
     return new_individuals
 #=========================<Main>================================================
 
