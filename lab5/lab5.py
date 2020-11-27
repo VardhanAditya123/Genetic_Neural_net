@@ -62,6 +62,7 @@ class NeuralNetwork_NLayer():
         self.N_layers = layers
         self.lc = 0
         self.loss = 0
+        # self.tloss = 0
         i = 0
         if(custom == 0):
             while i < layers:
@@ -201,7 +202,7 @@ def train_nets(data,individuals):
             y = yTrain[i]
             L  = individual.predict_N(x)
             ind = findMax(y)
-            individual.loss = y[ind] - L[ind]
+            individual.loss += y[ind] - L[ind]
         i+=1
         indviduals = evolve(individuals)
     return individuals
@@ -339,14 +340,11 @@ def main():
     
     for generation in range(no_of_generations):
         print("================<NEXT GENERATION>===================")
-        # runModels(data, individuals)
-        # individuals = evolve(individuals)
-        individuals = train_nets(data,individuals)
+        runModels(data, individuals)
+        individuals = evolve(individuals)
 
-    individuals = sorted(individuals, key=lambda x: x.loss, reverse=False)
+    individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
     model = individuals[0]
-    for individual in individuals:
-        print(str(individual.name) +" " +  str(individual.loss))
     preds = runModel(data[1][0], model)
     evalResults(data[1], preds ,model)
     confMatrix(data[1],preds)
