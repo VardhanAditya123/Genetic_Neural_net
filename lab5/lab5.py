@@ -171,8 +171,6 @@ def crossover(individuals):
     for x in range (elites):
         new_individuals.append(individuals[x])
 
-    for x in range(len(new_individuals)):
-        print(individuals[x].accuracy)
 
     for i in range(elites, no_of_individuals):
 
@@ -197,7 +195,8 @@ def crossover(individuals):
                 Br = parentB.W
                 new_individual.addLayer(Br[j])
         
-
+        for x in range(len(new_individuals)):
+            print(individuals[x].accuracy)
         new_individuals.append(mutate(new_individual))
         # new_individuals.append(new_individual)
     return new_individuals
