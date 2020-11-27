@@ -323,7 +323,7 @@ def runModels (data , individuals):
         evalResults(data[0], preds , individual)
 
 def evolve(individuals):
-    individuals = sorted(individuals, key=lambda x: x.loss, reverse=True)
+    individuals = sorted(individuals, key=lambda x: x.loss, reverse=False)
     new_individuals = crossover(individuals)
     return new_individuals
 #=========================<Main>================================================
@@ -343,7 +343,7 @@ def main():
         # individuals = evolve(individuals)
         individuals = train_nets(data,individuals)
 
-    individuals = sorted(individuals, key=lambda x: x.loss, reverse=True)
+    individuals = sorted(individuals, key=lambda x: x.loss, reverse=False)
     model = individuals[0]
     preds = runModel(data[1][0], model)
     evalResults(data[1], preds ,model)
