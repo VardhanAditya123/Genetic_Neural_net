@@ -36,7 +36,7 @@ NETCOUNT = 1
 # Use these to set the algorithm to use.
 # ALGORITHM = "guesser"
 ALGORITHM = "custom_net"
-elites = 3
+elites = 4
 # ALGORITHM = "tf_net" 
 
 if ALGORITHM == "custom_net":
@@ -69,14 +69,15 @@ class NeuralNetwork_NLayer():
         self.N_layers = layers
         self.lc = 0
         i = 0
-        while i < layers:
-            if i == 0:
-                self.W.append(np.random.randn(self.neuronsPerLayer, self.inputSize))
-            elif i == (layers - 1):
-                self.W.append(np.random.randn(self.outputSize ,self.neuronsPerLayer))
-            else:
-                self.W.append(np.random.randn(self.neuronsPerLayer ,self.neuronsPerLayer))
-            i+=1
+        if(custom == 0):
+            while i < layers:
+                if i == 0:
+                    self.W.append(np.random.randn(self.neuronsPerLayer, self.inputSize))
+                elif i == (layers - 1):
+                    self.W.append(np.random.randn(self.outputSize ,self.neuronsPerLayer))
+                else:
+                    self.W.append(np.random.randn(self.neuronsPerLayer ,self.neuronsPerLayer))
+                i+=1
         
     
 
@@ -109,6 +110,12 @@ class NeuralNetwork_NLayer():
     def train(self, xVals, yVals, epochs = 100000, minibatches = True, mbs = 100):
         pass
 
+    def mutate(self):
+        for x in range (NO_OF_LAYERS):
+            for i in range(3):
+                for j in range(4):
+                    n = np.random.rand()
+
 
     # Forward pass.
     def __forward(self, input ):
@@ -134,12 +141,6 @@ class NeuralNetwork_NLayer():
     def predict_N(self, xVals):
         L = self.__forward(xVals)
         return L[self.N_layers - 1]
-    
-    def mutate(self):
-        for x in range (NO_OF_LAYERS):
-            for i in range(3):
-                for j in range(4):
-                    n = np.random.rand()
 
    
 
@@ -186,7 +187,6 @@ def crossover(individuals):
         CUSTOM = 1
         new_individual = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1)
         NETCOUNT+=1
-        new_individual.W=[]
 
         for j in range(NO_OF_LAYERS):
             n = np.random.rand()
@@ -197,7 +197,7 @@ def crossover(individuals):
                 Br = parentB.W[j]
                 new_individual.addLayer(Br)
 
-        new_individuals.append(new_individual.mutate())
+        new_individuals.append(new_individual)
         # new_individuals.append(new_individual.mutate())
         
     for x in range(len(new_individuals)):
