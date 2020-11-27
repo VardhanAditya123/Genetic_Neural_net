@@ -83,8 +83,8 @@ class NeuralNetwork_NLayer():
         gene = layer.copy()
         rows = gene.shape[0]
         cols = gene.shape[1]
-        a1 = np.random.randint(0,NO_OF_LAYERS)
-        b1 = np.random.randint(0,NO_OF_LAYERS)
+        a1 = np.random.randint(NO_OF_LAYERS)
+        b1 = np.random.randint(NO_OF_LAYERS)
         A = parentA.W[a1]
         B = parentB.W[b1]
         for i in range(0, rows):
