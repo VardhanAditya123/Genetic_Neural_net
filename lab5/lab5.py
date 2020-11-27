@@ -136,18 +136,7 @@ class NeuralNetwork_NLayer():
         L = self.__forward(xVals)
         return L[self.N_layers - 1]
 
-    def mutate(self):
-        # for x in range (NO_OF_LAYERS):
-        #     gene = self.W[x]
-        #     rows = gene.shape[0]
-        #     cols = gene.shape[1]
-        #     for i in range(0, rows):
-        #         for j in range(0, cols):
-        #             n = np.random.rand()
-        #             if(n < mutate_factor):
-        #                 a = a + 1
-        #                 (self.W[x])[i,j] =  (self.W[x])[i,j]/2
-        pass
+   
 
 
     
@@ -201,8 +190,8 @@ def crossover(individuals):
             else:
                 Br = parentB.W[j]
                 new_individual.addLayer(Br)
-        # new_individuals.append(new_individual)
-        new_individuals.append(new_individual.mutate())
+        new_individuals.append(new_individual)
+        # new_individuals.append(new_individual.mutate())
         
     for x in range(len(new_individuals)):
         print(individuals[x].accuracy)
