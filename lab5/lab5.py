@@ -152,7 +152,7 @@ def mutate(new_individual):
         cols = gene.shape[1]
         for i in range(0, rows):
             for j in range(0, cols):
-                n = random.random()
+                n = np.random.rand()
                 if(n < mutate_factor):
                     (new_individual.W[x])[i,j] = (np.random.rand())
         # mute_individual.addLayer(gene)
@@ -165,6 +165,7 @@ def mutate(new_individual):
 
 
 def crossover(individuals):
+    global NETCOUNT
     new_individuals = []
     for x in range (elites):
         new_individuals.append(individuals[x])
@@ -181,7 +182,8 @@ def crossover(individuals):
 
         CUSTOM = 1
         new_individual = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1)
-
+        NETCOUNT+=1
+        
         for j in range(NO_OF_LAYERS):
             n = np.random.rand()
             if(n < 0.5):
