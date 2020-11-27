@@ -136,7 +136,7 @@ class NeuralNetwork_NLayer():
         L = self.__forward(xVals)
         return L[self.N_layers - 1]
 
-    def mutate():
+    def mutate(self):
         for x in range (NO_OF_LAYERS):
             gene = self.W[x]
             rows = gene.shape[0]
