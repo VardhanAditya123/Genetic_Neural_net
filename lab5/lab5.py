@@ -29,7 +29,7 @@ IMAGE_SIZE = 784
 # For N layer custom net
 NO_OF_LAYERS = 4
 NEURONS_PER_LAYER = 8
-no_of_generations = 3
+no_of_generations = 6
 no_of_individuals = 10
 mutate_factor = 0.1
 NETCOUNT = 1
@@ -87,8 +87,8 @@ class NeuralNetwork_NLayer():
         B = parentB.W[index]
         for i in range(0, rows):
             for j in range(0, cols):
-                n = np.random.randint(0 , 100)
-                if(n % 2 == 0):
+                n = np.random.rand()
+                if(n <0.5):
                     gene[i][j] =A[i][j]
                 else:
                     gene[i][j] =B[i][j]
