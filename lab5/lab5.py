@@ -188,7 +188,7 @@ def crossover(individuals):
         # new_individuals.append(new_individual.mutate())
         
     for x in range(len(new_individuals)):
-        print(individuals[x].name)
+        # print(individuals[x].name)
         print(individuals[x].accuracy)
     return new_individuals
 
@@ -292,6 +292,7 @@ def evalResults(data, preds , individual):   #TODO: Add F1 score confusion matri
     accuracy = acc / preds.shape[0]
     individual.accuracy = accuracy
     # confMatrix(data,preds)
+    print("NAME: " + str(individual.name))
     print("Classifier algorithm: %s" % ALGORITHM)
     print("Classifier accuracy: %f%%" % (accuracy * 100))
     print()
