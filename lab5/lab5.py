@@ -166,11 +166,11 @@ def crossover(individuals):
 
     for i in range(elites, no_of_individuals):
         a = np.random.randint(elites)
-        parentA = individuals[a]
+        parentA = new_individuals[a]
         while(1):
-            b = np.random.randint(elites:)
+            b = np.random.randint(elites)
             if(b != a):
-                parentB = individuals[b]
+                parentB = new_individuals[b]
                 break
 
         CUSTOM = 1
