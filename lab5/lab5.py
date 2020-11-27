@@ -112,8 +112,8 @@ class NeuralNetwork_NLayer():
 
     def mutate(self):
         for x in range (NO_OF_LAYERS):
-            for i in range 3
-                for j in range 4:
+            for i in range(3):
+                for j in range(4):
                     n = np.random.rand()
 
 
