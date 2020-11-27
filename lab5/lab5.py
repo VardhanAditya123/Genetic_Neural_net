@@ -27,14 +27,14 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 NUM_CLASSES = 10
 IMAGE_SIZE = 784
 # For N layer custom net
-NO_OF_LAYERS = 5
+NO_OF_LAYERS = 4
 NEURONS_PER_LAYER = 8
 no_of_generations = 3
-no_of_individuals = 20
+no_of_individuals = 50
 mutate_factor = 0.1
 NETCOUNT = 1
 ALGORITHM = "custom_net"
-elites = 8
+elites = 25
  
 
 if ALGORITHM == "custom_net":
@@ -166,11 +166,11 @@ def crossover(individuals):
 
     for i in range(elites, no_of_individuals):
         a = np.random.randint(elites)
-        parentA = new_individuals[a]
+        parentA = individuals[a]
         while(1):
             b = np.random.randint(elites)
             if(b != a):
-                parentB = new_individuals[b]
+                parentB = individuals[b]
                 break
 
         CUSTOM = 1
