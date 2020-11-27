@@ -30,14 +30,12 @@ IMAGE_SIZE = 784
 NO_OF_LAYERS = 4
 NEURONS_PER_LAYER = 8
 no_of_generations = 3
-no_of_individuals = 5
+no_of_individuals = 15
 mutate_factor = 0.05
 NETCOUNT = 1
-# Use these to set the algorithm to use.
-# ALGORITHM = "guesser"
 ALGORITHM = "custom_net"
-elites = 4
-# ALGORITHM = "tf_net" 
+elites = 7
+ 
 
 if ALGORITHM == "custom_net":
     print("\nNumber of layers: %d" % NO_OF_LAYERS)
@@ -45,11 +43,6 @@ if ALGORITHM == "custom_net":
     print("Type of algorithm: " + ALGORITHM)
     print()
 
-else:
-    print("\nNumber of layers: 2" )
-    print("Neurons per Layer: 60")
-    print("Type of algorithm: " + ALGORITHM)
-    print()
 
 
 #=========================<NETWORK FUNCTIONS>================================================
