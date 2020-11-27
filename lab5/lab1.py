@@ -263,7 +263,7 @@ def trainModel(data):
    
     elif ALGORITHM == "custom_net":
         n1 = NeuralNetwork_NLayer(IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,0.1) 
-        # n1.train(xTrain,yTrain)
+        n1.train(xTrain,yTrain)
         return n1
 
     elif ALGORITHM == "tf_net":

@@ -78,9 +78,20 @@ class NeuralNetwork_NLayer():
 
 
 
-    def addLayer(self,layer):
-        i = self.lc
-        self.W.append(layer.copy())
+    def addLayer(self,layer,parentA,parentB):
+
+        gene = layer.copy()
+        rows = gene.shape[0]
+        cols = gene.shape[1]
+        for i in range(0, rows):
+            for j in range(0, cols):
+                n = np.random.rand()
+                if(n <0.5):
+                    gene[i][j] = parentA.W[i][j]
+                else:
+                    gene[i][j] = parentB.W[i][j]
+
+        self.W.append(gene)
         self.lc += 1
 
 
@@ -181,10 +192,10 @@ def crossover(individuals):
             n = np.random.rand()
             if(n < 0.5):
                 Ar = parentA.W[j]
-                new_individual.addLayer(Ar)
+                new_individual.addLayer(Ar,parentA,parentB)
             else:
                 Br = parentB.W[j]
-                new_individual.addLayer(Br)
+                new_individual.addLayer(Br,parentA,parentB)
         new_individual = mutate(new_individual)
         new_individuals.append(new_individual)
         # new_individuals.append(new_individual.mutate())     
