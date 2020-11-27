@@ -146,23 +146,24 @@ class NeuralNetwork_NLayer():
 def mutate(new_individual):
     global NETCOUNT
     genes = []
-    CUSTOM = 1
-    mute_individual = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1)
-    NETCOUNT+=1
+    # CUSTOM = 1
+    # mute_individual = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1)
+    # NETCOUNT+=1
     for x in range (NO_OF_LAYERS):
         gene = new_individual.W[x]
         rows = gene.shape[0]
         cols = gene.shape[1]
-        for x in range(0, rows):
-            for y in range(0, cols):
+        for i in range(0, rows):
+            for j in range(0, cols):
                 n = random.random()
                 if(n < mutate_factor):
-                    gene[x,y] = (random.random())
-        mute_individual.addLayer(gene)
+                    (new_individual.W[x])[i,j] = (np.random.rand())
+        # mute_individual.addLayer(gene)
 
 
 
-    return mute_individual
+    # return mute_individual
+    return new_individual
 
 
 
@@ -194,8 +195,8 @@ def crossover(individuals):
             else:
                 Br = parentB.W
                 new_individual.addLayer(Br[j])
-        new_individuals.append(new_individual)
-        # new_individuals.append(mutate(new_individual))
+        # new_individuals.append(new_individual)
+        new_individuals.append(mutate(new_individual))
         
     for x in range(len(new_individuals)):
         print(individuals[x].accuracy)
