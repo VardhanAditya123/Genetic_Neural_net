@@ -112,11 +112,8 @@ class NeuralNetwork_NLayer():
 
     def mutate(self):
         for x in range (NO_OF_LAYERS):
-            gene = self.W[x]
-            rows = gene.shape[0]
-            cols = gene.shape[1]
-            for i in range(rows):
-                for j in range(cols):
+            for i in range(3)
+                for j in range(4):
                     n = np.random.rand()
 
 
