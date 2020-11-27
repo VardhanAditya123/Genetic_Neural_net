@@ -188,6 +188,7 @@ def crossover(individuals):
         # new_individuals.append(new_individual.mutate())
         
     for x in range(len(new_individuals)):
+        print(individuals[x].name)
         print(individuals[x].accuracy)
     return new_individuals
 
