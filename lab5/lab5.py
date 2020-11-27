@@ -145,7 +145,7 @@ class NeuralNetwork_NLayer():
                 for j in range(0, cols):
                     n = np.random.rand()
                     if(n < mutate_factor):
-                        pass
+                        a = a + 1
                         # (self.W[x])[i,j] =  (self.W[x])[i,j]/2
 
 
