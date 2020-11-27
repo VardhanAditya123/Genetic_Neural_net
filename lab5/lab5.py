@@ -187,8 +187,9 @@ def crossover(individuals):
             else:
                 Br = parentB.W[j]
                 new_individual.addLayer(Br)
+        # new_individuals.append(new_individual)
+        mutate(new_individual)
         new_individuals.append(new_individual)
-        # new_individuals.append(mutate(new_individual))
         
     for x in range(len(new_individuals)):
         print(individuals[x].accuracy)
