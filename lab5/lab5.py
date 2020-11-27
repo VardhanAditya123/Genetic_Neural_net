@@ -78,13 +78,13 @@ class NeuralNetwork_NLayer():
 
 
 
-    def addLayer(self,layer,parentA,parentB,index,j):
+    def addLayer(self,layer,parentA,parentB,index):
 
         gene = layer.copy()
         rows = gene.shape[0]
         cols = gene.shape[1]
-        A = parentA.W[j]
-        B = parentB.W[j]
+        A = parentA.W[index]
+        B = parentB.W[index]
         for i in range(0, rows):
             for j in range(0, cols):
                 n = np.random.rand()
