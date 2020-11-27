@@ -150,7 +150,7 @@ def mutate(new_individual):
             for j in range(0, cols):
                 n = np.random.rand()
                 if(n < mutate_factor):
-                    (new_individual.W[x])[i,j] =  (new_individual.W[x])[i,j]/2
+                    (new_individual.W[x])[i,j] =  np.random.rand()
     return new_individual
 
 
