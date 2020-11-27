@@ -318,10 +318,9 @@ def trainModels(data , individuals):
     return individuals
 
 def runModels (data , individuals):
-    for individual in individuals:
-        
-        # preds = runModel(data[0][0],individual)
-        # evalResults(data[0], preds , individual)
+    for individual in individuals: 
+        preds = runModel(data[0][0],individual)
+        evalResults(data[0], preds , individual)
 
 def evolve(individuals):
     individuals = sorted(individuals, key=lambda x: x.loss, reverse=False)
