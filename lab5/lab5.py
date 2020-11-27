@@ -109,12 +109,6 @@ class NeuralNetwork_NLayer():
     def train(self, xVals, yVals, epochs = 100000, minibatches = True, mbs = 100):
         pass
 
-    def mutate(self):
-        for x in range (NO_OF_LAYERS):
-            for i in range(3):
-                for j in range(4):
-                    n = np.random.rand()
-
 
     # Forward pass.
     def __forward(self, input ):
@@ -140,6 +134,12 @@ class NeuralNetwork_NLayer():
     def predict_N(self, xVals):
         L = self.__forward(xVals)
         return L[self.N_layers - 1]
+    
+    def mutate(self):
+        for x in range (NO_OF_LAYERS):
+            for i in range(3):
+                for j in range(4):
+                    n = np.random.rand()
 
    
 
