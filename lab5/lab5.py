@@ -36,7 +36,7 @@ NETCOUNT = 1
 # Use these to set the algorithm to use.
 # ALGORITHM = "guesser"
 ALGORITHM = "custom_net"
-elites = 4
+elites = 3
 # ALGORITHM = "tf_net" 
 
 if ALGORITHM == "custom_net":
