@@ -195,14 +195,13 @@ def crossover(individuals):
 def train_nets(data,individuals):
     i = 0
     (xTrain , yTrain) = data[0]
-    while i < 50:
+    while i < 100:
         for individual in individuals:
             x = xTrain[i]
             y = yTrain[i]
             L  = individual.predict_N(x)
             ind = findMax(y)
             individual.loss = y[ind] - L[ind]
-            print(individual.loss)
         i+=1
         indviduals = evolve(individuals)
     return individuals
