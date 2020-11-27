@@ -318,9 +318,9 @@ def runModels (data , individuals):
 
 def evolve(individuals):
     individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
-    for individual in individuals:
-        print(str(individual.name) + " " + str(individual.accuracy))
     new_individuals = crossover(individuals)
+    # for individual in individuals:
+    #     print(str(individual.name) + " " + str(individual.accuracy))
     return new_individuals
 #=========================<Main>================================================
 
