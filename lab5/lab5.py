@@ -30,13 +30,13 @@ IMAGE_SIZE = 784
 NO_OF_LAYERS = 4
 NEURONS_PER_LAYER = 40
 no_of_generations = 3
-no_of_individuals = 5
+no_of_individuals = 20
 mutate_factor = 0.01
 NETCOUNT = 1
 # Use these to set the algorithm to use.
 # ALGORITHM = "guesser"
 ALGORITHM = "custom_net"
-elites = 15
+elites = 6
 # ALGORITHM = "tf_net" 
 
 if ALGORITHM == "custom_net":
