@@ -137,16 +137,17 @@ class NeuralNetwork_NLayer():
         return L[self.N_layers - 1]
 
     def mutate(self):
-        for x in range (NO_OF_LAYERS):
-            gene = self.W[x]
-            rows = gene.shape[0]
-            cols = gene.shape[1]
-            for i in range(0, rows):
-                for j in range(0, cols):
-                    n = np.random.rand()
-                    if(n < mutate_factor):
-                        a = a + 1
-                        # (self.W[x])[i,j] =  (self.W[x])[i,j]/2
+        # for x in range (NO_OF_LAYERS):
+        #     gene = self.W[x]
+        #     rows = gene.shape[0]
+        #     cols = gene.shape[1]
+        #     for i in range(0, rows):
+        #         for j in range(0, cols):
+        #             n = np.random.rand()
+        #             if(n < mutate_factor):
+        #                 a = a + 1
+        #                 (self.W[x])[i,j] =  (self.W[x])[i,j]/2
+        pass
 
 
     
