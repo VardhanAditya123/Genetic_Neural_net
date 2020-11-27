@@ -194,15 +194,15 @@ def crossover(individuals):
 
 def train_nets(individuals):
     i = 0
-        while i < 60000:
-            for individual in individuals:
-                x = xTrain[i]
-                y = yTrain[i]
-                L  = individual.predict_N(x)
-                ind = findMax(y)
-                individual.loss = y[ind] - L[ind]
-                i+=1
-            indviduals = evolve(individuals)
+    while i < 60000:
+        for individual in individuals:
+            x = xTrain[i]
+            y = yTrain[i]
+            L  = individual.predict_N(x)
+            ind = findMax(y)
+            individual.loss = y[ind] - L[ind]
+            i+=1
+        indviduals = evolve(individuals)
 
 
 #=========================<HELPER Functions>==================================
