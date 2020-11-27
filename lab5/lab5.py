@@ -171,7 +171,7 @@ def crossover(individuals):
     for x in range (elites):
         new_individuals.append(individuals[x])
 
-    for x in new_range(len(new_individuals)):
+    for x in range(len(new_individuals)):
         print(x.name)
 
     for i in range(elites, no_of_individuals):
