@@ -172,7 +172,7 @@ def crossover(individuals):
         new_individuals.append(individuals[x])
 
     for x in range(len(new_individuals)):
-        print(individuals[i].accuracy)
+        print(individuals[x].accuracy)
 
     for i in range(elites, no_of_individuals):
 
