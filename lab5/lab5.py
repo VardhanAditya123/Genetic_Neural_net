@@ -182,11 +182,11 @@ def crossover(individuals):
         for j in range(NO_OF_LAYERS):
             n = np.random.rand()
             if(n < 0.5):
-                Ar = parentA.W
-                new_individual.addLayer(Ar[j])
+                Ar = parentA.W[j]
+                new_individual.addLayer(Ar)
             else:
-                Br = parentB.W
-                new_individual.addLayer(Br[j])
+                Br = parentB.W[j]
+                new_individual.addLayer(Br)
         # new_individuals.append(new_individual)
         new_individuals.append(mutate(new_individual))
         
