@@ -144,7 +144,8 @@ class NeuralNetwork_NLayer():
 
     
 def mutate(new_individual):
-    print("MUTATING FOR HIS GEN")
+    print("MUTATING FOR THIS GEN")
+    print(new_individual.name)
     for x in range (NO_OF_LAYERS):
         gene = new_individual.W[x]
         rows = gene.shape[0]
@@ -170,8 +171,6 @@ def crossover(individuals):
 
 
     for i in range(elites, no_of_individuals):
-
-        print(i)
         a = np.random.randint(elites)
         parentA = individuals[a]
         while(1):
