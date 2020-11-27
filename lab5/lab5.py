@@ -195,7 +195,7 @@ def crossover(individuals):
 def train_nets(data,individuals):
     i = 0
     (xTrain , yTrain) = data[0]
-    while i < 1000:
+    while i < 50:
         for individual in individuals:
             x = xTrain[i]
             y = yTrain[i]
@@ -345,6 +345,8 @@ def main():
 
     individuals = sorted(individuals, key=lambda x: x.loss, reverse=False)
     model = individuals[0]
+    for individual in individuals:
+        print(str(individual.name) +" " +  str(individual.loss))
     preds = runModel(data[1][0], model)
     evalResults(data[1], preds ,model)
     confMatrix(data[1],preds)
