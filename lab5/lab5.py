@@ -140,15 +140,15 @@ class NeuralNetwork_NLayer():
 
     
 def mutate(new_individual):
-    print("MUTATING FOR THIS GEN")
-    print(new_individual.name)
-    for x in range (NO_OF_LAYERS):
-        gene = new_individual.W[x]
-        rows = gene.shape[0]
-        cols = gene.shape[1]
-        for i in range(0, rows):
-            for j in range(0, cols):
-                n = np.random.rand()
+    # print("MUTATING FOR THIS GEN")
+    # print(new_individual.name)
+    # for x in range (NO_OF_LAYERS):
+    #     gene = new_individual.W[x]
+    #     rows = gene.shape[0]
+    #     cols = gene.shape[1]
+    #     for i in range(0, rows):
+    #         for j in range(0, cols):
+    #             n = np.random.rand()
     #             if(n < mutate_factor):
     #                 (new_individual.W[x])[i,j] =  (new_individual.W[x])[i,j]/2
     return new_individual
