@@ -328,7 +328,6 @@ def main():
     
     for generation in range(no_of_generations):
         print("================<NEXT GENERATION>===================")
-        individuals = trainModels(data,individuals)
         runModels(data, individuals)
         individuals = evolve(individuals)
 
