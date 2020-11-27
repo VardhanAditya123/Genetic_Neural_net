@@ -30,7 +30,7 @@ IMAGE_SIZE = 784
 NO_OF_LAYERS = 4
 NEURONS_PER_LAYER = 8
 no_of_generations = 3
-no_of_individuals = 15
+no_of_individuals = 5
 mutate_factor = 0.05
 NETCOUNT = 1
 # Use these to set the algorithm to use.
@@ -111,18 +111,13 @@ class NeuralNetwork_NLayer():
         pass
 
     def mutate(self):
-        # for x in range (NO_OF_LAYERS):
-        #     gene = self.W[x]
-        #     rows = gene.shape[0]
-        #     cols = gene.shape[1]
-        #     for i in range(rows):
-        #         for j in range(cols):
-        #             n = np.random.rand()
-        #             if(n < mutate_factor):
-        #                 Weight = self.W[x]
-        #                 Weight[i,j] =  np.random.rand()
-        #     self.W[x] = Weight
-        pass
+        for x in range (NO_OF_LAYERS):
+            gene = self.W[x]
+            rows = gene.shape[0]
+            cols = gene.shape[1]
+            for i in range(rows):
+                for j in range(cols):
+                    n = np.random.rand()
 
 
     # Forward pass.
