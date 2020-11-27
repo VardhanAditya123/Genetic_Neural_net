@@ -28,7 +28,7 @@ NUM_CLASSES = 10
 IMAGE_SIZE = 784
 # For N layer custom net
 NO_OF_LAYERS = 4
-NEURONS_PER_LAYER = 40
+NEURONS_PER_LAYER = 30
 no_of_generations = 3
 no_of_individuals = 20
 mutate_factor = 0.01
@@ -334,6 +334,7 @@ def main():
         runModels(data, individuals)
         individuals = evolve(individuals)
 
+    individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
     model = individuals[0]
     preds = runModel(data[1][0], model)
     evalResults(data[1], preds ,model)
