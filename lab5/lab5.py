@@ -30,7 +30,7 @@ IMAGE_SIZE = 784
 NO_OF_LAYERS = 4
 NEURONS_PER_LAYER = 8
 no_of_generations = 3
-no_of_individuals = 50
+no_of_individuals = 10
 mutate_factor = 0.1
 NETCOUNT = 1
 ALGORITHM = "custom_net"
@@ -78,18 +78,20 @@ class NeuralNetwork_NLayer():
 
 
 
-    def addLayer(self,layer,parentA,parentB):
+    def addLayer(self,layer,parentA,parentB,index,j):
 
         gene = layer.copy()
         rows = gene.shape[0]
         cols = gene.shape[1]
+        A = parentA.W[j]
+        B = parentB.W[j]
         for i in range(0, rows):
             for j in range(0, cols):
                 n = np.random.rand()
                 if(n <0.5):
-                    gene[i][j] = parentA.W[i][j]
+                    gene[i][j] =A[i][j]
                 else:
-                    gene[i][j] = parentB.W[i][j]
+                    gene[i][j] =B[i][j]
 
         self.W.append(gene)
         self.lc += 1
@@ -192,10 +194,10 @@ def crossover(individuals):
             n = np.random.rand()
             if(n < 0.5):
                 Ar = parentA.W[j]
-                new_individual.addLayer(Ar,parentA,parentB)
+                new_individual.addLayer(Ar,parentA,parentB,j)
             else:
                 Br = parentB.W[j]
-                new_individual.addLayer(Br,parentA,parentB)
+                new_individual.addLayer(Br,parentA,parentB,j)
         new_individual = mutate(new_individual)
         new_individuals.append(new_individual)
         # new_individuals.append(new_individual.mutate())     
