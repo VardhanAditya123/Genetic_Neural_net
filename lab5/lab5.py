@@ -322,9 +322,10 @@ def runModels (data , individuals):
     for individual in individuals: 
         preds = runModel(data[0][0],individual)
         evalResults(data[0], preds , individual)
+    return individuals
 
 def evolve(individuals):
-    individuals = sorted(individuals, key=lambda x: x.loss, reverse=False)
+    individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
     new_individuals = crossover(individuals)
     return new_individuals
 #=========================<Main>================================================
@@ -340,7 +341,7 @@ def main():
     
     for generation in range(no_of_generations):
         print("================<NEXT GENERATION>===================")
-        runModels(data, individuals)
+        individuals = runModels(data, individuals)
         individuals = evolve(individuals)
 
     individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
