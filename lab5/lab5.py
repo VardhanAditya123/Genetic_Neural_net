@@ -34,7 +34,7 @@ no_of_individuals = 15
 mutate_factor = 0.15
 NETCOUNT = 1
 ALGORITHM = "custom_net"
-retain_length = 3
+retain_length = 6
 generation = 1
 scrap = 3
 
