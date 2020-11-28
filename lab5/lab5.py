@@ -34,7 +34,7 @@ no_of_individuals = 20
 mutate_factor = 0.15
 NETCOUNT = 1
 ALGORITHM = "custom_net"
-retain_length = 4
+retain_length = 3
 generation = 1
 
 if ALGORITHM == "custom_net":
