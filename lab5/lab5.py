@@ -34,9 +34,9 @@ no_of_individuals = 25
 mutate_factor = 0.15
 NETCOUNT = 1
 ALGORITHM = "custom_net"
-retain_length = 4
+retain_length = 3
 generation = 1
-scrap = 3
+scrap = 2
 
 if ALGORITHM == "custom_net":
     print("\nNumber of layers: %d" % NO_OF_LAYERS)
@@ -248,9 +248,9 @@ def evolve(individuals):
         if individuals[i1].random_select > np.random.rand():
             parents.append(individuals[i1])
 
-    for individual in parents:
-        if individual.mutate_chance > np.random.rand():
-            individual = mutate(individual)
+    # for individual in parents:
+    #     if individual.mutate_chance > np.random.rand():
+    #         individual = mutate(individual)
 
     parents_length = len(parents)
     desired_length = no_of_individuals - parents_length
