@@ -214,7 +214,7 @@ def breed(mother , father):
             F = father.W[x]
             for i in range(0, rows):
                 for j in range(0, cols):
-                        (child.W[x])[i][j] = random.choice(  M[i][j] ,F[i][j]  )  
+                        (child.W[x])[i][j] = random.choice( M[i][j],F[i][j])  
     
         children.append(child)
 
