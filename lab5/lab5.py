@@ -257,11 +257,11 @@ def crossover(individuals):
                 male = parents[male]
                 female = parents[female]
 
-        babies = breed(male, female)
+            babies = breed(male, female)
 
-        for baby in babies:
-            if len(children) < desired_length:
-                children.append(baby)
+            for baby in babies:
+                if len(children) < desired_length:
+                    children.append(baby)
     
     parents.extend(children)
 
