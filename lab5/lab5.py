@@ -207,7 +207,7 @@ def crossover(individuals):
             Br = parentB.W[j]
             new_individual.addLayer(Br,parentA,parentB,j)
 
-        new_individual = mutate(new_individual)
+        # new_individual = mutate(new_individual)
         new_individuals.append(new_individual)
     return new_individuals
 
