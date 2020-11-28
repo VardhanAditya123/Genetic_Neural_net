@@ -253,9 +253,9 @@ def crossover(individuals):
         male = random.randint(0, parents_length-1)
         female = random.randint(0, parents_length-1)
 
-        if male != female:
-                male = parents[male]
-                female = parents[female]
+        if (male != female):
+            male = parents[male]
+            female = parents[female]
 
             babies = breed(male, female)
 
