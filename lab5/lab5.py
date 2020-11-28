@@ -65,6 +65,7 @@ class NeuralNetwork_NLayer():
         self.loss = 0
         self.parA ="NONE"
         self.parB = "NONE"
+        self.mute = "NO"
         self.random_select = random.random()
         self.mutate_chance = random.random()
         # self.tloss = 0
@@ -190,6 +191,7 @@ def mutate(new_individual):
                 arr[i][j] = np.random.rand()
     
     new_individual.W[x] = arr.copy()
+    new_individual.mute = "YES"
     return new_individual
 
 
@@ -376,6 +378,7 @@ def evalResults(data, preds , individual):   #TODO: Add F1 score confusion matri
     # confMatrix(data,preds)
     print("NAME: " + str(individual.name))
     print("PARENTS "+ str(individual.parA)+" " +str(individual.parB))
+    print("MUTE STATUS: " + str(individual.mute))
     print("Classifier algorithm: %s" % ALGORITHM)
     print("Classifier accuracy: %f%%" % (accuracy * 100))
     print()
