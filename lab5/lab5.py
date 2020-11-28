@@ -34,7 +34,7 @@ no_of_individuals = 20
 mutate_factor = 0.15
 NETCOUNT = 1
 ALGORITHM = "custom_net"
-elites = 5
+retain_length = 6
 losers = 3
 generation = 1
 
@@ -65,17 +65,18 @@ class NeuralNetwork_NLayer():
         self.loss = 0
         self.parA ="NONE"
         self.parB = "NONE"
+        self.random_select = random.random()
+        self.mutate_chance = random.random()
         # self.tloss = 0
         i = 0
-        if(custom == 0):
-            while i < layers:
-                if i == 0:
-                    self.W.append(np.random.randn(self.neuronsPerLayer, self.inputSize))
-                elif i == (layers - 1):
-                    self.W.append(np.random.randn(self.outputSize ,self.neuronsPerLayer))
-                else:
-                    self.W.append(np.random.randn(self.neuronsPerLayer ,self.neuronsPerLayer))
-                i+=1
+        while i < layers:
+            if i == 0:
+                self.W.append(np.random.randn(self.neuronsPerLayer, self.inputSize))
+            elif i == (layers - 1):
+                self.W.append(np.random.randn(self.outputSize ,self.neuronsPerLayer))
+            else:
+                self.W.append(np.random.randn(self.neuronsPerLayer ,self.neuronsPerLayer))
+            i+=1
         
     
 
@@ -192,51 +193,80 @@ def mutate(new_individual):
 
 
 
-def crossover(individuals):
+
+
+def breed(mother , father):
     global NETCOUNT
-    new_individuals = []
-    for x in range (elites):
-        new_individuals.append(individuals[x])
-    
-    # for y in range(elites, elites + losers):
-    #     new_individuals.append(mutate(individuals[y]))
+    children = []
+    rows = gene.shape[0]
+    cols = gene.shape[1]
+    A = parentA.W[index]
+    B = parentB.W[index]
+    self.parA = mother
+    self.parB = father
 
-    start = elites + losers
-    for i in range(elites, no_of_individuals):
-        a = np.random.randint(elites)
-        parentA = individuals[a]
-        while(1):
-            b = np.random.randint(elites)
-            if(b != a):
-                parentB = individuals[b]
-                break
+    for p in range(2):
 
-        CUSTOM = 1
-        new_individual = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1)
+        CUSTOM = 0
+        child = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1) 
         NETCOUNT+=1
 
-        for j in range(NO_OF_LAYERS):
-            Br = parentB.W[j]
-            new_individual.addLayer(Br,parentA,parentB,j)
+        gene = child.W[0]
+        rows = gene.shape[0]
+        cols = gene.shape[1]
 
-        new_individual = mutate(new_individual)
-        new_individuals.append(new_individual)
+        for x in range(NO_OF_LAYERS):
+            for i in range(0, rows):
+                for j in range(0, cols):
+                        (child.W[x])[i][j] = random.choice(A[i][j] ,B[i][j])
+    
+        children.append(child)
+
+    return children
+
+
+
+
+
+def crossover(individuals):
+    global NETCOUNT  
+    parents = graded[:retain_length]  
+
+    for individual in graded[retain_length:]:
+        if individual.random_select > random.random():
+            parents.append(individual)
+
+    for individual in parents:
+        if individual.mutate_chance > random.random():
+            individual = mutate(individual)
+
+    parents_length = len(parents)
+    desired_length = no_of_individuals - parents_length
+    children = []
+
+    while len(children) < desired_length:
+        male = random.randint(0, parents_length-1)
+        female = random.randint(0, parents_length-1)
+
+        if male != female:
+                male = parents[male]
+                female = parents[female]
+        
+        babies = breed(male, female)
+        for baby in babies:
+            if len(children) < desired_length:
+                children.append(baby)
+        parents.extend(children)
+        
+    return parents
+
+
+
+
+def evolve(individuals):
+    individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
+    new_individuals = crossover(individuals)
     return new_individuals
-
-def train_nets(data,individuals):
-    i = 0
-    (xTrain , yTrain) = data[0]
-    while i < 50:
-        for individual in individuals:
-            x = xTrain[i]
-            y = yTrain[i]
-            L  = individual.predict_N(x)
-            ind = findMax(y)
-            individual.loss += y[ind] - L[ind]
-        i+=1
-        indviduals = evolve(individuals)
-    return individuals
-
 
 #=========================<HELPER Functions>==================================
 
@@ -355,10 +385,6 @@ def runModels (data , individuals):
         evalResults(data[0], preds , individual)
     return individuals
 
-def evolve(individuals):
-    individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
-    new_individuals = crossover(individuals)
-    return new_individuals
 #=========================<Main>================================================
 
 def main():
