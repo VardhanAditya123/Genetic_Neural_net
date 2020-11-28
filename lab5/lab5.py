@@ -242,9 +242,9 @@ def evolve(individuals):
     #     if individuals[i1].random_select > np.random.rand():
     #         parents.append(mutate(individuals[i1]))
 
-    for individual in parents:
-        if individual.mutate_chance > np.random.rand():
-            individual = mutate(individual)
+    # for individual in parents:
+    #     if individual.mutate_chance > np.random.rand():
+    #         individual = mutate(individual)
 
     parents_length = len(parents)
     desired_length = no_of_individuals - parents_length
