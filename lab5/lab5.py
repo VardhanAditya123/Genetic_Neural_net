@@ -34,7 +34,7 @@ no_of_individuals = 25
 mutate_factor = 0.15
 NETCOUNT = 1
 ALGORITHM = "custom_net"
-retain_length = 6
+retain_length = 4
 generation = 1
 scrap = 3
 
@@ -243,14 +243,14 @@ def evolve(individuals):
     individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
     parents = individuals[:retain_length]  
 
-    # ln = len(parents)
-    # for i1 in range(ln , ln + scrap):
-    #     if individuals[i1].random_select > np.random.rand():
-    #         parents.append(mutate(individuals[i1]))
+    ln = len(parents)
+    for i1 in range(ln , ln + scrap):
+        if individuals[i1].random_select > np.random.rand():
+            parents.append(mutate(individuals[i1]))
 
-    # for individual in parents:
-    #     if individual.mutate_chance > np.random.rand():
-    #         individual = mutate(individual)
+    for individual in parents:
+        if individual.mutate_chance > np.random.rand():
+            individual = mutate(individual)
 
     parents_length = len(parents)
     desired_length = no_of_individuals - parents_length
