@@ -197,13 +197,12 @@ def mutate(new_individual):
 def breed(mother , father):
     global NETCOUNT
     children = []
-    self.parA = mother
-    self.parB = father
-
     for p in range(2):
 
         CUSTOM = 0
         child = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1) 
+        child.parA = mother
+        child.parB = father
         NETCOUNT+=1
 
         gene = child.W[0]
