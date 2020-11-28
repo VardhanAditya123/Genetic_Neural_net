@@ -371,7 +371,7 @@ def main():
         individuals.append(model)
     
     for generation in range(no_of_generations):
-        print("================<NEXT GENERATION: "+generation+">===================")
+        print("================<NEXT GENERATION: "+str(generation)+">===================")
         generation+=1
         individuals = runModels(data, individuals)
         individuals = evolve(individuals)
