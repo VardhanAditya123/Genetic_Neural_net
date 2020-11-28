@@ -243,10 +243,10 @@ def evolve(individuals):
     individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
     parents = individuals[:retain_length]  
 
-    ln = len(parents)
-    for i1 in range(ln , ln + scrap):
-        if individuals[i1].random_select > np.random.rand():
-            parents.append(mutate(individuals[i1]))
+    # ln = len(parents)
+    # for i1 in range(ln , ln + scrap):
+    #     if individuals[i1].random_select > np.random.rand():
+    #         parents.append(mutate(individuals[i1]))
 
     # for individual in parents:
     #     if individual.mutate_chance > np.random.rand():
