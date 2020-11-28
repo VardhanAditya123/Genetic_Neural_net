@@ -246,7 +246,7 @@ def evolve(individuals):
     ln = len(parents)
     for i1 in range(ln , ln + scrap):
         if individuals[i1].random_select > np.random.rand():
-            parents.append(mutate(individuals[i1]))
+            parents.append(individuals[i1])
 
     for individual in parents:
         if individual.mutate_chance > np.random.rand():
