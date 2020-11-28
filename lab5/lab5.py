@@ -86,11 +86,11 @@ class NeuralNetwork_NLayer():
         A = parentA.W[index]
         B = parentB.W[index]
 
-        if(index != 0 and index!= NO_OF_LAYERS -1 ):
-            n = np.random.randint(1,NO_OF_LAYERS-1)
-            A = parentA.W[n]
-            n = np.random.randint(1,NO_OF_LAYERS-1)
-            B = parentB.W[n]
+        # if(index != 0 and index!= NO_OF_LAYERS -1 ):
+        #     n = np.random.randint(1,NO_OF_LAYERS-1)
+        #     A = parentA.W[n]
+        #     n = np.random.randint(1,NO_OF_LAYERS-1)
+        #     B = parentB.W[n]
 
         for i in range(0, rows):
             for j in range(0, cols):
