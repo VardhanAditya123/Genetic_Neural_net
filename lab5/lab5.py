@@ -213,7 +213,12 @@ def breed(mother , father):
             M = mother.W[x]
             F = father.W[x]
             for i in range(0, rows):
-                        (child.W[x])[i][j] = np.random.choice( M[i],F[i])  
+                for j in range(0, cols):
+                        n = np.random.rand()
+                        if( n < 0.5):
+                            (child.W[x])[i][j] = np.random.choice( M[i])  
+                        else:
+                            (child.W[x])[i][j] = np.random.choice( F[i]) 
     
         children.append(child)
 
