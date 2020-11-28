@@ -229,7 +229,7 @@ def breed(mother , father):
             child.W[x] = gene
 
         n = np.random.rand()
-        if ( n < 0.5):
+        if ( n < 0.7):
             child = mutate(child)
 
         children.append(child)
