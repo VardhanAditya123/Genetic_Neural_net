@@ -190,7 +190,7 @@ def crossover(individuals):
     #     new_individuals.append(mutate(individuals[y]))
 
     start = elites + losers
-    for i in range(start, no_of_individuals):
+    for i in range(elites, no_of_individuals):
         a = np.random.randint(elites)
         parentA = individuals[a]
         while(1):
@@ -207,7 +207,7 @@ def crossover(individuals):
             Br = parentB.W[j]
             new_individual.addLayer(Br,parentA,parentB,j)
 
-        # new_individual = mutate(new_individual)
+        new_individual = mutate(new_individual)
         new_individuals.append(new_individual)
     return new_individuals
 
