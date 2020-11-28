@@ -238,8 +238,8 @@ def crossover(individuals):
     parents = individuals[:retain_length]  
 
     for i1 in range(3):
-        if individuals[i].random_select > np.random.rand():
-            parents.append(individuals[i])
+        if individuals[i1].random_select > np.random.rand():
+            parents.append(individuals[i1])
 
     for individual in parents:
         if individual.mutate_chance > np.random.rand():
