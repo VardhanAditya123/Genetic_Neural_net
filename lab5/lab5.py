@@ -62,6 +62,8 @@ class NeuralNetwork_NLayer():
         self.N_layers = layers
         self.lc = 0
         self.loss = 0
+        self.parA ="NONE"
+        self.parB = "NONE"
         # self.tloss = 0
         i = 0
         if(custom == 0):
@@ -85,6 +87,8 @@ class NeuralNetwork_NLayer():
         cols = gene.shape[1]
         A = parentA.W[index]
         B = parentB.W[index]
+        self.parA = parentA.name
+        self.parB = parentB.name
 
         # if(index != 0 and index!= NO_OF_LAYERS -1 ):
         #     n = np.random.randint(1,NO_OF_LAYERS-1)
@@ -326,6 +330,7 @@ def evalResults(data, preds , individual):   #TODO: Add F1 score confusion matri
     individual.accuracy = accuracy
     # confMatrix(data,preds)
     print("NAME: " + str(individual.name))
+    print("PARENTS "+ st(individual.parA)+" " +str(individual.parB))
     print("Classifier algorithm: %s" % ALGORITHM)
     print("Classifier accuracy: %f%%" % (accuracy * 100))
     print()
