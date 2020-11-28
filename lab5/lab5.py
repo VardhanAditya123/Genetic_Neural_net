@@ -29,13 +29,13 @@ IMAGE_SIZE = 784
 # For N layer custom net
 NO_OF_LAYERS = 3
 NEURONS_PER_LAYER = 5
-no_of_generations = 10
-no_of_individuals = 20
+no_of_generations = 3
+no_of_individuals = 10
 mutate_factor = 0.1
 NETCOUNT = 1
 ALGORITHM = "custom_net"
-elites = 5
-losers = 3
+elites = 3
+losers = 2
 
 if ALGORITHM == "custom_net":
     print("\nNumber of layers: %d" % NO_OF_LAYERS)
@@ -185,16 +185,18 @@ def crossover(individuals):
     new_individuals = []
     for x in range (elites):
         new_individuals.append(individuals[x])
+    
+    for y in range(elites, elites + losers):
+        new_individuals.append(mutate(individuals[y]))
 
-
-    for i in range(elites, no_of_individuals):
+    start = elites + losers
+    for i in range(start, no_of_individuals):
         a = np.random.randint(elites)
-        parentA = (individuals[a]).copy()
+        parentA = individuals[a]
         while(1):
-            b = np.random.randint(elites + losers)
+            b = np.random.randint(start)
             if(b != a):
-                parentB = (individuals[b]).copy()
-                parentB = mutate(parentB)
+                parentB = individuals[b]
                 break
 
         CUSTOM = 1
