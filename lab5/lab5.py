@@ -91,7 +91,7 @@ class NeuralNetwork_NLayer():
             A = parentA.W[n]
             n = np.random.randint(1,NO_OF_LAYERS-1)
             B = parentB.W[n]
-            
+
         for i in range(0, rows):
             for j in range(0, cols):
                 n = np.random.rand()
@@ -201,7 +201,7 @@ def crossover(individuals):
             Br = parentB.W[j]
             new_individual.addLayer(Br,parentA,parentB,j)
 
-        new_individual = mutate(new_individual)
+        # new_individual = mutate(new_individual)
         new_individuals.append(new_individual)
     return new_individuals
 
