@@ -36,6 +36,7 @@ NETCOUNT = 1
 ALGORITHM = "custom_net"
 elites = 5
 losers = 3
+generation = 1
 
 if ALGORITHM == "custom_net":
     print("\nNumber of layers: %d" % NO_OF_LAYERS)
@@ -370,7 +371,8 @@ def main():
         individuals.append(model)
     
     for generation in range(no_of_generations):
-        print("================<NEXT GENERATION>===================")
+        print("================<NEXT GENERATION: "+generation+">===================")
+        generation+=1
         individuals = runModels(data, individuals)
         individuals = evolve(individuals)
 
