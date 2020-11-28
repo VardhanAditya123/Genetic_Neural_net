@@ -197,10 +197,6 @@ def mutate(new_individual):
 def breed(mother , father):
     global NETCOUNT
     children = []
-    rows = gene.shape[0]
-    cols = gene.shape[1]
-    A = parentA.W[index]
-    B = parentB.W[index]
     self.parA = mother
     self.parB = father
 
