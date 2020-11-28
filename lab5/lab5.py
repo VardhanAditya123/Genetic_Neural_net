@@ -27,9 +27,9 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 NUM_CLASSES = 10
 IMAGE_SIZE = 784
 # For N layer custom net
-NO_OF_LAYERS = 8
+NO_OF_LAYERS = 3
 NEURONS_PER_LAYER = 5
-no_of_generations = 20
+no_of_generations = 10
 no_of_individuals = 20
 mutate_factor = 0.15
 NETCOUNT = 1
@@ -238,9 +238,9 @@ def evolve(individuals):
     parents = individuals[:retain_length]  
 
     ln = len(parents)
-    for i1 in range(ln , ln + 2):
-        if individuals[i1].random_select > np.random.rand():
-            parents.append(mutate(individuals[i1]))
+    # for i1 in range(ln , ln + 3):
+    #     if individuals[i1].random_select > np.random.rand():
+    #         parents.append(mutate(individuals[i1]))
 
     # for individual in parents:
     #     if individual.mutate_chance > np.random.rand():
