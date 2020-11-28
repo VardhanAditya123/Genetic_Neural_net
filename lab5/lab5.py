@@ -237,12 +237,12 @@ def crossover(individuals):
     individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
     parents = individuals[:retain_length]  
 
-    for i1 in range(3)
-        if individuals[i].random_select > random.random():
+    for i1 in range(3):
+        if individuals[i].random_select > np.random.rand():
             parents.append(individuals[i])
 
     for individual in parents:
-        if individual.mutate_chance > random.random():
+        if individual.mutate_chance > np.random.rand():
             individual = mutate(individual)
 
     parents_length = len(parents)
