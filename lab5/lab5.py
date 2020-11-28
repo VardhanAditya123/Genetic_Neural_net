@@ -96,13 +96,20 @@ class NeuralNetwork_NLayer():
         #     n = np.random.randint(1,NO_OF_LAYERS-1)
         #     B = parentB.W[n]
 
+        # for i in range(0, rows):
+        #     for j in range(0, cols):
+        #         n = np.random.rand()
+        #         if(n <0.5):
+        #             gene[i][j] =A[i][j]
+        #         else:
+        #             gene[i][j] =B[i][j]
+
         for i in range(0, rows):
-            for j in range(0, cols):
                 n = np.random.rand()
                 if(n <0.5):
-                    gene[i][j] =A[i][j]
+                    gene[i] =A[i].copy()
                 else:
-                    gene[i][j] =B[i][j]
+                    gene[i] =B[i].copy()
 
         self.W.append(gene)
         self.lc += 1
