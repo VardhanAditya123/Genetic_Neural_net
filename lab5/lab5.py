@@ -201,8 +201,8 @@ def breed(mother , father):
 
         CUSTOM = 0
         child = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1) 
-        child.parA = mother
-        child.parB = father
+        child.parA = mother.name
+        child.parB = father.name
         NETCOUNT+=1
 
         for x in range(NO_OF_LAYERS):
