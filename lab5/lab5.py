@@ -173,8 +173,8 @@ def mutate(new_individual):
         cols = gene.shape[1]
         for i in range(0, rows):
             for j in range(0, cols):
-                n = np.random.rand()
-                if(n < mutate_factor):
+                n = np.random.randint(1000)
+                if(n < 50):
                     (new_individual.W[x])[i,j] =  np.random.rand()
     return new_individual
 
