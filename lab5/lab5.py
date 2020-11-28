@@ -189,11 +189,11 @@ def crossover(individuals):
 
     for i in range(elites, no_of_individuals):
         a = np.random.randint(elites)
-        parentA = individuals[a].copy()
+        parentA = (individuals[a]).copy()
         while(1):
             b = np.random.randint(elites + losers)
             if(b != a):
-                parentB = individuals[b].copy()
+                parentB = (individuals[b]).copy()
                 parentB = mutate(parentB)
                 break
 
