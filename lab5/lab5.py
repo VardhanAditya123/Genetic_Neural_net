@@ -109,7 +109,7 @@ class NeuralNetwork_NLayer():
         return 1/(1+np.exp(-x))
     
     def __relu(self, x):
-        return max(0,x)
+        return max(0,x.all())
 
     # Activation prime function.
     def __sigmoidDerivative(self, x):
