@@ -330,7 +330,7 @@ def evalResults(data, preds , individual):   #TODO: Add F1 score confusion matri
     individual.accuracy = accuracy
     # confMatrix(data,preds)
     print("NAME: " + str(individual.name))
-    print("PARENTS "+ st(individual.parA)+" " +str(individual.parB))
+    print("PARENTS "+ str(individual.parA)+" " +str(individual.parB))
     print("Classifier algorithm: %s" % ALGORITHM)
     print("Classifier accuracy: %f%%" % (accuracy * 100))
     print()
