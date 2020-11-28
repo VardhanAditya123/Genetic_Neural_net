@@ -27,15 +27,14 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 NUM_CLASSES = 10
 IMAGE_SIZE = 784
 # For N layer custom net
-NO_OF_LAYERS = 6
-NEURONS_PER_LAYER = 30
-no_of_generations = 30
-no_of_individuals = 20
+NO_OF_LAYERS = 3
+NEURONS_PER_LAYER = 10
+no_of_generations = 5
+no_of_individuals = 10
 mutate_factor = 0.15
 NETCOUNT = 1
 ALGORITHM = "custom_net"
-retain_length = 6
-losers = 3
+retain_length = 4
 generation = 1
 
 if ALGORITHM == "custom_net":
@@ -230,9 +229,9 @@ def breed(mother , father):
 
 def crossover(individuals):
     global NETCOUNT  
-    parents = graded[:retain_length]  
+    parents = individuals[:retain_length]  
 
-    for individual in graded[retain_length:]:
+    for individual in individuals[retain_length:]:
         if individual.random_select > random.random():
             parents.append(individual)
 
@@ -257,7 +256,7 @@ def crossover(individuals):
             if len(children) < desired_length:
                 children.append(baby)
         parents.extend(children)
-        
+
     return parents
 
 
