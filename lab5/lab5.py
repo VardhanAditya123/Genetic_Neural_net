@@ -186,8 +186,8 @@ def crossover(individuals):
     for x in range (elites):
         new_individuals.append(individuals[x])
     
-    for y in range(elites, elites + losers):
-        new_individuals.append(mutate(individuals[y]))
+    # for y in range(elites, elites + losers):
+    #     new_individuals.append(mutate(individuals[y]))
 
     start = elites + losers
     for i in range(start, no_of_individuals):
