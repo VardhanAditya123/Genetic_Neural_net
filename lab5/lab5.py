@@ -28,7 +28,7 @@ NUM_CLASSES = 10
 IMAGE_SIZE = 784
 # For N layer custom net
 NO_OF_LAYERS = 3
-NEURONS_PER_LAYER = 50
+NEURONS_PER_LAYER = 500
 no_of_generations = 30
 no_of_individuals = 20
 mutate_factor = 0.15
@@ -185,7 +185,7 @@ def mutate(new_individual):
         for i in range(0, rows):
             for j in range(0, cols):
                 n = np.random.randint(1000)
-                if(n < 35):
+                if(n < 90):
                     (new_individual.W[x])[i,j] =  np.random.rand()
     return new_individual
 
