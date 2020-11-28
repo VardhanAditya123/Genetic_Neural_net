@@ -31,7 +31,7 @@ NO_OF_LAYERS = 3
 NEURONS_PER_LAYER = 50
 no_of_generations = 30
 no_of_individuals = 20
-mutate_factor = 0.1
+mutate_factor = 0.28
 NETCOUNT = 1
 ALGORITHM = "custom_net"
 elites = 5
@@ -194,7 +194,7 @@ def crossover(individuals):
         a = np.random.randint(elites)
         parentA = individuals[a]
         while(1):
-            b = np.random.randint(start)
+            b = np.random.randint(elites)
             if(b != a):
                 parentB = individuals[b]
                 break
