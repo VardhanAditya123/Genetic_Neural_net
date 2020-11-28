@@ -29,12 +29,12 @@ IMAGE_SIZE = 784
 # For N layer custom net
 NO_OF_LAYERS = 3
 NEURONS_PER_LAYER = 5
-no_of_generations = 10
+no_of_generations = 20
 no_of_individuals = 20
 mutate_factor = 0.15
 NETCOUNT = 1
 ALGORITHM = "custom_net"
-retain_length = 6
+retain_length = 4
 generation = 1
 
 if ALGORITHM == "custom_net":
