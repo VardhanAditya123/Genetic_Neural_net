@@ -262,7 +262,8 @@ def crossover(individuals):
         for baby in babies:
             if len(children) < desired_length:
                 children.append(baby)
-        parents.extend(children)
+    
+    parents.extend(children)
 
     return parents
 
