@@ -210,9 +210,11 @@ def breed(mother , father):
         cols = gene.shape[1]
 
         for x in range(NO_OF_LAYERS):
+            M = mother.W[x]
+            F = father.W[x]
             for i in range(0, rows):
                 for j in range(0, cols):
-                        (child.W[x])[i][j] = random.choice(  (mother.W[x])[i][j] ,(father.W[x])[i][j]  )  
+                        (child.W[x])[i][j] = random.choice(  M[i][j] ,F[i][j]  )  
     
         children.append(child)
 
