@@ -237,7 +237,8 @@ def evolve(individuals):
     individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
     parents = individuals[:retain_length]  
 
-    for i1 in range(3):
+    ln = len(parents)
+    for i1 in range(ln , ln + 3):
         if individuals[i1].random_select > np.random.rand():
             parents.append(individuals[i1])
 
