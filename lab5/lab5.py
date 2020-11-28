@@ -319,7 +319,7 @@ def confMatrix(data, preds):
 #=========================<Pipeline Functions>==================================
 
 def getRawData():
-    mnist = tf.keras.datasets.mnist
+    mnist = tf.keras.datasets.mnist_f
     (xTrain, yTrain), (xTest, yTest) = mnist.load_data()
     print("Shape of xTrain dataset: %s." % str(xTrain.shape))
     print("Shape of yTrain dataset: %s." % str(yTrain.shape))
