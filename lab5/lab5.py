@@ -205,21 +205,26 @@ def breed(mother , father):
         child.parB = father
         NETCOUNT+=1
 
-        gene = child.W[0]
-        rows = gene.shape[0]
-        cols = gene.shape[1]
-
         for x in range(NO_OF_LAYERS):
+            
+            gene = child.W[x].copy()
+            rows = gene.shape[0]
+            cols = gene.shape[1]
+
             M = mother.W[x]
             F = father.W[x]
+
             for i in range(0, rows):
                 for j in range(0, cols):
-                        n = np.random.rand()
-                        if( n < 0.5):
-                            (child.W[x])[i][j] = np.random.choice( M[i])  
-                        else:
-                            (child.W[x])[i][j] = np.random.choice( F[i]) 
-    
+                    n = np.random.rand()
+                    if(n <0.5):
+                        gene[i][j] =A[i][j]
+                    else:
+                        gene[i][j] =B[i][j]
+
+            child.W[x] = gene
+
+
         children.append(child)
 
     return children
