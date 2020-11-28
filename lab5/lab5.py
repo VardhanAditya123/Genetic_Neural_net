@@ -27,14 +27,14 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 NUM_CLASSES = 10
 IMAGE_SIZE = 784
 # For N layer custom net
-NO_OF_LAYERS = 3
-NEURONS_PER_LAYER = 10
-no_of_generations = 5
+NO_OF_LAYERS = 5
+NEURONS_PER_LAYER = 20
+no_of_generations = 10
 no_of_individuals = 5
 mutate_factor = 0.15
 NETCOUNT = 1
 ALGORITHM = "custom_net"
-retain_length = 3
+retain_length = 5
 generation = 1
 
 if ALGORITHM == "custom_net":
@@ -177,7 +177,7 @@ class NeuralNetwork_NLayer():
 
     
 def mutate(new_individual):
-    print("MUTATING FOR THIS GEN")
+    # print("MUTATING FOR THIS GEN")
     # print("MUTATING" + str(new_individual.name))
     x = np.random.randint(1 , NO_OF_LAYERS - 1 )
     
