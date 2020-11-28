@@ -241,9 +241,9 @@ def crossover(individuals):
         if individual.random_select > random.random():
             parents.append(individual)
 
-    for individual in parents:
-        if individual.mutate_chance > random.random():
-            individual = mutate(individual)
+    # for individual in parents:
+    #     if individual.mutate_chance > random.random():
+    #         individual = mutate(individual)
 
     parents_length = len(parents)
     desired_length = no_of_individuals - parents_length
