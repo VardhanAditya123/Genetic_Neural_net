@@ -27,15 +27,15 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 NUM_CLASSES = 10
 IMAGE_SIZE = 784
 # For N layer custom net
-NO_OF_LAYERS = 4
-NEURONS_PER_LAYER = 8
+NO_OF_LAYERS = 3
+NEURONS_PER_LAYER = 512
 no_of_generations = 10
 no_of_individuals = 20
 mutate_factor = 0.1
 NETCOUNT = 1
 ALGORITHM = "custom_net"
-elites = 3
- 
+elites = 5
+losers = 3
 
 if ALGORITHM == "custom_net":
     print("\nNumber of layers: %d" % NO_OF_LAYERS)
@@ -107,6 +107,9 @@ class NeuralNetwork_NLayer():
     # Activation function.
     def __sigmoid(self, x):
         return 1/(1+np.exp(-x))
+    
+    def __relu(self, x):
+        return max(0,x)
 
     # Activation prime function.
     def __sigmoidDerivative(self, x):
@@ -136,11 +139,11 @@ class NeuralNetwork_NLayer():
             if i == 0:
                 Z = np.dot(self.W[i] , input)
                 self.Z.append(Z)
-                self.L.append(self.__sigmoid(Z))
+                self.L.append(self.__relu(Z))
             else:
                 Z = np.dot(self.W[i] , self.L[i-1])
                 self.Z.append(Z)
-                self.L.append(self.__sigmoid(Z))
+                self.L.append(self.__relu(Z))
             i+=1
         # return layer1, layer2
         return self.L
@@ -188,9 +191,10 @@ def crossover(individuals):
         a = np.random.randint(elites)
         parentA = individuals[a]
         while(1):
-            b = np.random.randint(elites)
+            b = np.random.randint(elites + losers)
             if(b != a):
                 parentB = individuals[b]
+                parentB = mutate(parentB)
                 break
 
         CUSTOM = 1
@@ -201,7 +205,7 @@ def crossover(individuals):
             Br = parentB.W[j]
             new_individual.addLayer(Br,parentA,parentB,j)
 
-        # new_individual = mutate(new_individual)
+        new_individual = mutate(new_individual)
         new_individuals.append(new_individual)
     return new_individuals
 
