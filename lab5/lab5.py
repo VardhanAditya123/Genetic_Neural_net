@@ -185,7 +185,7 @@ def mutate(new_individual):
         for i in range(0, rows):
             for j in range(0, cols):
                 n = np.random.randint(1000)
-                if(n < 90):
+                if(n < 30):
                     (new_individual.W[x])[i,j] =  np.random.rand()
     return new_individual
 
