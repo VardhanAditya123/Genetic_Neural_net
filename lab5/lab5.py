@@ -28,14 +28,15 @@ NUM_CLASSES = 10
 IMAGE_SIZE = 784
 # For N layer custom net
 NO_OF_LAYERS = 3
-NEURONS_PER_LAYER = 5
+NEURONS_PER_LAYER = 50
 no_of_generations = 20
-no_of_individuals = 20
+no_of_individuals = 25
 mutate_factor = 0.15
 NETCOUNT = 1
 ALGORITHM = "custom_net"
-retain_length = 3
+retain_length = 5
 generation = 1
+scrap = 4
 
 if ALGORITHM == "custom_net":
     print("\nNumber of layers: %d" % NO_OF_LAYERS)
@@ -240,7 +241,7 @@ def evolve(individuals):
     parents = individuals[:retain_length]  
 
     ln = len(parents)
-    for i1 in range(ln , ln + 3):
+    for i1 in range(ln , ln + scrap):
         if individuals[i1].random_select > np.random.rand():
             parents.append(mutate(individuals[i1]))
 
