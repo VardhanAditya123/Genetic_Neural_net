@@ -247,7 +247,7 @@ def crossover(individuals):
         if male != female:
                 male = parents[male]
                 female = parents[female]
-        print(type(male))
+
         babies = breed(male, female)
 
         for baby in babies:
