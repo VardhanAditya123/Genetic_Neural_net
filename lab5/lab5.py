@@ -232,7 +232,7 @@ def breed(mother , father):
 
 
 
-def crossover(individuals):
+def evolve(individuals):
     global NETCOUNT  
     individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
     parents = individuals[:retain_length]  
@@ -256,23 +256,17 @@ def crossover(individuals):
         if (male != female):
             male = parents[male]
             female = parents[female]
-
             babies = breed(male, female)
-
             for baby in babies:
                 if len(children) < desired_length:
                     children.append(baby)
     
+
     parents.extend(children)
 
     return parents
 
 
-
-
-def evolve(individuals):
-    new_individuals = crossover(individuals)
-    return new_individuals
 
 #=========================<HELPER Functions>==================================
 
