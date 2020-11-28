@@ -28,7 +28,7 @@ NUM_CLASSES = 10
 IMAGE_SIZE = 784
 # For N layer custom net
 NO_OF_LAYERS = 3
-NEURONS_PER_LAYER = 512
+NEURONS_PER_LAYER = 5
 no_of_generations = 10
 no_of_individuals = 20
 mutate_factor = 0.1
@@ -189,11 +189,11 @@ def crossover(individuals):
 
     for i in range(elites, no_of_individuals):
         a = np.random.randint(elites)
-        parentA = individuals[a]
+        parentA = individuals[a].copy()
         while(1):
             b = np.random.randint(elites + losers)
             if(b != a):
-                parentB = individuals[b]
+                parentB = individuals[b].copy()
                 parentB = mutate(parentB)
                 break
 
