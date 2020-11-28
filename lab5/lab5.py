@@ -30,7 +30,7 @@ IMAGE_SIZE = 784
 NO_OF_LAYERS = 3
 NEURONS_PER_LAYER = 6
 no_of_generations = 70
-no_of_individuals = 10
+no_of_individuals = 15
 mutate_factor = 0.15
 NETCOUNT = 1
 ALGORITHM = "custom_net"
@@ -227,8 +227,8 @@ def breed(mother , father):
             child.W[x] = gene
 
         n = np.random.rand()
-        # if ( n < 0.5):
-        #     child = mutate(child)
+        if ( n < 0.5):
+            child = mutate(child)
 
         children.append(child)
 
