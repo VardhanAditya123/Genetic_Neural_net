@@ -27,9 +27,9 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 NUM_CLASSES = 10
 IMAGE_SIZE = 784
 # For N layer custom net
-NO_OF_LAYERS = 25
-NEURONS_PER_LAYER = 5
-no_of_generations = 20
+NO_OF_LAYERS = 6
+NEURONS_PER_LAYER = 30
+no_of_generations = 30
 no_of_individuals = 20
 mutate_factor = 0.15
 NETCOUNT = 1
