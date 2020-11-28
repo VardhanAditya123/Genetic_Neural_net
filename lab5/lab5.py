@@ -180,7 +180,13 @@ def mutate(new_individual):
     print("MUTATING FOR THIS GEN")
     # print("MUTATING" + str(new_individual.name))
     x = np.random.randint(1 , NO_OF_LAYERS - 1 )
-    new_individual.W[x] = np.random.choice([0,1], size=(new_individual.W[x]).shape)
+    
+    arr = new_individual.W[x]
+    for i in range(arr.shape[0]):
+        for j in range(arr.shape[1]):
+            arr[i][j] = np.random.rand()
+    
+    new_individual.W[x] = arr.copy()
     return new_individual
 
 
