@@ -139,11 +139,11 @@ class NeuralNetwork_NLayer():
             if i == 0:
                 Z = np.dot(self.W[i] , input)
                 self.Z.append(Z)
-                self.L.append(self.__relu(Z))
+                self.L.append(self.__sigmoid(Z))
             else:
                 Z = np.dot(self.W[i] , self.L[i-1])
                 self.Z.append(Z)
-                self.L.append(self.__relu(Z))
+                self.L.append(self.__sigmoid(Z))
             i+=1
         # return layer1, layer2
         return self.L
