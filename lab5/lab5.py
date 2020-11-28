@@ -30,11 +30,11 @@ IMAGE_SIZE = 784
 NO_OF_LAYERS = 3
 NEURONS_PER_LAYER = 10
 no_of_generations = 5
-no_of_individuals = 10
+no_of_individuals = 5
 mutate_factor = 0.15
 NETCOUNT = 1
 ALGORITHM = "custom_net"
-retain_length = 4
+retain_length = 3
 generation = 1
 
 if ALGORITHM == "custom_net":
@@ -247,8 +247,9 @@ def crossover(individuals):
         if male != female:
                 male = parents[male]
                 female = parents[female]
-        
+        print(type(male))
         babies = breed(male, female)
+
         for baby in babies:
             if len(children) < desired_length:
                 children.append(baby)
