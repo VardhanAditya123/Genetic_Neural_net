@@ -34,7 +34,7 @@ no_of_individuals = 15
 mutate_factor = 0.15
 NETCOUNT = 1
 ALGORITHM = "custom_net"
-retain_length = 3
+retain_length = 4
 generation = 1
 scrap = 3
 
@@ -229,8 +229,8 @@ def breed(mother , father):
             child.W[x] = gene
 
         n = np.random.rand()
-        # if ( n < 0.6):
-        #     child = mutate(child)
+        if ( n < 0.6):
+            child = mutate(child)
 
         children.append(child)
 
@@ -250,9 +250,9 @@ def evolve(individuals):
         if individuals[i1].random_select > np.random.rand():
             parents.append(mutate(individuals[i1]))
     
-    for individual in parents:
-        if individual.mutate_chance > np.random.rand():
-            individual = mutate(individual)
+    # for individual in parents:
+    #     if individual.mutate_chance > np.random.rand():
+    #         individual = mutate(individual)
 
     parents_length = len(parents)
     desired_length = no_of_individuals - parents_length
