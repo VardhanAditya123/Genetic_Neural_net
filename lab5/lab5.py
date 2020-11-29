@@ -409,10 +409,10 @@ def main():
         model = buildModel()
         individuals.append(model)
     
-    for generation in range(no_of_generations):
-        global generation
+    for generations in range(no_of_generations):
         print("================<NEXT GENERATION: "+str(generation)+">===================")
         generation+=1
+        generations+=1
         individuals = runModels(data, individuals)
         individuals = evolve(individuals)
 
