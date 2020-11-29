@@ -241,7 +241,8 @@ def breed(mother , father):
 
 
 def evolve(individuals):
-    global NETCOUNT  
+    global NETCOUNT 
+    global generation
     individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
     parents = individuals[:retain_length]  
 
@@ -250,9 +251,10 @@ def evolve(individuals):
         if individuals[i1].random_select > np.random.rand():
             parents.append(mutate(individuals[i1]))
     
-    for individual in parents:
-        if individual.mutate_chance > np.random.rand():
-            individual = mutate(individual)
+    if (generation > 55):
+        for individual in parents:
+            if individual.mutate_chance > np.random.rand():
+                individual = mutate(individual)
 
     parents_length = len(parents)
     desired_length = no_of_individuals - parents_length
