@@ -28,7 +28,7 @@ NUM_CLASSES = 10
 IMAGE_SIZE = 784
 # For N layer custom net
 NO_OF_LAYERS = 4
-NEURONS_PER_LAYER = 20
+NEURONS_PER_LAYER = 30
 no_of_generations = 170
 no_of_individuals = 15
 mutate_factor = 0.15
@@ -187,7 +187,7 @@ def mutate(new_individual):
     for i in range(arr.shape[0]):
         for j in range(arr.shape[1]):
             n = np.random.randint(150)
-            if(n < 9):
+            if(n < 50):
                 arr[i][j] = np.random.rand()
     
     new_individual.W[x] = arr.copy()
@@ -249,7 +249,7 @@ def evolve(individuals):
     for i1 in range(ln , ln + scrap):
         if individuals[i1].random_select > np.random.rand():
             parents.append(mutate(individuals[i1]))
-
+    
     # for individual in parents:
     #     if individual.mutate_chance > np.random.rand():
     #         individual = mutate(individual)
