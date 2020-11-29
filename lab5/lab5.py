@@ -27,7 +27,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 NUM_CLASSES = 10
 IMAGE_SIZE = 784
 # For N layer custom net
-NO_OF_LAYERS = 2
+NO_OF_LAYERS = 4
 NEURONS_PER_LAYER = 50
 no_of_generations = 100
 no_of_individuals = 15
@@ -187,7 +187,7 @@ def mutate(new_individual):
     for i in range(arr.shape[0]):
         for j in range(arr.shape[1]):
             n = np.random.randint(150)
-            if(n < 9): 
+            if(n < 40): 
                 arr[i][j] = np.random.rand()
     
     new_individual.W[x] = arr.copy()
@@ -201,7 +201,7 @@ def mutate(new_individual):
 def breed(mother , father):
     global NETCOUNT
     children = []
-    for p in range(2):
+    for p in range(3):
 
         CUSTOM = 0
         child = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1) 
@@ -250,9 +250,9 @@ def evolve(individuals):
         if individuals[i1].random_select > np.random.rand():
             parents.append(mutate(individuals[i1]))
     
-    # for individual in parents:
-    #     if individual.mutate_chance > np.random.rand():
-    #         individual = mutate(individual)
+    for individual in parents:
+        if individual.mutate_chance > np.random.rand():
+            individual = mutate(individual)
 
     parents_length = len(parents)
     desired_length = no_of_individuals - parents_length
@@ -398,6 +398,7 @@ def runModels (data , individuals):
 #=========================<Main>================================================
 
 def main():
+    global generation
     raw = getRawData()
     data = preprocessData(raw)
 
