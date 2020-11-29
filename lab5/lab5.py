@@ -27,7 +27,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 NUM_CLASSES = 10
 IMAGE_SIZE = 784
 # For N layer custom net
-NO_OF_LAYERS = 5
+NO_OF_LAYERS = 4
 NEURONS_PER_LAYER = 30
 no_of_generations = 70
 no_of_individuals = 15
@@ -245,10 +245,10 @@ def evolve(individuals):
     individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
     parents = individuals[:retain_length]  
 
-    # ln = len(parents)
-    # for i1 in range(ln , ln + scrap):
-    #     if individuals[i1].random_select > np.random.rand():
-    #         parents.append(mutate(individuals[i1]))
+    ln = len(parents)
+    for i1 in range(ln , ln + scrap):
+        if individuals[i1].random_select > np.random.rand():
+            parents.append(mutate(individuals[i1]))
 
     # for individual in parents:
     #     if individual.mutate_chance > np.random.rand():
