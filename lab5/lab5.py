@@ -187,7 +187,7 @@ def mutate(new_individual):
     for i in range(arr.shape[0]):
         for j in range(arr.shape[1]):
             n = np.random.randint(150)
-            if(n < 50):
+            if(n < 9):
                 arr[i][j] = np.random.rand()
     
     new_individual.W[x] = arr.copy()
