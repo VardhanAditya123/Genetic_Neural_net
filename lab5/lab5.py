@@ -30,7 +30,7 @@ IMAGE_SIZE = 784
 NO_OF_LAYERS = 4
 NEURONS_PER_LAYER = 30
 no_of_generations = 160
-no_of_individuals = 15
+no_of_individuals = 25
 mutate_factor = 0.15
 NETCOUNT = 1
 ALGORITHM = "custom_net"
@@ -201,7 +201,7 @@ def mutate(new_individual):
 def breed(mother , father):
     global NETCOUNT
     children = []
-    for p in range(3):
+    for p in range(2):
 
         CUSTOM = 0
         child = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1) 
