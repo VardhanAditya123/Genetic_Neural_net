@@ -29,7 +29,7 @@ IMAGE_SIZE = 784
 # For N layer custom net
 NO_OF_LAYERS = 4
 NEURONS_PER_LAYER = 30
-no_of_generations = 200
+no_of_generations = 90
 no_of_individuals = 15
 mutate_factor = 0.15
 NETCOUNT = 1
