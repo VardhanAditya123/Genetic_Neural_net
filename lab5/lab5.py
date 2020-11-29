@@ -28,8 +28,8 @@ NUM_CLASSES = 10
 IMAGE_SIZE = 784
 # For N layer custom net
 NO_OF_LAYERS = 4
-NEURONS_PER_LAYER = 50
-no_of_generations = 100
+NEURONS_PER_LAYER = 30
+no_of_generations = 160
 no_of_individuals = 15
 mutate_factor = 0.15
 NETCOUNT = 1
@@ -410,6 +410,7 @@ def main():
         individuals.append(model)
     
     for generation in range(no_of_generations):
+        global generation
         print("================<NEXT GENERATION: "+str(generation)+">===================")
         generation+=1
         individuals = runModels(data, individuals)
