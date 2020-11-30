@@ -125,7 +125,8 @@ class NeuralNetwork_NLayer():
     
     def __relu(self, x):
         for i in x:
-            i = max(0,i)
+            if(i < 0):
+                i = 0
 
     # Activation prime function.
     def __sigmoidDerivative(self, x):
