@@ -35,7 +35,7 @@ mutate_factor = 9
 mutate_limit = 150
 NETCOUNT = 1
 ALGORITHM = "custom_net"
-retain_length = 1
+retain_length = 3
 generation = 1
 scrap = 3
 
