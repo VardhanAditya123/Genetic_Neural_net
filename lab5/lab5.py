@@ -37,7 +37,7 @@ NETCOUNT = 1
 ALGORITHM = "custom_net"
 retain_length = 1
 generation = 1
-scrap = 2
+scrap = 3
 
 if ALGORITHM == "custom_net":
     print("\nNumber of layers: %d" % NO_OF_LAYERS)
@@ -264,7 +264,7 @@ def evolve(individuals):
         female = random.randint(0, parents_length-1)
 
         if (male != female):
-            male = parents[0]
+            male = parents[male]
             female = parents[female]
             babies = breed(male, female)
             for baby in babies:
