@@ -37,7 +37,7 @@ ALGORITHM = "custom_net"
 retain_length = 3
 generation = 1
 scrap = 3
-mvalue = 9
+mvalue = 20
 if ALGORITHM == "custom_net":
     print("\nNumber of layers: %d" % NO_OF_LAYERS)
     print("Neurons per Layer: %d" % NEURONS_PER_LAYER)
