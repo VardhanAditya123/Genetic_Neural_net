@@ -222,7 +222,7 @@ def breed(mother , father):
             for i in range(0, rows):
                 for j in range(0, cols):
                     n = np.random.rand()
-                    gene[i][j] = int(M[i][j]) ^ int(F[i][j])
+                    gene[i][j] = int(M[i][j]) & int(F[i][j])
                     # if(n <0.5):
                     #     gene[i][j] =M[i][j]
                     # else:
