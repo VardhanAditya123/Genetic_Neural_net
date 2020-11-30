@@ -32,12 +32,12 @@ NEURONS_PER_LAYER = 30
 no_of_generations = 70
 no_of_individuals = 15
 mutate_factor = 9
-mutate_limit = 10
+mutate_limit = 150
 NETCOUNT = 1
 ALGORITHM = "custom_net"
-retain_length = 1
+retain_length = 2
 generation = 1
-scrap = 2
+scrap = 1
 
 if ALGORITHM == "custom_net":
     print("\nNumber of layers: %d" % NO_OF_LAYERS)
