@@ -27,16 +27,16 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 NUM_CLASSES = 10
 IMAGE_SIZE = 784
 # For N layer custom net
-NO_OF_LAYERS = 4
-NEURONS_PER_LAYER = 30
-no_of_generations = 250
-no_of_individuals = 30
+NO_OF_LAYERS = 1
+NEURONS_PER_LAYER = 200
+no_of_generations = 70
+no_of_individuals = 15
 mutate_factor = 0.15
 NETCOUNT = 1
 ALGORITHM = "custom_net"
 retain_length = 3
 generation = 1
-scrap = 4
+scrap = 3
 
 if ALGORITHM == "custom_net":
     print("\nNumber of layers: %d" % NO_OF_LAYERS)
@@ -181,7 +181,7 @@ class NeuralNetwork_NLayer():
 def mutate(new_individual):
     # print("MUTATING FOR THIS GEN")
     # print("MUTATING" + str(new_individual.name))
-    x = np.random.randint(0 , NO_OF_LAYERS - 1 )
+    x = np.random.randint(1 , NO_OF_LAYERS - 1 )
     
     arr = new_individual.W[x]
     for i in range(arr.shape[0]):
@@ -241,8 +241,7 @@ def breed(mother , father):
 
 
 def evolve(individuals):
-    global NETCOUNT 
-    global generation
+    global NETCOUNT  
     individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
     parents = individuals[:retain_length]  
 
@@ -251,10 +250,9 @@ def evolve(individuals):
         if individuals[i1].random_select > np.random.rand():
             parents.append(mutate(individuals[i1]))
     
-    # if (generation > 70):
-    #     for individual in parents:
-    #         if individual.mutate_chance > np.random.rand():
-    #             individual = mutate(individual)
+    # for individual in parents:
+    #     if individual.mutate_chance > np.random.rand():
+    #         individual = mutate(individual)
 
     parents_length = len(parents)
     desired_length = no_of_individuals - parents_length
@@ -400,7 +398,6 @@ def runModels (data , individuals):
 #=========================<Main>================================================
 
 def main():
-    global generation
     raw = getRawData()
     data = preprocessData(raw)
 
@@ -409,10 +406,9 @@ def main():
         model = buildModel()
         individuals.append(model)
     
-    for generations in range(no_of_generations):
+    for generation in range(no_of_generations):
         print("================<NEXT GENERATION: "+str(generation)+">===================")
         generation+=1
-        generations+=1
         individuals = runModels(data, individuals)
         individuals = evolve(individuals)
 
