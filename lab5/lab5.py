@@ -29,7 +29,7 @@ IMAGE_SIZE = 784
 # For N layer custom net
 NO_OF_LAYERS = 4
 NEURONS_PER_LAYER = 30
-no_of_generations = 50
+no_of_generations = 70
 no_of_individuals = 15
 mutate_factor = 9
 mutate_limit = 150
@@ -124,7 +124,8 @@ class NeuralNetwork_NLayer():
         return 1/(1+np.exp(-x))
     
     def __relu(self, x):
-        return max(0,x.all())
+        for i in x:
+            i = max(0,i)
 
     # Activation prime function.
     def __sigmoidDerivative(self, x):
@@ -154,11 +155,11 @@ class NeuralNetwork_NLayer():
             if i == 0:
                 Z = np.dot(self.W[i] , input)
                 self.Z.append(Z)
-                self.L.append(self.__sigmoid(Z))
+                self.L.append(self.__relu(Z))
             else:
                 Z = np.dot(self.W[i] , self.L[i-1])
                 self.Z.append(Z)
-                self.L.append(self.__sigmoid(Z))
+                self.L.append(self.__relu(Z))
             i+=1
         # return layer1, layer2
         return self.L
@@ -222,11 +223,10 @@ def breed(mother , father):
             for i in range(0, rows):
                 for j in range(0, cols):
                     n = np.random.rand()
-                    gene[i][j] = int(M[i][j]) & int(F[i][j])
-                    # if(n <0.5):
-                    #     gene[i][j] =M[i][j]
-                    # else:
-                    #     gene[i][j] =F[i][j]
+                    if(n <0.5):
+                        gene[i][j] =M[i][j]
+                    else:
+                        gene[i][j] =F[i][j]
 
             child.W[x] = gene
 
