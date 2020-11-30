@@ -27,9 +27,9 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 NUM_CLASSES = 10
 IMAGE_SIZE = 784
 # For N layer custom net
-NO_OF_LAYERS = 5
-NEURONS_PER_LAYER = 25
-no_of_generations = 70
+NO_OF_LAYERS = 2
+NEURONS_PER_LAYER = 512
+no_of_generations = 40
 no_of_individuals = 15
 mutate_factor = 9
 mutate_limit = 150
@@ -37,7 +37,7 @@ NETCOUNT = 1
 ALGORITHM = "custom_net"
 retain_length = 3
 generation = 1
-scrap = 3
+scrap = 0
 
 if ALGORITHM == "custom_net":
     print("\nNumber of layers: %d" % NO_OF_LAYERS)
@@ -83,42 +83,6 @@ class NeuralNetwork_NLayer():
     
 
 
-
-    def addLayer(self,layer,parentA,parentB,index):
-
-        gene = layer.copy()
-        rows = gene.shape[0]
-        cols = gene.shape[1]
-        A = parentA.W[index]
-        B = parentB.W[index]
-        self.parA = parentA.name
-        self.parB = parentB.name
-
-        # if(index != 0 and index!= NO_OF_LAYERS -1 ):
-        #     n = np.random.randint(1,NO_OF_LAYERS-1)
-        #     A = parentA.W[n]
-        #     n = np.random.randint(1,NO_OF_LAYERS-1)
-        #     B = parentB.W[n]
-
-        # for i in range(0, rows):
-        #     for j in range(0, cols):
-        #         n = np.random.rand()
-        #         if(n <0.5):
-        #             gene[i][j] =A[i][j]
-        #         else:
-        #             gene[i][j] =B[i][j]
-
-        for i in range(0, rows):
-                n = np.random.rand()
-                if(n <0.5):
-                    gene[i] =A[i].copy()
-                else:
-                    gene[i] =B[i].copy()
-
-        self.W.append(gene)
-        self.lc += 1
-
-
     # Activation function.
     def __sigmoid(self, x):
         return 1/(1+np.exp(-x))
@@ -128,12 +92,6 @@ class NeuralNetwork_NLayer():
             if(i < 0):
                 i = 0
         return x
-
-    # Activation prime function.
-    def __sigmoidDerivative(self, x):
-        sig_x = self.__sigmoid(x) 
-        sig_d = sig_x * (1 - sig_x)
-        return sig_d
 
     # Batch generator for mini-batches. Not randomized.
     def __batchGenerator(self, l, n):
@@ -183,9 +141,7 @@ class NeuralNetwork_NLayer():
 
     
 def mutate(new_individual):
-    # print("MUTATING FOR THIS GEN")
-    # print("MUTATING" + str(new_individual.name))
-    x = np.random.randint(1 , NO_OF_LAYERS - 1 )
+    x = np.random.randint(0 , NO_OF_LAYERS - 1 )
     
     arr = new_individual.W[x]
     for i in range(arr.shape[0]):
@@ -254,9 +210,6 @@ def evolve(individuals):
         if individuals[i1].random_select > np.random.rand():
             parents.append(mutate(individuals[i1]))
     
-    # for individual in parents:
-    #     if individual.mutate_chance > np.random.rand():
-    #         individual = mutate(individual)
 
     parents_length = len(parents)
     desired_length = no_of_individuals - parents_length
