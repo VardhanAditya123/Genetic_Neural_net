@@ -127,6 +127,7 @@ class NeuralNetwork_NLayer():
         for i in x:
             if(i < 0):
                 i = 0
+        return x
 
     # Activation prime function.
     def __sigmoidDerivative(self, x):
