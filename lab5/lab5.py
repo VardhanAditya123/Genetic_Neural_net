@@ -28,7 +28,7 @@ NUM_CLASSES = 10
 IMAGE_SIZE = 784
 # For N layer custom net
 NO_OF_LAYERS = 4
-NEURONS_PER_LAYER = 10
+NEURONS_PER_LAYER = 30
 no_of_generations = 70
 no_of_individuals = 15
 mutate_factor = 0.15
@@ -37,7 +37,7 @@ ALGORITHM = "custom_net"
 retain_length = 3
 generation = 1
 scrap = 3
-
+mvalue = 9
 if ALGORITHM == "custom_net":
     print("\nNumber of layers: %d" % NO_OF_LAYERS)
     print("Neurons per Layer: %d" % NEURONS_PER_LAYER)
@@ -187,7 +187,7 @@ def mutate(new_individual):
     for i in range(arr.shape[0]):
         for j in range(arr.shape[1]):
             n = np.random.randint(150)
-            if(n < 9): 
+            if(n < mvalue): 
                 arr[i][j] = np.random.rand()
     
     new_individual.W[x] = arr.copy()
