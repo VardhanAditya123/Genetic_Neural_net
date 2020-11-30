@@ -32,6 +32,7 @@ NEURONS_PER_LAYER = 30
 no_of_generations = 70
 no_of_individuals = 15
 mutate_factor = 9
+mutate_limit = 150
 NETCOUNT = 1
 ALGORITHM = "custom_net"
 retain_length = 3
@@ -186,7 +187,7 @@ def mutate(new_individual):
     arr = new_individual.W[x]
     for i in range(arr.shape[0]):
         for j in range(arr.shape[1]):
-            n = np.random.randint(250)
+            n = np.random.randint(mutate_limit)
             if(n < mutate_factor): 
                 arr[i][j] = np.random.rand()
     
