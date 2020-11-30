@@ -31,13 +31,13 @@ NO_OF_LAYERS = 4
 NEURONS_PER_LAYER = 30
 no_of_generations = 70
 no_of_individuals = 15
-mutate_factor = 0.15
+mutate_factor = 9
 NETCOUNT = 1
 ALGORITHM = "custom_net"
 retain_length = 3
 generation = 1
 scrap = 3
-mvalue = 20
+
 if ALGORITHM == "custom_net":
     print("\nNumber of layers: %d" % NO_OF_LAYERS)
     print("Neurons per Layer: %d" % NEURONS_PER_LAYER)
@@ -186,8 +186,8 @@ def mutate(new_individual):
     arr = new_individual.W[x]
     for i in range(arr.shape[0]):
         for j in range(arr.shape[1]):
-            n = np.random.randint(200)
-            if(n < mvalue): 
+            n = np.random.randint(250)
+            if(n < mutate_factor): 
                 arr[i][j] = np.random.rand()
     
     new_individual.W[x] = arr.copy()
