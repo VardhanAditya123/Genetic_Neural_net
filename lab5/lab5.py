@@ -181,7 +181,7 @@ class NeuralNetwork_NLayer():
 def mutate(new_individual):
     # print("MUTATING FOR THIS GEN")
     # print("MUTATING" + str(new_individual.name))
-    x = np.random.randint(1 , NO_OF_LAYERS - 1 )
+    x = np.random.randint(0 , NO_OF_LAYERS - 1 )
     
     arr = new_individual.W[x]
     for i in range(arr.shape[0]):
