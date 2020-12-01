@@ -28,16 +28,16 @@ NUM_CLASSES = 10
 IMAGE_SIZE = 784
 # For N layer custom net
 NO_OF_LAYERS = 2
-NEURONS_PER_LAYER = 100
+NEURONS_PER_LAYER = 200
 no_of_generations = 40
-no_of_individuals = 6
+no_of_individuals = 8
 mutate_factor = 9
 mutate_limit = 150
 NETCOUNT = 1
 ALGORITHM = "custom_net"
-retain_length = 2
+retain_length = 3
 generation = 1
-scrap = 0
+scrap = 1
 
 if ALGORITHM == "custom_net":
     print("\nNumber of layers: %d" % NO_OF_LAYERS)
