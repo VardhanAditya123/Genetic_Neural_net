@@ -27,8 +27,8 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 NUM_CLASSES = 10
 IMAGE_SIZE = 784
 # For N layer custom net
-NO_OF_LAYERS = 2
-NEURONS_PER_LAYER = 512
+NO_OF_LAYERS = 5
+NEURONS_PER_LAYER = 25
 no_of_generations = 70
 no_of_individuals = 15
 mutate_factor = 9
@@ -427,4 +427,4 @@ def main():
 if __name__ == '__main__':
     main()
 
-# END_OF_LAB5
+# EEND_OF_NIP
