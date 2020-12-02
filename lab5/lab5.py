@@ -38,8 +38,7 @@ ALGORITHM = "custom_net"
 retain_length = 3
 generation = 1
 scrap = 3
-TRAIN_TYPE = "NORMAL"
-# TRAIN_TYPE = "GENETIC"
+
 if ALGORITHM == "custom_net":
     print("\nNumber of layers: %d" % NO_OF_LAYERS)
     print("Neurons per Layer: %d" % NEURONS_PER_LAYER)
@@ -81,44 +80,6 @@ class NeuralNetwork_NLayer():
                 self.W.append(np.random.randn(self.neuronsPerLayer ,self.neuronsPerLayer))
             i+=1
         
-    
-
-
-
-    def addLayer(self,layer,parentA,parentB,index):
-
-        gene = layer.copy()
-        rows = gene.shape[0]
-        cols = gene.shape[1]
-        A = parentA.W[index]
-        B = parentB.W[index]
-        self.parA = parentA.name
-        self.parB = parentB.name
-
-        # if(index != 0 and index!= NO_OF_LAYERS -1 ):
-        #     n = np.random.randint(1,NO_OF_LAYERS-1)
-        #     A = parentA.W[n]
-        #     n = np.random.randint(1,NO_OF_LAYERS-1)
-        #     B = parentB.W[n]
-
-        # for i in range(0, rows):
-        #     for j in range(0, cols):
-        #         n = np.random.rand()
-        #         if(n <0.5):
-        #             gene[i][j] =A[i][j]
-        #         else:
-        #             gene[i][j] =B[i][j]
-
-        for i in range(0, rows):
-                n = np.random.rand()
-                if(n <0.5):
-                    gene[i] =A[i].copy()
-                else:
-                    gene[i] =B[i].copy()
-
-        self.W.append(gene)
-        self.lc += 1
-
 
     # Activation function.
     def __sigmoid(self, x):
@@ -144,34 +105,8 @@ class NeuralNetwork_NLayer():
 
 
 
-    # Training with backpropagation.
     def train(self, xVals, yVals, epochs = 100000, minibatches = True, mbs = 100):
-        i = 0
-        layer = self.N_layers
-        while i < 60000:
-            x = xVals[i]
-            y = yVals[i]
-            L  = self.__forward(x)
-            Z = self.Z
-            j = layer -1
-            self.delta={}
-            while j >=0:
-                if(j == layer -1):
-                    self.delta.update( {j : (L[j] - y)*self.__sigmoidDerivative(Z[j])} )
-                else:
-                    self.delta.update({j :np.dot(  self.W[j+1].T ,  (self.delta[j+1]) ) * self.__sigmoidDerivative(Z[j])})
-                j-=1
-            
-            j = 0
-           
-            while j < layer:
-                 if j == 0:
-                     self.W[j] -= (self.delta[j]).dot(x.T)   
-                 else:
-                     self.W[j] -= (self.delta[j]).dot(L[j-1].T)
-                 j+=1
-            i+=1
-
+        pass
 
 
     # Forward pass.
@@ -370,8 +305,7 @@ def preprocessData(raw):
     xTest = xTest.reshape(10000,784,1)
     yTrainP = to_categorical(yTrain, NUM_CLASSES)
     yTestP = to_categorical(yTest, NUM_CLASSES)
-    if TRAIN_TYPE == "NORMAL":
-        yTrainP = yTrainP.reshape(60000,10,1)
+    # yTrainP = yTrainP.reshape(60000,10,1)
     print("\nAfter preprocessing:")
     print("New shape of xTrain dataset: %s." % str(xTrain.shape))
     print("New shape of xTest dataset: %s." % str(xTest.shape))
@@ -388,12 +322,10 @@ def buildModel():
      NETCOUNT+=1
      return n1
 
-def trainModel(data):
-    CUSTOM = 0
+def trainModel(data , model):
     xTrain, yTrain = data
-    n1 = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1) 
-    n1.train(xTrain,yTrain)
-    return n1
+    model.train(xTrain,yTrain)
+    return model
 
 
 def runModel(data, model):
@@ -435,32 +367,26 @@ def main():
     raw = getRawData()
     data = preprocessData(raw)
 
-    if TRAIN_TYPE == "GENETIC":
-        individuals = []
-        for i in range(no_of_individuals):
-            model = buildModel()
-            individuals.append(model)
-        
-        for generation in range(no_of_generations):
-            print("================<NEXT GENERATION: "+str(generation)+">===================")
-            generation+=1
-            individuals = runModels(data, individuals)
-            individuals = evolve(individuals)
-
-        individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
-        model = individuals[0]
-        preds = runModel(data[1][0], model)
-        evalResults(data[1], preds ,model)
-        confMatrix(data[1],preds)
+    individuals = []
+    for i in range(no_of_individuals):
+        model = buildModel()
+        individuals.append(model)
     
-    elif TRAIN_TYPE == "NORMAL":
-        model = trainModel(data[0])
-        preds = runModel(data[1], model)
-        printANN(data[1],preds)
+    for generation in range(no_of_generations):
+        print("================<NEXT GENERATION: "+str(generation)+">===================")
+        generation+=1
+        individuals = runModels(data, individuals)
+        individuals = evolve(individuals)
+
+    individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
+    model = individuals[0]
+    preds = runModel(data[1][0], model)
+    evalResults(data[1], preds ,model)
+    confMatrix(data[1],preds)
     
 
 
 if __name__ == '__main__':
     main()
 
-# EEND_OF_NIP
+# EEND_OF_LAB5
