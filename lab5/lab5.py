@@ -38,7 +38,8 @@ ALGORITHM = "custom_net"
 retain_length = 3
 generation = 1
 scrap = 3
-
+TRAIN_TYPE = "NORMAL"
+# TRAIN_TYPE = "GENETIC"
 if ALGORITHM == "custom_net":
     print("\nNumber of layers: %d" % NO_OF_LAYERS)
     print("Neurons per Layer: %d" % NEURONS_PER_LAYER)
@@ -143,8 +144,34 @@ class NeuralNetwork_NLayer():
 
 
 
+    # Training with backpropagation.
     def train(self, xVals, yVals, epochs = 100000, minibatches = True, mbs = 100):
-        pass
+        i = 0
+        layer = self.N_layers
+        while i < 60000:
+            x = xVals[i]
+            y = yVals[i]
+            L  = self.__forward(x)
+            Z = self.Z
+            j = layer -1
+            self.delta={}
+            while j >=0:
+                if(j == layer -1):
+                    self.delta.update( {j : (L[j] - y)*self.__sigmoidDerivative(Z[j])} )
+                else:
+                    self.delta.update({j :np.dot(  self.W[j+1].T ,  (self.delta[j+1]) ) * self.__sigmoidDerivative(Z[j])})
+                j-=1
+            
+            j = 0
+           
+            while j < layer:
+                 if j == 0:
+                     self.W[j] -= (self.delta[j]).dot(x.T)   
+                 else:
+                     self.W[j] -= (self.delta[j]).dot(L[j-1].T)
+                 j+=1
+            i+=1
+
 
 
     # Forward pass.
@@ -343,7 +370,8 @@ def preprocessData(raw):
     xTest = xTest.reshape(10000,784,1)
     yTrainP = to_categorical(yTrain, NUM_CLASSES)
     yTestP = to_categorical(yTest, NUM_CLASSES)
-    # yTrainP = yTrainP.reshape(60000,10,1)
+    if TRAIN_TYPE == "NORMAL":
+        yTrainP = yTrainP.reshape(60000,10,1)
     print("\nAfter preprocessing:")
     print("New shape of xTrain dataset: %s." % str(xTrain.shape))
     print("New shape of xTest dataset: %s." % str(xTest.shape))
@@ -360,10 +388,12 @@ def buildModel():
      NETCOUNT+=1
      return n1
 
-def trainModel(data , model):
+def trainModel(data):
+    CUSTOM = 0
     xTrain, yTrain = data
-    model.train(xTrain,yTrain)
-    return model
+    n1 = NeuralNetwork_NLayer(CUSTOM,IMAGE_SIZE,NUM_CLASSES,NEURONS_PER_LAYER,NO_OF_LAYERS,NETCOUNT,0.1) 
+    n1.train(xTrain,yTrain)
+    return n1
 
 
 def runModel(data, model):
@@ -405,22 +435,28 @@ def main():
     raw = getRawData()
     data = preprocessData(raw)
 
-    individuals = []
-    for i in range(no_of_individuals):
-        model = buildModel()
-        individuals.append(model)
-    
-    for generation in range(no_of_generations):
-        print("================<NEXT GENERATION: "+str(generation)+">===================")
-        generation+=1
-        individuals = runModels(data, individuals)
-        individuals = evolve(individuals)
+    if TRAIN_TYPE == "GENETIC":
+        individuals = []
+        for i in range(no_of_individuals):
+            model = buildModel()
+            individuals.append(model)
+        
+        for generation in range(no_of_generations):
+            print("================<NEXT GENERATION: "+str(generation)+">===================")
+            generation+=1
+            individuals = runModels(data, individuals)
+            individuals = evolve(individuals)
 
-    individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
-    model = individuals[0]
-    preds = runModel(data[1][0], model)
-    evalResults(data[1], preds ,model)
-    confMatrix(data[1],preds)
+        individuals = sorted(individuals, key=lambda x: x.accuracy, reverse=True)
+        model = individuals[0]
+        preds = runModel(data[1][0], model)
+        evalResults(data[1], preds ,model)
+        confMatrix(data[1],preds)
+    
+    elif TRAIN_TYPE == "NORMAL":
+        model = trainModel(data[0])
+        preds = runModel(data[1], model)
+        printANN(data[1],preds)
     
 
 
